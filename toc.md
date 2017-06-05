@@ -60,7 +60,7 @@
 ## [Running Spark from IntelliJ IDEA](hdinsight-tbd.md) - Different then this https://docs.microsoft.com/en-us/azure/hdinsight/hdinsight-apache-spark-intellij-tool-plugin?
 ## [Debug Spark apps by setting up VPNs](hdinsight-tbd.md) - Refers to using a Site-to-Site or Point-to-Site VPN? 
 ## [Configure Spark settings](hdinsight-tbd.md)
-## [Spark samples](hdinsight-tbd.md)
+## [Spark samples](hdinsight-tbd.md) - Samples can be found [here](https://github.com/Azure-Samples/) (such as https://github.com/Azure-Samples/hdinsight-dotnet-odbc-spark-sql)
 
 # Developing Spark ML applications
 ## [Creating SparkML pipelines](hdinsight-tbd.md)
