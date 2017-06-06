@@ -1,8 +1,8 @@
 # Overview
-## [What is Azure HDInsight?](hdinsight-tbd.md) [**<- exists on Docs site**](https://docs.microsoft.com/en-us/azure/hdinsight/hdinsight-hadoop-introduction)
-## [Iterative data exploration](hdinsight-tbd.md) [**<- exists on patterns & practices site (4 articles)**](https://msdn.microsoft.com/en-us/library/dn749842.aspx)
-## [Data Warehouse on demand](hdinsight-tbd.md) [**<- exists on patterns & practices site (3 articles)**](https://msdn.microsoft.com/en-us/library/dn749783.aspx)
-## [Streaming at scale](hdinsight-tbd.md) **<- storm, kafka, ?**
+## [What is Azure HDInsight?](hdinsight-tbd.md) [**<- exists on Docs site**](https://docs.microsoft.com/en-us/azure/hdinsight/hdinsight-hadoop-introduction) Plan to update
+## [Iterative data exploration](hdinsight-tbd.md) [**<- exists on patterns & practices site (4 articles)**](https://msdn.microsoft.com/en-us/library/dn749842.aspx) Should we move or link to it?
+## [Data Warehouse on demand](hdinsight-tbd.md) [**<- exists on patterns & practices site (3 articles)**](https://msdn.microsoft.com/en-us/library/dn749783.aspx) Should we move or link to it?
+## [Streaming at scale](hdinsight-tbd.md) [**<- storm**](https://github.com/Microsoft/azure-docs/blob/master/articles/hdinsight/hdinsight-storm-overview.md) & [**kafka**](https://github.com/Microsoft/azure-docs/blob/master/articles/hdinsight/hdinsight-apache-kafka-introduction.md) articles exist. Plan to create overview page to introduce concept and link to these articles for more details
 ## [Machine learning](hdinsight-tbd.md)
 ## [Programming with Hadoop and Spark](hdinsight-tbd.md)
 ## [Running custom programs](hdinsight-tbd.md)
