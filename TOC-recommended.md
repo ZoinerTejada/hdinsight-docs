@@ -123,8 +123,8 @@
 #### [On-demand clusters](hdinsight-hadoop-create-linux-clusters-adf.md)
 > ACTION: RETITLE to "Use on-demand clusters from Data Factory"
 ### Use Oozie
-### [Use Oozie for workflows](hdinsight-use-oozie-linux-mac.md)
-### [Use time-based Oozie coordinators](hdinsight-use-oozie-coordinator-time.md)
+#### [Use Oozie for workflows](hdinsight-use-oozie-linux-mac.md)
+#### [Use time-based Oozie coordinators](hdinsight-use-oozie-coordinator-time.md)
 
 
 ## Perform Machine Learning
@@ -187,6 +187,7 @@
 #### [Develop C# streaming MapReduce programs](hdinsight-hadoop-dotnet-csharp-mapreduce-streaming.md)
 #### [Develop Java MapReduce programs](hdinsight-develop-deploy-java-mapreduce-linux.md)
 #### [Develop Scalding MapReduce jobs](hdinsight-hadoop-mapreduce-scalding.md)
+> ACTION: REMOVE. Live site redirects to hdinsight-use-mapreduce
 #### [Develop Python streaming programs](hdinsight-hadoop-streaming-python.md)
 #### [Use Python with Hive and Pig](hdinsight-python.md)
 
