@@ -63,6 +63,12 @@ Using Trident, which is an even higher level abstraction over Storm's basic abst
 
 ## Spark Streaming
 
+The other stream processing engine we displayed in the diagram was Spark Streaming. Since it is an extension to Spark, Spark Streaming allows you to reuse the same code that you use for batch processing, and even allows you to combine both batch and interactive queries in the same application. Unlike Storm, Spark Streaming provides stateful exactly-once processing semantics out of the box. When used in combination with the [Kafka Direct API](http://spark.apache.org/docs/latest/streaming-kafka-integration.html), which ensures that all Kafka data is received by Spark Streaming exactly once, it is possible to achieve end-to-end exactly-once gurantees. One of Spark Streaming's strengths is its fault-tolerant capabilities, recovering faulted nodes rapidly when multiple nodes are being used within the cluster.
+
+![Storm bolts](./media/hdinsight-streaming-at-scale-overview/spark-streaming.png)
+
+As opposed to the way Storm works with processing data within topologies consisting of spouts and bolts, Spark Streaming receives live input data streams and divides the data into batches. These are then processed by the Spark engine to generate the final stream of results in batches.
+
 
 ## Scale
 
