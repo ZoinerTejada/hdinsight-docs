@@ -191,8 +191,33 @@
 #### [Develop Python streaming programs](hdinsight-hadoop-streaming-python.md)
 #### [Use Python with Hive and Pig](hdinsight-python.md)
 
-### Develop Hive queries
+### Develop Hive applications
+
+#### [Hive and ETL Overview](hdinsight-tbd.md)
+> ACTION: NEW. Create content for this
+#### [Connect using the Hive JDBC driver](hdinsight-connect-hive-jdbc-driver.md)
+> ACTION: RETITLE. Change title to "Connect to Hive with JDBC or ODBC".
+#### [Using external metadata stores](hdinsight-tbd.md)
+> ACTION: NEW. Pull content for this from MSDN blog at https://blogs.msdn.microsoft.com/azuredatalake/2017/03/24/hive-metastore-in-hdinsight-tips-tricks-best-practices/
+#### [Writing Hive application using Java and Python](hdinsight-tbd.md)
+> ACTION: NEW. Create content for this
 #### [Use C# user-defined functions](hdinsight-hadoop-hive-pig-udf-dotnet-csharp.md)
+> ACTION: RETITLE. Change title to "Creating user defined functions".
+#### [Process and analyze JSON documents](hdinsight-using-json-in-hive.md)
+> ACTION: RETITLE. Change title to "Process and analyze JSON documents with Hive".
+#### Hive examples
+##### [Connect Excel to Hadoop](hdinsight-connect-excel-hive-odbc-driver.md)
+> ACTION: RETITLE. Change title to "Query Hive using Excel"
+##### [Analyze stored sensor data](hdinsight-hive-analyze-sensor-data.md)
+> ACTION: RETITLE. Change title to "Query sensor data using the Hive console"
+> ACTION: UPDATE. Content is written for a Windows cluster, update for Linux.
+##### [Analyze stored tweets](hdinsight-analyze-twitter-data-linux.md)
+> ACTION: RETITLE. Change title to "Analyze tweets using beeline against Hive".
+##### [Analyze flight delay data](hdinsight-analyze-flight-delay-data-linux.md)
+> ACTION: RETITLE. Change title to "Analyze flight delays with Hive and export to SQL Database using Sqoop"
+> ACTION: RETEST. Document has strange references to mobiledata which is not used in the scripts- cleanup and retest.
+##### [Analyze website logs with Hive](hdinsight-hive-analyze-website-log.md)
+> ACTION: UPDATE. Content is written for a Windows cluster, update for Linux.
 
 ### Develop Spark applications
 #### [Create standalone app](hdinsight-apache-spark-create-standalone-application.md)
@@ -203,18 +228,12 @@
 
 ###  Serialize and deserialize data
 #### [Serialize data with Avro Library](hdinsight-dotnet-avro-serialization.md)
-#### [Process and analyze JSON documents](hdinsight-using-json-in-hive.md)
+
 
 
 ## Analyze big data
 ### [Analyze using Power Query](hdinsight-connect-excel-power-query.md)
-### [Connect Excel to Hadoop](hdinsight-connect-excel-hive-odbc-driver.md)
-### [Connect using the Hive JDBC driver](hdinsight-connect-hive-jdbc-driver.md)
-### [Analyze stored sensor data](hdinsight-hive-analyze-sensor-data.md)
-### [Analyze stored tweets](hdinsight-analyze-twitter-data-linux.md)
-### [Analyze flight delay data](hdinsight-analyze-flight-delay-data-linux.md)
 ### [Generate recommendations with Mahout](hdinsight-hadoop-mahout-linux-mac.md)
-### [Analyze website logs with Hive](hdinsight-hive-analyze-website-log.md)
 ### [Analyze Application Insights telemetry logs](hdinsight-spark-analyze-application-insight-logs.md)
 ### [Analyze website logs](hdinsight-apache-spark-custom-library-website-log-analysis.md)
 > ACTION: RETITLE. Change to "Scenario - Analyze website logs with Spark SQL"
