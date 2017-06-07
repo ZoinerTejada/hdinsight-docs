@@ -1,16 +1,34 @@
 # Overview   
 ## [About HDInsight and Hadoop](hdinsight-hadoop-introduction.md)
+### [Iterative data exploration](hdinsight-tbd.md) 
+> ACTION: NEW. Pull content for this from P&P site at https://msdn.microsoft.com/en-us/library/dn749842.aspx
+### [Data Warehouse on demand](hdinsight-tbd.md) 
+> ACTION: NEW. Pull content for this from P&P site at  
+https://msdn.microsoft.com/en-us/library/dn749783.aspx) 
+### [Streaming at scale](hdinsight-tbd.md)
+> ACTION: NEW
+### [Machine learning](hdinsight-tbd.md) 
+> ACTION: NEW
 ## [Hadoop components on HDInsight](hdinsight-component-versioning.md)
-## [R Server](hdinsight-hadoop-r-server-overview.md)
-## [Apache Hive](hdinsight-apache-hive-overview.md)
+### [R Server](hdinsight-hadoop-r-server-overview.md)
+### [Apache Hive](hdinsight-apache-hive-overview.md)
 > ACTION: NEW. Create content for this
-## [Apache Spark](hdinsight-apache-spark-overview.md)
-## [HBase](hdinsight-hbase-overview.md)
+### [Apache Spark](hdinsight-apache-spark-overview.md)
+### [HBase](hdinsight-hbase-overview.md)
 > ACTION: RETITLE. Change to "Apache HBase"
-## [Apache Storm](hdinsight-storm-overview.md)
-## [Kafka (Preview)](hdinsight-apache-kafka-introduction.md)
+### [Apache Storm](hdinsight-storm-overview.md)
+### [Kafka (Preview)](hdinsight-apache-kafka-introduction.md)
 > ACTION: RETITLE. Change to "Apache Kafka (Preview)".
-## [Domain-joined HDInsight clusters (Preview)](hdinsight-domain-joined-introduction.md)
+### [Domain-joined HDInsight clusters (Preview)](hdinsight-domain-joined-introduction.md)
+## Azure HDInsight and Hadoop Architecture
+### [HDInsight Architecture](hdinsight-tbd.md)
+> ACTION: NEW
+### [Lifecycle of an HDInsight Cluster](hdinsight-tbd.md) 
+> ACTION: NEW
+### [High availability](hdinsight-tbd.md)
+> ACTION: NEW
+### [Capacity planning](hdinsight-tbd.md)
+> ACTION: NEW
 ## Release notes
 ### [Recent](hdinsight-release-notes.md)
 ### [Archive](hdinsight-release-notes-archive.md)
@@ -315,12 +333,19 @@
 ### [Use SSH with HDInsight](hdinsight-hadoop-linux-use-ssh-unix.md)
 ### [Use SSH tunneling](hdinsight-linux-ambari-ssh-tunnel.md)
 ### [Restrict access to data](hdinsight-storage-sharedaccesssignature-permissions.md)
+#### [Add ACLs for users at the file and folder levels](hdinsight-tbd.md) 
+> ACTION: NEW. Confirm if this is supposed to be about Ranger.
 ### [Create .NET applications that run with a non-interactive identity](hdinsight-create-non-interactive-authentication-dotnet-applications.md)
 > ACTION: ADD ENTRY. This entry is missing from the TOC.
 
 ## Manage
 
 ### Manage Clusters
+#### [Key scenarios to monitor](hdinsight-tbd.md)
+> ACTION: NEW
+#### [Administering HDInsight using the Azure Portal](hdinsight-tbd.md)
+> ACTION: NEW
+
 #### [Cluster and service ports and URIs](hdinsight-hadoop-port-settings-for-services.md)
 > ACTION: RETITLE. Change to "Ports used by Hadoop services on HDInsight"
 #### [Upgrade HDInsight cluster to newer version](hdinsight-upgrade-cluster.md)

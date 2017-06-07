@@ -1,48 +1,48 @@
 # Overview
-## [What is Azure HDInsight?](hdinsight-tbd.md) [**<- exists on Docs site**](https://docs.microsoft.com/en-us/azure/hdinsight/hdinsight-hadoop-introduction) Plan to update
+## [What is Azure HDInsight?](hdinsight-tbd.md) already exists in https://docs.microsoft.com/en-us/azure/hdinsight/hdinsight-hadoop-introduction
 ## [Iterative data exploration](hdinsight-tbd.md) [**<- exists on patterns & practices site (4 articles)**](https://msdn.microsoft.com/en-us/library/dn749842.aspx) Should we move or link to it?
 ## [Data Warehouse on demand](hdinsight-tbd.md) [**<- exists on patterns & practices site (3 articles)**](https://msdn.microsoft.com/en-us/library/dn749783.aspx) Should we move or link to it?
 ## [Streaming at scale](hdinsight-tbd.md) [**<- storm**](https://github.com/Microsoft/azure-docs/blob/master/articles/hdinsight/hdinsight-storm-overview.md) & [**kafka**](https://github.com/Microsoft/azure-docs/blob/master/articles/hdinsight/hdinsight-apache-kafka-introduction.md) articles exist. Plan to create overview page to introduce concept and link to these articles for more details (Add info on Spark Streaming and Event Hubs)
 ## [Machine learning](hdinsight-tbd.md) **<- Mahout, R, MLib**
-## [Programming with Hadoop and Spark](hdinsight-tbd.md)
-## [Running custom programs](hdinsight-tbd.md)
-## [Moving data with HDInsight](hdinsight-tbd.md)
+## [Programming with Hadoop and Spark](hdinsight-tbd.md) already covered in Develop section
+## [Running custom programs](hdinsight-tbd.md) already covered in Develop section
+## [Moving data with HDInsight](hdinsight-tbd.md) already covered in Import and export data section
 
 # Azure HDInsight and Hadoop Architecture
-## [The Architecture of Hadoop](hdinsight-tbd.md)
+## [The Architecture of Hadoop](hdinsight-tbd.md) topic in HDInsight Architecture.
 ## [HDInsight Architecture](hdinsight-tbd.md)
 ## [Lifecycle of an HDInsight Cluster](hdinsight-tbd.md)  **<- where can we find detailed info on this?**
-## [The Hadoop File System](hdinsight-tbd.md)
-## [Nodes in an HDInsight Cluster](hdinsight-tbd.md)
-## [Zookeeper](hdinsight-tbd.md)
+## [The Hadoop File System](hdinsight-tbd.md) topic in HDInsight Architecture.
+## [Nodes in an HDInsight Cluster](hdinsight-tbd.md) topic in HDInsight Architecture.
+## [Zookeeper](hdinsight-tbd.md) topic in HDInsight Architecture.
 ## [High availability](hdinsight-tbd.md)
-## [Cluster lifecycle (duplicate?)](hdinsight-tbd.md)
-## [Separation of Compute and Storage](hdinsight-tbd.md)
+## [Cluster lifecycle](hdinsight-tbd.md) duplicate.
+## [Separation of Compute and Storage](hdinsight-tbd.md) topic in HDInsight Architecture.
 
-# Capacity Planning
-## [Choosing a region](hdinsight-tbd.md)
-## [Choosing a cluster type](hdinsight-tbd.md)
-## [Choosing the VM size and type](hdinsight-tbd.md)  **<- I've not found concrete guidance on size selection**
-## [Choosing the cluster scale](hdinsight-tbd.md)
-## [Common problems](hdinsight-tbd.md)
+# Capacity Planning this is an article
+## [Choosing a region](hdinsight-tbd.md) this is a topic in Capacity Planning article.
+## [Choosing a cluster type](hdinsight-tbd.md) this is a topic in Capacity Planning article.
+## [Choosing the VM size and type](hdinsight-tbd.md)  this is a topic in Capacity Planning article.
+## [Choosing the cluster scale](hdinsight-tbd.md) this is a topic in Capacity Planning article.
+## [Common problems](hdinsight-tbd.md) already exists under Troubleshooting
 
 # Configuring the Cluster
-## [Creating Hive and Ooze databases](hdinsight-tbd.md)
-## [Enabling Management with Ambari](hdinsight-tbd.md)
-## [ARM Templates for 3rd party applications](hdinsight-tbd.md) - different from https://docs.microsoft.com/en-us/azure/hdinsight/hdinsight-apps-install-applications?
-## [Authorize user acces to Ranger](hdinsight-tbd.md) - different from topics including https://docs.microsoft.com/en-us/azure/hdinsight/hdinsight-domain-joined-configure ?
-## [Add ACLs for users in Ranger](hdinsight-tbd.md)
-## [Add ACLs for users at the file and folder levels](hdinsight-tbd.md)
-## [Advanced configuration](hdinsight-tbd.md)
-## [Cluster creation using Azure Data Factory](hdinsight-tbd.md)
+## [Creating Hive and Ooze databases](hdinsight-tbd.md) - already covered Use Oozie for Workflows and Use Hive with Hadoop.
+## [Enabling Management with Ambari](hdinsight-tbd.md) - already covered in hdinsight-hadoop-manage-ambari.md
+## [ARM Templates for 3rd party applications](hdinsight-tbd.md) - already covered in https://docs.microsoft.com/en-us/azure/hdinsight/hdinsight-apps-install-applications?
+## [Authorize user access to Ranger](hdinsight-tbd.md) - already covered in https://docs.microsoft.com/en-us/azure/hdinsight/hdinsight-domain-joined-configure ?
+## [Add ACLs for users in Ranger](hdinsight-tbd.md) already covered in hdinsight-domain-joined-run-hive
+## [Add ACLs for users at the file and folder levels](hdinsight-tbd.md) 
+## [Advanced configuration](hdinsight-tbd.md) - need more details on what to include here
+## [Cluster creation using Azure Data Factory](hdinsight-tbd.md) - this is already covered in hdinsight-hadoop-create-linux-clusters-adf.md
 
 # Monitoring and managing the HDInsight cluster
 ## [Key scenarios to monitor](hdinsight-tbd.md)
-## [Monitoring with Ambari](hdinsight-tbd.md) - different from https://docs.microsoft.com/en-us/azure/hdinsight/hdinsight-hadoop-manage-ambari?
+## [Monitoring with Ambari](hdinsight-tbd.md) - already covered by https://docs.microsoft.com/en-us/azure/hdinsight/hdinsight-hadoop-manage-ambari?
 ## [Administering HDInsight using the Azure Portal](hdinsight-tbd.md)
-## [Changing configurations via Ambari](hdinsight-tbd.md)
-## [Adding additional storage accounts after cluster creation](hdinsight-tbd.md)
-## [Use Script Actions to automate cluster setup](hdinsight-tbd.md) - Different from https://docs.microsoft.com/en-us/azure/hdinsight/hdinsight-hadoop-customize-cluster-linux
+## [Changing configurations via Ambari](hdinsight-tbd.md) - already covered by hdinsight-hadoop-manage-ambari.md
+## [Adding additional storage accounts after cluster creation](hdinsight-tbd.md) - already covered by hdinsight-hadoop-add-storage.md
+## [Use Script Actions to automate cluster setup](hdinsight-tbd.md) - Already covered by https://docs.microsoft.com/en-us/azure/hdinsight/hdinsight-hadoop-customize-cluster-linux
 
 # Developing Hive applications
 ## [Hive and ETL Overview](hdinsight-tbd.md)
