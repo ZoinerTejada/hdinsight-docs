@@ -3,6 +3,8 @@
 ## [Iterative data exploration](hdinsight-tbd.md) [**<- exists on patterns & practices site (4 articles)**](https://msdn.microsoft.com/en-us/library/dn749842.aspx) Should we move or link to it?
 ## [Data Warehouse on demand](hdinsight-tbd.md) [**<- exists on patterns & practices site (3 articles)**](https://msdn.microsoft.com/en-us/library/dn749783.aspx) Should we move or link to it?
 ## [Streaming at scale](hdinsight-tbd.md) [**<- storm**](https://github.com/Microsoft/azure-docs/blob/master/articles/hdinsight/hdinsight-storm-overview.md) & [**kafka**](https://github.com/Microsoft/azure-docs/blob/master/articles/hdinsight/hdinsight-apache-kafka-introduction.md) articles exist. Plan to create overview page to introduce concept and link to these articles for more details (Add info on Spark Streaming and Event Hubs)
+> Is there any information on ADLS performance working with very small files, as is commonly used in streaming scenarios?
+> Can we get more information on Kafka rack awareness in HDInsight? Specifically around the update and fault domains and how they work.
 ## [Machine learning](hdinsight-tbd.md) **<- Mahout, R, MLib**
 ## [Programming with Hadoop and Spark](hdinsight-tbd.md)
 ## [Running custom programs](hdinsight-tbd.md)
