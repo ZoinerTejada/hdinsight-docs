@@ -1,16 +1,34 @@
 # Overview   
 ## [About HDInsight and Hadoop](hdinsight-hadoop-introduction.md)
+### [Iterative data exploration](hdinsight-tbd.md) 
+> ACTION: NEW. Pull content for this from P&P site at https://msdn.microsoft.com/en-us/library/dn749842.aspx
+### [Data Warehouse on demand](hdinsight-tbd.md) 
+> ACTION: NEW. Pull content for this from P&P site at  
+https://msdn.microsoft.com/en-us/library/dn749783.aspx) 
+### [Streaming at scale](hdinsight-tbd.md)
+> ACTION: NEW
+### [Machine learning](hdinsight-tbd.md) 
+> ACTION: NEW
 ## [Hadoop components on HDInsight](hdinsight-component-versioning.md)
-## [R Server](hdinsight-hadoop-r-server-overview.md)
-## [Apache Hive](hdinsight-apache-hive-overview.md)
+### [R Server](hdinsight-hadoop-r-server-overview.md)
+### [Apache Hive](hdinsight-apache-hive-overview.md)
 > ACTION: NEW. Create content for this
-## [Apache Spark](hdinsight-apache-spark-overview.md)
-## [HBase](hdinsight-hbase-overview.md)
+### [Apache Spark](hdinsight-apache-spark-overview.md)
+### [HBase](hdinsight-hbase-overview.md)
 > ACTION: RETITLE. Change to "Apache HBase"
-## [Apache Storm](hdinsight-storm-overview.md)
-## [Kafka (Preview)](hdinsight-apache-kafka-introduction.md)
+### [Apache Storm](hdinsight-storm-overview.md)
+### [Kafka (Preview)](hdinsight-apache-kafka-introduction.md)
 > ACTION: RETITLE. Change to "Apache Kafka (Preview)".
-## [Domain-joined HDInsight clusters (Preview)](hdinsight-domain-joined-introduction.md)
+### [Domain-joined HDInsight clusters (Preview)](hdinsight-domain-joined-introduction.md)
+## Azure HDInsight and Hadoop Architecture
+### [HDInsight Architecture](hdinsight-tbd.md)
+> ACTION: NEW
+### [Lifecycle of an HDInsight Cluster](hdinsight-tbd.md) 
+> ACTION: NEW
+### [High availability](hdinsight-tbd.md)
+> ACTION: NEW
+### [Capacity planning](hdinsight-tbd.md)
+> ACTION: NEW
 ## Release notes
 ### [Recent](hdinsight-release-notes.md)
 ### [Archive](hdinsight-release-notes-archive.md)
@@ -45,8 +63,6 @@
 > ACTION: RETITLE to "Run Sqoop using PowerShell"
 
 ## Batch process data
-### [Submit Hadoop jobs](hdinsight-submit-hadoop-jobs-programmatically.md)
-> ACTION: REMOVE. This article duplicates content already in the ToC and adds no additional context.
 
 ### Use Hadoop for batch processing
 #### [Use MapReduce with Hadoop](hdinsight-use-mapreduce.md)
@@ -100,19 +116,38 @@
 #### [Use Spark SQL with HDInsight](hdinsight-tbd.md)
 > ACTION: NEW
 
-
-
 ## Interactively query data
 
 ### Use Spark with notebooks
 #### [Use Zeppelin notebooks](hdinsight-apache-spark-zeppelin-notebook.md)
+> ACTION: RETITLE. Change to "User Zeppelin notebooks with Spark".
 #### [Jupyter notebook kernels](hdinsight-apache-spark-jupyter-notebook-kernels.md)
+> ACTION: RETITLE. Change to "User Jupyter notebooks with Spark".
 #### [Use external packages with Jupyter using cell magic](hdinsight-apache-spark-jupyter-notebook-use-external-packages.md)
 #### [Use external packages with Jupyter using script action](hdinsight-apache-spark-python-package-installation.md)
 #### [Use a local Jupyter notebook](hdinsight-apache-spark-jupyter-notebook-install-locally.md)
 
 ## Process data in real-time
-### [Process streaming events](hdinsight-apache-spark-eventhub-streaming.md)
+
+### Use Spark for stream processing
+#### [What is Spark Streaming?](hdinsight-tbd.md)
+> ACTION: NEW
+#### [What is Spark Structured Streaming?](hdinsight-tbd.md)
+> ACTION: NEW
+#### [Use with Spark](hdinsight-apache-spark-with-kafka.md)
+> ACTION: RETITLE. Change to "Use Spark to process events from Kafka"
+
+> ACTION: UPDATE. Update to include coverage of both Spark Streaming and Stuctured Streaming
+#### [Process streaming events](hdinsight-apache-spark-eventhub-streaming.md)
+> ACTION: RETITLE. Change to "Use Spark to process events from Event Hubs"
+
+> ACTION: UPDATE. Update to include coverage of both Spark Streaming and Stuctured Streaming
+#### [Creating highly available Spark Streaming jobs in YARN](hdinsight-tbd.md)
+> ACTION: NEW
+#### [Creating Spark Streaming jobs with exactly once event processing guarantees](hdinsight-tbd.md)
+> ACTION: NEW
+#### [Publishing real-time updates from Spark to Power BI](hdinsight-tbd.md)
+> ACTION: NEW
 
 ## Use BI tools with HDInsight
 ### [With BI tools](hdinsight-apache-spark-use-bi-tools.md)
@@ -121,7 +156,7 @@
 ## Build data processing pipelines
 ### Use Azure Data Factory
 #### [On-demand clusters](hdinsight-hadoop-create-linux-clusters-adf.md)
-> ACTION: RETITLE to "Use on-demand clusters from Data Factory"
+> ACTION: RETITLE. Change to "Use on-demand clusters from Data Factory"
 ### Use Oozie
 #### [Use Oozie for workflows](hdinsight-use-oozie-linux-mac.md)
 #### [Use time-based Oozie coordinators](hdinsight-use-oozie-coordinator-time.md)
@@ -130,21 +165,37 @@
 ## Perform Machine Learning
 
 ### Use R Server
+#### [R Server](hdinsight-hadoop-r-server-overview.md)
+> ACTION: RETITLE. Change to "What is R server?"
+#### [Submit jobs from Visual Studio Tools for R](hdinsight-tbd.md)
+> ACTION: NEW
+#### [Submit R jobs from R Studio Server](hdinsight-tbd.md)
+> ACTION: NEW
 #### [Storage options](hdinsight-hadoop-r-server-storage.md)
-#### [Install RStudio](hdinsight-hadoop-r-server-install-r-studio.md)
+> ACTION: RETITLE. Change to "Analyze data from Azure Storage and Data Lake Store using R"
+
+
 #### [Compute contexts](hdinsight-hadoop-r-server-compute-contexts.md)
-#### [ScaleR and SparkR](hdinsight-hadoop-r-scaler-sparkr.md)
+> ACTION: UPDATE. Add additional guidance on benefits of Spark vs. R Server on Hadoop
 
-### Use SparkML & MLLib 
+> ACTION: RETITLE. Change to "Selecting a compute context"
 
-#### [Predict HVAC performance](hdinsight-apache-spark-ipython-notebook-machine-learning.md)
-#### [Predict food inspection results](hdinsight-apache-spark-machine-learning-mllib-ipython.md)
 
-### [Use the Microsoft Cognitive Toolkit](hdinsight-apache-spark-microsoft-cognitive-toolkit.md)
+### Use Spark for Machine Learning
+#### [Use Spark for Machine Learning](hdinsight-tbd.md)
+> ACTION: NEW
+#### [Configuring R Server on Spark](hdinsight-tbd.md)
+> ACTION: NEW
+#### [Creating SparkML pipelines](hdinsight-tbd.md)
+> ACTION: NEW
+#### [Creating SparkML models in notebooks](hdinsight-tbd.md)
+> ACTION: NEW
+#### [Use the Microsoft Cognitive Toolkit](hdinsight-apache-spark-microsoft-cognitive-toolkit.md)
+> ACTION: RETITLE. Change title to "Use the Microsoft Cognitive Toolkit from Spark"
 
 ## Perform Deep Learning
 ### [Use Caffe for deep learning](hdinsight-deep-learning-caffe-spark.md)
-
+> Action: RETITLE. Change title to "Use Caffe for deep learning with Spark"
 
 
 ## Use HBase
@@ -191,33 +242,73 @@
 #### [Develop Python streaming programs](hdinsight-hadoop-streaming-python.md)
 #### [Use Python with Hive and Pig](hdinsight-python.md)
 
-### Develop Hive queries
+### Develop Hive applications
+#### [Hive and ETL Overview](hdinsight-tbd.md)
+> ACTION: NEW. Create content for this
+#### [Connect using the Hive JDBC driver](hdinsight-connect-hive-jdbc-driver.md)
+> ACTION: RETITLE. Change title to "Connect to Hive with JDBC or ODBC".
+#### [Using external metadata stores](hdinsight-tbd.md)
+> ACTION: NEW. Pull content for this from MSDN blog at https://blogs.msdn.microsoft.com/azuredatalake/2017/03/24/hive-metastore-in-hdinsight-tips-tricks-best-practices/
+#### [Writing Hive applications using Java and Python](hdinsight-tbd.md)
+> ACTION: NEW. Create content for this
 #### [Use C# user-defined functions](hdinsight-hadoop-hive-pig-udf-dotnet-csharp.md)
+> ACTION: RETITLE. Change title to "Creating user defined functions".
+#### [Process and analyze JSON documents](hdinsight-using-json-in-hive.md)
+> ACTION: RETITLE. Change title to "Process and analyze JSON documents with Hive".
+#### Hive samples
+##### [Connect Excel to Hadoop](hdinsight-connect-excel-hive-odbc-driver.md)
+> ACTION: RETITLE. Change title to "Query Hive using Excel"
+##### [Analyze stored sensor data](hdinsight-hive-analyze-sensor-data.md)
+> ACTION: RETITLE. Change title to "Query sensor data using the Hive console"
+> ACTION: UPDATE. Content is written for a Windows cluster, update for Linux.
+##### [Analyze stored tweets](hdinsight-analyze-twitter-data-linux.md)
+> ACTION: RETITLE. Change title to "Analyze tweets using beeline against Hive".
+##### [Analyze flight delay data](hdinsight-analyze-flight-delay-data-linux.md)
+> ACTION: RETITLE. Change title to "Analyze flight delays with Hive and export to SQL Database using Sqoop"
+> ACTION: RETEST. Document has strange references to mobiledata which is not used in the scripts- cleanup and retest.
+##### [Analyze website logs with Hive](hdinsight-hive-analyze-website-log.md)
+> ACTION: UPDATE. Content is written for a Windows cluster, update for Linux.
 
 ### Develop Spark applications
+#### [Run Spark from the Shell](hdinsight-tbd.md)
+> ACTION: NEW. Create content for this. 
 #### [Create standalone app](hdinsight-apache-spark-create-standalone-application.md)
 #### [Create apps using Eclipse](hdinsight-apache-spark-eclipse-tool-plugin.md)
-#### [Create apps using IntelliJ](hdinsight-apache-spark-intellij-tool-plugin.md)
 #### [Use HDInsight Tools to create Spark apps](hdinsight-apache-spark-eclipse-tool-plugin.md)
+> ACTION: RETITLE. Change to "Use the HDInsight Tools for Eclipse"
+#### [Create apps using IntelliJ](hdinsight-apache-spark-intellij-tool-plugin.md)
 #### [Debug jobs remotely with IntelliJ](hdinsight-apache-spark-intellij-tool-plugin-debug-jobs-remotely.md)
+#### [Debug Spark apps by setting up VPNs](hdinsight-tbd.md)
+> ACTION: New. Create content for this.
+#### Spark samples
+##### [Analyze Application Insights telemetry logs](hdinsight-spark-analyze-application-insight-logs.md)
+> ACTION: RETITLE. Change to "Analyze Application Insights telemetry with Spark"
+##### [Analyze website logs](hdinsight-apache-spark-custom-library-website-log-analysis.md)
+> ACTION: RETITLE. Change to "Analyze website logs with Spark SQL"
+
+
+### Developing Machine Learning solutions with HDInsight
+
+#### SparkML samples
+##### [NEW Sample using SparkML](hdinsight-tbd.md)
+> ACTION: NEW
+#### Spark MLLib samples
+##### [Predict HVAC performance](hdinsight-apache-spark-ipython-notebook-machine-learning.md)
+##### [Predict food inspection results](hdinsight-apache-spark-machine-learning-mllib-ipython.md)
+
+#### R Server on HDInsight samples
+##### [ScaleR and SparkR](hdinsight-hadoop-r-scaler-sparkr.md)
+> ACTION: RETITLE. Change to "Predicting flight delays using R Server on Spark"
 
 ###  Serialize and deserialize data
 #### [Serialize data with Avro Library](hdinsight-dotnet-avro-serialization.md)
-#### [Process and analyze JSON documents](hdinsight-using-json-in-hive.md)
+
 
 
 ## Analyze big data
 ### [Analyze using Power Query](hdinsight-connect-excel-power-query.md)
-### [Connect Excel to Hadoop](hdinsight-connect-excel-hive-odbc-driver.md)
-### [Connect using the Hive JDBC driver](hdinsight-connect-hive-jdbc-driver.md)
-### [Analyze stored sensor data](hdinsight-hive-analyze-sensor-data.md)
-### [Analyze stored tweets](hdinsight-analyze-twitter-data-linux.md)
-### [Analyze flight delay data](hdinsight-analyze-flight-delay-data-linux.md)
 ### [Generate recommendations with Mahout](hdinsight-hadoop-mahout-linux-mac.md)
-### [Analyze website logs with Hive](hdinsight-hive-analyze-website-log.md)
-### [Analyze Application Insights telemetry logs](hdinsight-spark-analyze-application-insight-logs.md)
-### [Analyze website logs](hdinsight-apache-spark-custom-library-website-log-analysis.md)
-> ACTION: RETITLE. Change to "Scenario - Analyze website logs with Spark SQL"
+
 
 ## Extend clusters
 ### [Customize clusters using Bootstrap](hdinsight-hadoop-customize-cluster-bootstrap.md)
@@ -242,12 +333,19 @@
 ### [Use SSH with HDInsight](hdinsight-hadoop-linux-use-ssh-unix.md)
 ### [Use SSH tunneling](hdinsight-linux-ambari-ssh-tunnel.md)
 ### [Restrict access to data](hdinsight-storage-sharedaccesssignature-permissions.md)
+#### [Add ACLs for users at the file and folder levels](hdinsight-tbd.md) 
+> ACTION: NEW. Confirm if this is supposed to be about Ranger.
 ### [Create .NET applications that run with a non-interactive identity](hdinsight-create-non-interactive-authentication-dotnet-applications.md)
 > ACTION: ADD ENTRY. This entry is missing from the TOC.
 
 ## Manage
 
 ### Manage Clusters
+#### [Key scenarios to monitor](hdinsight-tbd.md)
+> ACTION: NEW
+#### [Administering HDInsight using the Azure Portal](hdinsight-tbd.md)
+> ACTION: NEW
+
 #### [Cluster and service ports and URIs](hdinsight-hadoop-port-settings-for-services.md)
 > ACTION: RETITLE. Change to "Ports used by Hadoop services on HDInsight"
 #### [Upgrade HDInsight cluster to newer version](hdinsight-upgrade-cluster.md)
@@ -268,6 +366,8 @@
 #### [Use empty edge nodes](hdinsight-apps-use-edge-node.md)
 #### [Multiple HDInsight clusters with Data Lake Store](hdinsight-multiple-clusters-data-lake-store.md)
 > ACTION: RETITLE. Change to "Using a single Data Lake Store from multiple HDInsight clusters"
+#### [Install RStudio](hdinsight-hadoop-r-server-install-r-studio.md)
+> ACTION: RETITLE. Change to "Install R Studio Server on HDInsight"
 
 ### Manage Windows Clusters
 > ACTION: ??? - Is this useful?
@@ -280,7 +380,8 @@
 > ACTION: RETITLE. Add storage accounts to a running cluster
 
 ### [Manage resources](hdinsight-apache-spark-resource-manager.md)
-> ACTION: RETITLE. Change to "Manage Spark clusters" 
+> ACTION: RETITLE. Change to "Manage Spark cluster settings" 
+
 
 ## Troubleshoot
 ### [Tips for Linux](hdinsight-hadoop-linux-information.md)
