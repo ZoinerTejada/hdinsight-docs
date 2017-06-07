@@ -30,17 +30,38 @@ Alternately, deploy a new Azure virtual network with Kafka and **Storm** cluster
 <a href="https://portal.azure.com/#create/Microsoft.Template/uri/https%3A%2F%2Fhditutorialdata.blob.core.windows.net%2Farmtemplates%2Fcreate-linux-based-kafka-storm-cluster-in-vnet.json" target="_blank"><img src="./media/hdinsight-streaming-at-scale-overview/deploy-to-azure.png" alt="Deploy to Azure"></a>
 
 There are other options when designing your streaming architecture by incorporating other Azure services that are not necessarily part of the HDInsight platform. The following diagram illustrates using [Event Hubs]() for ingest, while opening up additional processors, such as [Stream Analytics](), [EventProcessor Host](), [Service Fabric](), and [Azure Functions](). The rest of the article will focus on scaling with Kafka and Storm or Spark Streaming.
-![HDInsight Streaming Patterns](./media/hdinsight-streaming-at-scale-overview/HDInsight-streaming-patterns2.png)
+![HDInsight Streaming Patterns (option 2)](./media/hdinsight-streaming-at-scale-overview/HDInsight-streaming-patterns2.png)
 
 
 
-## Reliability
+## What is Kafka?
 
-Apache Storm guarantees that each incoming message is always fully processed, even when the data analysis is spread over hundreds of nodes.
+Kafka provides high throughput, low-latency message queueing service, originally developed at LinkedIn, and is now part of the Apache suite of Open Source Software (OSS). It uses a publish and subscribe messaging model and stores streams of partitioned data safely in a distributed, replicated cluster. When needed, it scales linearly as throughput increases.
 
-The Nimbus node provides functionality similar to the Hadoop JobTracker, and it assigns tasks to other nodes in a cluster through Zookeeper. Zookeeper nodes provide coordination for a cluster and facilitate communication between Nimbus and the Supervisor process on the worker nodes. If one processing node goes down, the Nimbus node is informed, and it assigns the task and associated data to another node.
+![Kafka cluster](./media/hdinsight-streaming-at-scale-overview/kafka-cluster.png)
 
-The default configuration for Apache Storm clusters is to have only one Nimbus node. Storm on HDInsight provides two Nimbus nodes. If the primary node fails, the Storm cluster switches to the secondary node while the primary node is recovered. The following diagram illustrates the task flow configuration for Storm on HDInsight:
+The diagram above shows a typical Kafka configuration that uses consumer groups, partitioning, and replication to offer parallel reading of events, as well as fault tolerance. Apache Zookeeper is built for concurrent, resilient, and low-latency transactions, managing state in the Kafka cluster. Each broker is a node within the cluster. A partition is created per consumer, allowing parallel processing of the streaming data. Replication is employed to spread the partitions across nodes, protecting against node (broker) outages. A partition denoted with an *(L)* is the leader for the given partition. Producer traffic is routed to the leader of each node, per state managed by Zookeeper.
+
+There are several advantages to deploying Kafka on HDInsight. Kafka can use customized run actions within Azure Operations Management Suite, providing an automated way to scale clusters as certain capacity limits are reached. Also, a replica rebalancing tool can be used to automatically rebalance the replicas after scaling or applying updates. HDInsight is the only provider in the industry to host a managed Kafka environment, while providing a 99.9% uptime SLA. **NEED MORE INFORMATION:** HDInsight also uses a two-dimensional matrix for implementing rack awareness by way of an update domain, and fault domain, as opposed to using a single dimensional unit. The update domain is a set of machines that will be updated at any given time when you roll out an update. A fault domain is a set of machines attached to a single pod. If network connectivity breaks on that pod, for instance, each of the machines on that pod will fail. This provides a single point of failure within your cluster.
+
+
+
+## Apache Storm
+
+Apache Storm is one of the stream processing engines we displayed in the first and second diagram at the top of this article. In summary, it is a distributed, fault-tolerant, open-source computation system that is optimized for processing streams of data in real time with Hadoop. The core unit of data for an event is in the form of a Tuple, which is an immutable set of key/value pairs. An unbounded sequence of these Tuples form a Stream, which is provided by a Spout. The Spout wraps a streaming data source (such as Kafka), and emits Tuples. A storm Topology is a sequence of transformations on these streams. A bolt implements one transformation.
+
+![Storm introduction](./media/hdinsight-streaming-at-scale-overview/storm-introduction.png)
+
+All processing in topologies is done in bolts. Bolts can do anything from filtering, functions, aggregations, joines, talking to databases, and more. Bolts can do simple stream transformations. Doing complex stream transformations often requires multiple steps and thus, multiple bolts. As you can see in the diagram below, a bolt receives a stream of events from other bolts or spouts, and transforms it to emit an output stream. They are able to join multiple input streams, or split a single stream into multiple output streams. During execution, bolts can store or read state from a database or any state stored in the ZooKeeper node.
+
+![Storm bolts](./media/hdinsight-streaming-at-scale-overview/storm-bolts.png)
+
+Storm offers several different levels of guaranteed message processing, including best effort, at least once, and exactly once through Trident. It guarantees every tuple will be fully processed. One of Storm's core mechanisms is the ability to track the lineage of a tuple as it makes its way through the topology in an extremely efficient way. Storm's basic abstractions provide an at-least-once processing guarantee, the same guarantee you get when using a queueing system. Messages are only replayed when there are failures.
+Using Trident, which is an even higher level abstraction over Storm's basic abstractions, you can achieve exactly-once processing semantics.
+
+
+
+## Spark Streaming
 
 
 ## Scale
