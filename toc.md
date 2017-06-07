@@ -84,7 +84,7 @@
 ## [What is Spark Structured Streaming?](hdinsight-tbd.md)
 ## [Creating highly available Spark Streaming jobs in YARN](hdinsight-tbd.md)
 ## [Creating Spark Streaming jobs with exactly once event processing guarantees](hdinsight-tbd.md)
-## [Connecting Spark Streaming and Structured Streaming Jobs to Kafka*](hdinsight-tbd.md) - Different from https://docs.microsoft.com/en-us/azure/hdinsight/hdinsight-apache-spark-with-kafka?
+## [Connecting Spark Streaming and Structured Streaming Jobs to Kafka*](hdinsight-tbd.md) - Mostly covered in https://docs.microsoft.com/en-us/azure/hdinsight/hdinsight-apache-spark-with-kafka?
 ## [Connecting Spark Streaming and Structured Streaming Jobs to EventHubs*](hdinsight-tbd.md) - Different from https://docs.microsoft.com/en-us/azure/hdinsight/hdinsight-apache-spark-eventhub-streaming?
 ## [Connecting Spark Streaming and Structured Streaming jobs to Power BI*](hdinsight-tbd.md) - Different from https://docs.microsoft.com/en-us/azure/hdinsight/hdinsight-apache-spark-use-bi-tools
-## [Publishing real-time updates to Power BI](hdinsight-tbd.md) - Via the Power BI streaming API?
+## [Publishing real-time updates to Power BI](hdinsight-tbd.md) 

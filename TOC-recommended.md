@@ -45,8 +45,6 @@
 > ACTION: RETITLE to "Run Sqoop using PowerShell"
 
 ## Batch process data
-### [Submit Hadoop jobs](hdinsight-submit-hadoop-jobs-programmatically.md)
-> ACTION: REMOVE. This article duplicates content already in the ToC and adds no additional context.
 
 ### Use Hadoop for batch processing
 #### [Use MapReduce with Hadoop](hdinsight-use-mapreduce.md)
@@ -112,7 +110,26 @@
 #### [Use a local Jupyter notebook](hdinsight-apache-spark-jupyter-notebook-install-locally.md)
 
 ## Process data in real-time
-### [Process streaming events](hdinsight-apache-spark-eventhub-streaming.md)
+
+### Use Spark for stream processing
+#### [What is Spark Streaming?](hdinsight-tbd.md)
+> ACTION: NEW
+#### [What is Spark Structured Streaming?](hdinsight-tbd.md)
+> ACTION: NEW
+#### [Use with Spark](hdinsight-apache-spark-with-kafka.md)
+> ACTION: RETITLE. Change to "Use Spark to process events from Kafka"
+
+> ACTION: UPDATE. Update to include coverage of both Spark Streaming and Stuctured Streaming
+#### [Process streaming events](hdinsight-apache-spark-eventhub-streaming.md)
+> ACTION: RETITLE. Change to "Use Spark to process events from Event Hubs"
+
+> ACTION: UPDATE. Update to include coverage of both Spark Streaming and Stuctured Streaming
+#### [Creating highly available Spark Streaming jobs in YARN](hdinsight-tbd.md)
+> ACTION: NEW
+#### [Creating Spark Streaming jobs with exactly once event processing guarantees](hdinsight-tbd.md)
+> ACTION: NEW
+#### [Publishing real-time updates from Spark to Power BI](hdinsight-tbd.md)
+> ACTION: NEW
 
 ## Use BI tools with HDInsight
 ### [With BI tools](hdinsight-apache-spark-use-bi-tools.md)
@@ -147,7 +164,7 @@
 
 
 ### Use Spark for Machine Learning
-#### [Using Spark for Machine Learning](hdinsight-tbd.md)
+#### [Use Spark for Machine Learning](hdinsight-tbd.md)
 > ACTION: NEW
 #### [Configuring R Server on Spark](hdinsight-tbd.md)
 > ACTION: NEW
