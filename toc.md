@@ -55,11 +55,11 @@
 
 # Developing Spark applications
 ## [ML or Streaming Scenario](hdinsight-tbd.md) - Need clarification.
-## [Running Spark from the Shell](hdinsight-tbd.md) - Via SSH to primary headnode? Different than https://docs.microsoft.com/en-us/azure/hdinsight/hdinsight-hadoop-linux-use-ssh-unix?
-## [Running Spark from a Jupyter or Zeppelin Notebook](hdinsight-tbd.md)
-## [Running Spark from IntelliJ IDEA](hdinsight-tbd.md) - Different then this https://docs.microsoft.com/en-us/azure/hdinsight/hdinsight-apache-spark-intellij-tool-plugin?
+## [Running Spark from the Shell](hdinsight-tbd.md) 
+## [Running Spark from a Jupyter or Zeppelin Notebook](hdinsight-tbd.md) - already covered
+## [Running Spark from IntelliJ IDEA](hdinsight-tbd.md) - already covered by https://docs.microsoft.com/en-us/azure/hdinsight/hdinsight-apache-spark-intellij-tool-plugin
 ## [Debug Spark apps by setting up VPNs](hdinsight-tbd.md) - Refers to using a Site-to-Site or Point-to-Site VPN? 
-## [Configure Spark settings](hdinsight-tbd.md)
+## [Configure Spark settings](hdinsight-tbd.md) - already covered in https://docs.microsoft.com/en-us/azure/hdinsight/hdinsight-apache-spark-resource-manager
 ## [Spark samples](hdinsight-tbd.md) - Samples can be found [here](https://github.com/Azure-Samples/) (such as https://github.com/Azure-Samples/hdinsight-dotnet-odbc-spark-sql)
 
 # Developing Spark ML applications
@@ -68,14 +68,14 @@
 ## [Spark ML samples](hdinsight-tbd.md)
 
 # Spark SQL and Spark GraphX - should we retitle this section or combine with previous section into  "Machine Learning with Spark"?
-## [Deep learning with Spark on HDInsight](hdinsight-tbd.md) With Caffe? Different to https://docs.microsoft.com/en-us/azure/hdinsight/hdinsight-deep-learning-caffe-spark?
+## [Deep learning with Spark on HDInsight](hdinsight-tbd.md) already covered in https://docs.microsoft.com/en-us/azure/hdinsight/hdinsight-deep-learning-caffe-spark?
 
 # Developing R scripts on HDInsight
 ## [ML and deep learning](hdinsight-tbd.md) - is this different from the previous content on deep learning?
-## [What is R Server?](hdinsight-tbd.md) - is this different from https://docs.microsoft.com/en-us/azure/hdinsight/hdinsight-hadoop-r-server-overview?
+## [What is R Server?](hdinsight-tbd.md) - already addressed by https://docs.microsoft.com/en-us/azure/hdinsight/hdinsight-hadoop-r-server-overview?
 ## [Configuring R Server on Spark](hdinsight-tbd.md)
-## [Benefits of R Server on Spark vs. R Server on Hadoop](hdinsight-tbd.md) - more detail than https://docs.microsoft.com/en-us/azure/hdinsight/hdinsight-hadoop-r-server-compute-contexts#guidelines-for-deciding-on-a-compute-context?
-## [Analyzing your R data from Azure Storage and Data Lake Store](hdinsight-tbd.md) - different from https://docs.microsoft.com/en-us/azure/hdinsight/hdinsight-hadoop-r-server-storage?
+## [Benefits of R Server on Spark vs. R Server on Hadoop](hdinsight-tbd.md) - already addressed by https://docs.microsoft.com/en-us/azure/hdinsight/hdinsight-hadoop-r-server-compute-contexts#guidelines-for-deciding-on-a-compute-context?
+## [Analyzing your R data from Azure Storage and Data Lake Store](hdinsight-tbd.md) - already covered by https://docs.microsoft.com/en-us/azure/hdinsight/hdinsight-hadoop-r-server-storage?
 ## [Submitting jobs from Visual Studio Tools for R*](hdinsight-tbd.md)
 ## [Submitting R jobs from R Studio Server*](hdinsight-tbd.md)
 
