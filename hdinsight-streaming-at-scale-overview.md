@@ -40,7 +40,7 @@ Kafka provides high throughput, low-latency message queueing service, originally
 
 ![Kafka cluster](./media/hdinsight-streaming-at-scale-overview/kafka-cluster.png)
 
-The diagram above shows a typical Kafka configuration that uses consumer groups, partitioning, and replication to offer parallel reading of events, as well as fault tolerance. Apache Zookeeper is built for concurrent, resilient, and low-latency transactions, managing state in the Kafka cluster. Each broker is a node within the cluster. A partition is created per consumer, allowing parallel processing of the streaming data. Replication is employed to spread the partitions across nodes, protecting against node (broker) outages. A partition denoted with an *(L)* is the leader for the given partition. Producer traffic is routed to the leader of each node, per state managed by Zookeeper.
+The diagram above shows a typical Kafka configuration that uses consumer groups, partitioning, and replication to offer parallel reading of events, as well as fault tolerance. Apache ZooKeeper is built for concurrent, resilient, and low-latency transactions, managing state in the Kafka cluster. Each broker is a node within the cluster. A partition is created per consumer, allowing parallel processing of the streaming data. Replication is employed to spread the partitions across nodes, protecting against node (broker) outages. A partition denoted with an *(L)* is the leader for the given partition. Producer traffic is routed to the leader of each node, per state managed by ZooKeeper.
 
 There are several advantages to deploying Kafka on HDInsight. Kafka can use customized run actions within Azure Operations Management Suite, providing an automated way to scale clusters as certain capacity limits are reached. Also, a replica rebalancing tool can be used to automatically rebalance the replicas after scaling or applying updates. HDInsight is the only provider in the industry to host a managed Kafka environment, while providing a 99.9% uptime SLA. **NEED MORE INFORMATION:** HDInsight also uses a two-dimensional matrix for implementing rack awareness by way of an update domain, and fault domain, as opposed to using a single dimensional unit. The update domain is a set of machines that will be updated at any given time when you roll out an update. A fault domain is a set of machines attached to a single pod. If network connectivity breaks on that pod, for instance, each of the machines on that pod will fail. This provides a single point of failure within your cluster.
 
@@ -65,9 +65,23 @@ Using Trident, which is an even higher level abstraction over Storm's basic abst
 
 The other stream processing engine we displayed in the diagram was Spark Streaming. Since it is an extension to Spark, Spark Streaming allows you to reuse the same code that you use for batch processing, and even allows you to combine both batch and interactive queries in the same application. Unlike Storm, Spark Streaming provides stateful exactly-once processing semantics out of the box. When used in combination with the [Kafka Direct API](http://spark.apache.org/docs/latest/streaming-kafka-integration.html), which ensures that all Kafka data is received by Spark Streaming exactly once, it is possible to achieve end-to-end exactly-once gurantees. One of Spark Streaming's strengths is its fault-tolerant capabilities, recovering faulted nodes rapidly when multiple nodes are being used within the cluster.
 
-![Storm bolts](./media/hdinsight-streaming-at-scale-overview/spark-streaming.png)
+![Spark Streaming](./media/hdinsight-streaming-at-scale-overview/spark-streaming.png)
 
-As opposed to the way Storm works with processing data within topologies consisting of spouts and bolts, Spark Streaming receives live input data streams and divides the data into batches. These are then processed by the Spark engine to generate the final stream of results in batches.
+As opposed to the way Storm works with processing data within topologies consisting of spouts and bolts, Spark Streaming receives live input data streams and divides the data into batches. These are then processed by the Spark engine to generate the final stream of results in batches. Spark is gaining popularity due to its ability to achieve Big Data tasks from one platform, such as data cleaning, ETL, streaming, machine learning, and interactive queries, by leveraging a common execution model.
+
+Put another way, Apache Spark is a unified, open source, parallel data processing framework for Big Data analytics.
+
+![Apache Spark: a unified framework](./media/hdinsight-streaming-at-scale-overview/spark-unified.png)
+
+
+Apache Spark persists data in-memory and disk, if needed, to achieve up to 100x faster queries while processing large datasets in Hadoop. This makes Spark for Azure HDInsight ideal to speed up intensive big data applications.
+
+Spark comprises of four components for the purposes of Big Data analytics:
+* Spark SQL – interactive queries 
+* Spark Streaming – stream processing 
+* SparkMLlib – machine learning 
+* GraphX – graph computation
+
 
 
 ## Scale
@@ -75,7 +89,7 @@ As opposed to the way Storm works with processing data within topologies consist
 HDInsight clusters can be dynamically scaled by adding or removing worker nodes. This operation can be performed while processing data.
 
 > [!IMPORTANT]
-> To take advantage of new nodes added through scaling, you need to rebalance Storm topologies started before the cluster size was increased.
+> To take advantage of new nodes added through scaling when using Storm, you need to rebalance any Storm topologies started before the cluster size was increased.
 
 
 ## Next steps
