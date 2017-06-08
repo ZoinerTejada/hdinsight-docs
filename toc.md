@@ -2,7 +2,7 @@
 ## [What is Azure HDInsight?](hdinsight-tbd.md) already exists in https://docs.microsoft.com/en-us/azure/hdinsight/hdinsight-hadoop-introduction
 ## [Iterative data exploration](hdinsight-tbd.md) [**<- exists on patterns & practices site (4 articles)**](https://msdn.microsoft.com/en-us/library/dn749842.aspx) Should we move or link to it?
 ## [Data Warehouse on demand](hdinsight-tbd.md) [**<- exists on patterns & practices site (3 articles)**](https://msdn.microsoft.com/en-us/library/dn749783.aspx) Should we move or link to it?
-## [Streaming at scale](hdinsight-tbd.md) [**<- storm**](https://github.com/Microsoft/azure-docs/blob/master/articles/hdinsight/hdinsight-storm-overview.md) & [**kafka**](https://github.com/Microsoft/azure-docs/blob/master/articles/hdinsight/hdinsight-apache-kafka-introduction.md) articles exist. Plan to create overview page to introduce concept and link to these articles for more details (Add info on Spark Streaming and Event Hubs)
+## [Streaming at scale](hdinsight-streaming-at-scale-overview.md) [**<- storm**](https://github.com/Microsoft/azure-docs/blob/master/articles/hdinsight/hdinsight-storm-overview.md) & [**kafka**](https://github.com/Microsoft/azure-docs/blob/master/articles/hdinsight/hdinsight-apache-kafka-introduction.md) articles exist. Plan to create overview page to introduce concept and link to these articles for more details (Add info on Spark Streaming and Event Hubs)
 > Is there any information on ADLS performance working with very small files, as is commonly used in streaming scenarios?
 > Can we get more information on Kafka rack awareness in HDInsight? Specifically around the update and fault domains and how they work.
 ## [Machine learning](hdinsight-tbd.md) **<- Mahout, R, MLib**
@@ -47,7 +47,7 @@
 ## [Use Script Actions to automate cluster setup](hdinsight-tbd.md) - Already covered by https://docs.microsoft.com/en-us/azure/hdinsight/hdinsight-hadoop-customize-cluster-linux
 
 # Developing Hive applications
-## [Hive and ETL Overview](hdinsight-tbd.md)
+## [Hive and ETL Overview](hdinsight-tbd.md) - already covered by https://docs.microsoft.com/en-us/azure/hdinsight/hdinsight-use-hive.md
 ## [Configuring Hive, JDBC and ODBC](hdinsight-tbd.md)
 ## [Using external metadata stores](hdinsight-tbd.md)
 ## [Writing Hive application using Java and Python](hdinsight-tbd.md)

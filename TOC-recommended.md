@@ -11,8 +11,7 @@ https://msdn.microsoft.com/en-us/library/dn749783.aspx)
 > ACTION: NEW
 ## [Hadoop components on HDInsight](hdinsight-component-versioning.md)
 ### [R Server](hdinsight-hadoop-r-server-overview.md)
-### [Apache Hive](hdinsight-apache-hive-overview.md)
-> ACTION: NEW. Create content for this
+### [Apache Hive](hdinsight-use-hive)
 ### [Apache Spark](hdinsight-apache-spark-overview.md)
 ### [HBase](hdinsight-hbase-overview.md)
 > ACTION: RETITLE. Change to "Apache HBase"

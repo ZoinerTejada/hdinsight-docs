@@ -4,7 +4,7 @@
 
 ### Develop Hive applications
 
-#### [Hive and ETL Overview](hdinsight-tbd.md)
+#### [Hive and ETL Overview](hdinsight-use-hive)
 #### [Connect to Hive with JDBC or ODBC](hdinsight-connect-hive-jdbc-driver.md)
 #### [Using external metadata stores](hdinsight-tbd.md)
 #### [Writing Hive application using Java and Python](hdinsight-tbd.md)
