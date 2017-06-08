@@ -5,7 +5,7 @@
 ### [Data Warehouse on demand](hdinsight-tbd.md) 
 > ACTION: NEW. Pull content for this from P&P site at  
 https://msdn.microsoft.com/en-us/library/dn749783.aspx) 
-### [Streaming at scale](hdinsight-tbd.md)
+### [Streaming at scale](hdinsight-streaming-at-scale-overview.md)
 > ACTION: NEW
 ### [Machine learning](hdinsight-tbd.md) 
 > ACTION: NEW
