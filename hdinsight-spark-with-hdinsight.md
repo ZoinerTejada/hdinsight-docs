@@ -35,6 +35,16 @@ The Spark driver connects to the Spark master and is responsible for converting 
 
 Submit [remote batch jobs](https://docs.microsoft.com/azure/hdinsight/hdinsight-apache-spark-livy-rest-interface) to an HDInsight Spark cluster.
 
+## Batch processing in traditional MapReduce vs. Spark
+
+What makes Spark fast? How is the architecture of Apache Spark different than traditional MapReduce, allowing it to offer better performance for data sharing?
+
+![Traditional MapReduce vs. Spark](./media/hdinsight-spark-with-hdinsight/mapreduce-vs-spark.png)
+
+Spark provides primitives for in-memory cluster computing. A Spark job can load and cache data into memory and query it repeatedly, much more quickly than disk-based systems. Spark also integrates into the Scala programming language to let you manipulate distributed data sets like local collections. There's no need to structure everything as map and reduce operations.
+
+Data sharing between operations is faster, since data is in-memory. Hadoop shares data through HDFS, an expensive option. It also maintains three replicas. Spark stores data in-memory without any replication.
+
 
 
 ## See also
