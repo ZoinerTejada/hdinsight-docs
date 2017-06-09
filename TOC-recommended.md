@@ -7,7 +7,7 @@
 https://msdn.microsoft.com/en-us/library/dn749783.aspx) 
 ### [Streaming at scale](hdinsight-streaming-at-scale-overview.md)
 > ACTION: NEW
-### [Machine learning](hdinsight-tbd.md) 
+### [Machine learning](hdinsight-machine-learning-overview.md) 
 > ACTION: NEW
 ## [Hadoop components on HDInsight](hdinsight-component-versioning.md)
 ### [R Server](hdinsight-hadoop-r-server-overview.md)
@@ -24,7 +24,7 @@ https://msdn.microsoft.com/en-us/library/dn749783.aspx)
 > ACTION: NEW
 ### [Lifecycle of an HDInsight Cluster](hdinsight-tbd.md) 
 > ACTION: NEW
-### [High availability](hdinsight-tbd.md)
+### [High availability](hdinsight-high-availability-linux.md)
 > ACTION: NEW
 ### [Capacity planning](hdinsight-tbd.md)
 > ACTION: NEW

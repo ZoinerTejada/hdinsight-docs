@@ -5,7 +5,7 @@
 ## [Streaming at scale](hdinsight-streaming-at-scale-overview.md) [**<- storm**](https://github.com/Microsoft/azure-docs/blob/master/articles/hdinsight/hdinsight-storm-overview.md) & [**kafka**](https://github.com/Microsoft/azure-docs/blob/master/articles/hdinsight/hdinsight-apache-kafka-introduction.md) articles exist. Plan to create overview page to introduce concept and link to these articles for more details (Add info on Spark Streaming and Event Hubs)
 > Is there any information on ADLS performance working with very small files, as is commonly used in streaming scenarios?
 > Can we get more information on Kafka rack awareness in HDInsight? Specifically around the update and fault domains and how they work.
-## [Machine learning](hdinsight-tbd.md) **<- Mahout, R, MLib**
+## [Machine learning](hdinsight-machine-learning-overview.md)
 ## [Programming with Hadoop and Spark](hdinsight-tbd.md) already covered in Develop section
 ## [Running custom programs](hdinsight-tbd.md) already covered in Develop section
 ## [Moving data with HDInsight](hdinsight-tbd.md) already covered in Import and export data section
@@ -17,7 +17,7 @@
 ## [The Hadoop File System](hdinsight-tbd.md) topic in HDInsight Architecture.
 ## [Nodes in an HDInsight Cluster](hdinsight-tbd.md) topic in HDInsight Architecture.
 ## [Zookeeper](hdinsight-tbd.md) topic in HDInsight Architecture.
-## [High availability](hdinsight-tbd.md)
+## [High availability](hdinsight-high-availability-linux.md)
 ## [Cluster lifecycle](hdinsight-tbd.md) duplicate.
 ## [Separation of Compute and Storage](hdinsight-tbd.md) topic in HDInsight Architecture.
 
