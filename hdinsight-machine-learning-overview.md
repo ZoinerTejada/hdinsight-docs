@@ -107,8 +107,6 @@ To help advance its own work in deep learning, Microsoft has developed the free,
 
 ## See also
 
-* Some overview link
-
 ### Scenarios
 
 * [Spark with Machine Learning: Use Spark in HDInsight for analyzing building temperature using HVAC data](https://docs.microsoft.com/azure/hdinsight/hdinsight-apache-spark-ipython-notebook-machine-learning)
