@@ -35,7 +35,17 @@ The Spark driver connects to the Spark master and is responsible for converting 
 
 Submit [remote batch jobs](https://docs.microsoft.com/azure/hdinsight/hdinsight-apache-spark-livy-rest-interface) to an HDInsight Spark cluster.
 
-## Batch processing in Spark vs. traditional MapReduce
+## Batch processing in Spark
+
+When working with big data, you have two high-level options with which you can process that data: [stream processing](hdinsight-streaming-at-scale-overview.md) and batch processing. If your needs dictate real-time (subsecond) processing, you will opt to process your data using a stream processing component, like Spark Streaming. On the other hand, batch processing is for queries or programs that take much longer, such as tens of minutes, hours, or days to complete.
+
+Some example batch processing scenarios include ETL (extract-transform-load) pipelines, working with extremely large, pre-existing datasets, or in situations where computation or transformation against the data takes significant time.
+
+Whether working with large datasets through batch processing, or stream processing, a common way to work with the data more efficiently is through a concept called *schema on read*. As the name implies, you apply the data's schema as you are loading it from disk, or memory. This offers the flexibility of working with data from various sources and formats that do not already have the schema applied. You can take the data in whatever format it arrives and overlay a schema you've created to make it easier to work with that data.
+
+Spark offers a very fast processing engine for running batch processing against very large data sets, while making the core processing engine available to stream processing as well.
+
+## Spark vs. traditional MapReduce
 
 What makes Spark fast? How is the architecture of Apache Spark different than traditional MapReduce, allowing it to offer better performance for data sharing?
 
@@ -142,6 +152,77 @@ Notice that in the block of sample code, there are 4 comments:
 
 Accumulators are variables that can only be added to through an associative operation. They are used to implement counters and sums efficiently in parallel. Spark natively supports accumulators of numeric value types and standard mutable collections. It is possible for programmers to extend for new types. One thing of note, only the driver program can read the value of an accumulator; the tasks cannot.
 
+### Working with DataFrames
+
+A DataFrame is a distributed collection of data organized into named columns. It is conceptually equivalent to a table in a relational database or a data frame in R/Python, but with richer optimizations under the hood. DataFrames can be constructed from a wide array of sources such as: structured data files, tables in Hive, external databases, or existing RDDs. The DataFrame API is available in Scala, Java, and Python.
+
+![DataFrames](./media/hdinsight-spark-with-hdinsight/dataframes.png)
+
+Once built, DataFrames provide a domain-specific language for distributed data manipulation. You can also incorporate Spark SQL while working with DataFrames. Data scientists are employing increasingly sophisticated techniques that go beyond joins and aggregations. To support this, DataFrames can be used directly in the MLlib machine learning pipeline API. In addition, programs can run arbitrarily complex user functions on DataFrames.
+
+### Creating DataFrames from data sources
+
+A Spark data source can read in data to create DataFrames, which has a schema that Spark understands. Examples include: JSON files, JDBC source, Parquet, and Hive tables. 
+
+    >>> val df = sqlContext.jsonFile(”somejasonfile.json“)			      //from JSON file*
+    >>> val df = hiveContext.table(”somehivetable“)				      //from a  Hive Table
+    >>> val df = sqlContext.parquetFile(”someparquetsource“)		      //from a parquet file
+    >>> val df = sqlContext.load(source="jdbc", url=“UrlToConnect", dbtable=“tablename") //from JDBC source
+
+The DataFrame interface makes it possible to operate on a variety of data sources. A DataFrame can be operated on as a normal RDD and/or registered as a temporary table. Registering a DataFrame as a table allows you to run SQL queries over its data. Below is a list of the general methods for loading and saving data using the Spark data sources, with some specific options that are available for the built-in data sources.
+
+#### JSON file
+You can also manually specify the data source that will be used along with any extra options that you would like to pass to the data source. Data sources are specified by their fully qualified name (for example, org.apache.spark.sql.parquet), but for built-in sources you can also use the shortened name (JSON, Parquet, JDBC). DataFrames of any type can be converted into other types using this syntax.
+
+Spark SQL can automatically infer the schema of a JSON dataset and load it as a DataFrame. This conversion can be done using one of two methods in a SQLContext:
+* `jsonFile` – Loads data from a directory of JSON files, where each line of the files is a JSON object.
+* `jsonRDD` – Loads data from an existing RDD, where each element of the RDD is a string containing a JSON object.
+
+Note that the file that is offered as `jsonFile` is not a typical JSON file. Each line must contain a separate, self-contained valid JSON object. As a consequence, a regular multi-line JSON file will most often fail.
+
+#### Hive table
+Spark SQL also supports reading and writing data stored in Apache Hive. However, since Hive has a large number of dependencies, it is not included in the default Spark assembly. Hive support is enabled by adding the -Phive and -Phive-thriftserver flags to the Spark build. This command builds a new assembly jar that includes Hive. Note that this Hive assembly jar must also be present on all of the worker nodes, as they will need access to the Hive serialization and deserialization libraries (SerDes) in order to access data stored in Hive.
+Configuration of Hive is done by placing your `hive-site.xml` file in conf/.
+
+#### Parquet file
+In the simplest form, the default data source (parquet unless otherwise configured by spark.sql.sources.default) will be used for all operations.
+
+#### Java Database Connectivity (JDBC) source
+Spark SQL also includes a data source that can read data from other databases using JDBC. This functionality should be preferred over using JdbcRDD. This is because the results are returned as a DataFrame and can be easily processed in Spark SQL or joined with other data sources. The JDBC data source is also easier to use from Java or Python as it does not require the user to provide a ClassTag. (Note that this is different than the Spark SQL JDBC server, which allows other applications to run queries using Spark SQL.)
+
+### Creating DataFrames from RDDs
+
+You can create DataForms from existing RDDs in two ways:
+
+1. **Use reflection:** Infer the schema of an RDD that contains specific types of objects. This approach leads to more concise code. It works well when you already know the schema while writing your Spark application.
+2. **Specify the schema programmatically:** Enables you to construct a schema then apply it to an existing RDD. This method is more verbose, but it enables you to construct DataFrames when the columns and their types are not known until runtime.
+
+#### Create DataFrames from existing a JSON RDD, using the `jsonRDD` function.
+
+    >>> val df = sqlContext.jsonRDD(anUserRDD)
+
+### DataFrame operations
+
+DataFrames provide a domain-specific language for structured data manipulation in Scala, Java, and Python. Below is a sample of various operations you can use:
+
+    >>> val df = sqlContext.jsonFile(”somejsonfile.json“)
+    >>> df.show()				 	// Show the contents of the DataFrame
+    >>> df.printSchema()				// Print the schema in a tree format
+    >>> df.select(“name”).show()			// Select and show the name columns
+    >>> df.select(df(”name”),df (“age”) +1).show() 	// Select all but increment the age by 1
+    >>> df.filter(df(”age”) > 21).show()		// Select people older than 21
+    >>> df.groupBy(“age”).count().show()		// Count people by age
+
+Through certain DataFrame operations, you can use `SQLContext` to understand the construction and demographics of your data.
+
+| Option | Description |
+| -- | -- |
+| `df.show()` | This operation shows the contents of the data you have selected |
+| `df.printSchema()` | This operation prints your schema (table) in a tree format |
+| `df.select(“name”).show()` | This operation will select and display the name you have selected for the columns you’ve specified |
+| `df.select(dr(“name”),df(“age”) + 1).show()` | This operation example will select all your data as well as add one to each of the ages shown |
+| `df.filter(df(“age”) > a21.show()` | This operation example will select all data that shows that the data is greater than 21 |
+| `df.groupBy(“age”).count().show()` | This operation example will count the data you’ve selected by age and show you only the results that meet the criteria you’ve presented |
 
 
 ## See also
