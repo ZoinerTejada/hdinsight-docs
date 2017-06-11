@@ -35,7 +35,17 @@ The Spark driver connects to the Spark master and is responsible for converting 
 
 Submit [remote batch jobs](https://docs.microsoft.com/azure/hdinsight/hdinsight-apache-spark-livy-rest-interface) to an HDInsight Spark cluster.
 
-## Batch processing in Spark vs. traditional MapReduce
+## Batch processing in Spark
+
+When working with big data, you have two high-level options with which you can process that data: [stream processing](hdinsight-streaming-at-scale-overview.md) and batch processing. If your needs dictate real-time (subsecond) processing, you will opt to process your data using a stream processing component, like Spark Streaming. On the other hand, batch processing is for queries or programs that take much longer, such as tens of minutes, hours, or days to complete.
+
+Some example batch processing scenarios include ETL (extract-transform-load) pipelines, working with extremely large, pre-existing datasets, or in situations where computation or transformation against the data takes significant time.
+
+Whether working with large datasets through batch processing, or stream processing, a common way to work with the data more efficiently is through a concept called *schema on read*. As the name implies, you apply the data's schema as you are loading it from disk, or memory. This offers the flexibility of working with data from various sources and formats that do not already have the schema applied. You can take the data in whatever format it arrives and overlay a schema you've created to make it easier to work with that data.
+
+Spark offers a very fast processing engine for running batch processing against very large data sets, while making the core processing engine available to stream processing as well.
+
+## Spark vs. traditional MapReduce
 
 What makes Spark fast? How is the architecture of Apache Spark different than traditional MapReduce, allowing it to offer better performance for data sharing?
 
