@@ -164,31 +164,28 @@ Once built, DataFrames provide a domain-specific language for distributed data m
 
 A Spark data source can read in data to create DataFrames, which has a schema that Spark understands. Examples include: JSON files, JDBC source, Parquet, and Hive tables. 
 
-    >>> val df = sqlContext.jsonFile(”somejasonfile.json“)			      //from JSON file*
-    >>> val df = hiveContext.table(”somehivetable“)				      //from a  Hive Table
-    >>> val df = sqlContext.parquetFile(”someparquetsource“)		      //from a parquet file
-    >>> val df = sqlContext.load(source="jdbc", url=“UrlToConnect", dbtable=“tablename") //from JDBC source
+    >>> val df = spark.read.json("somejsonfile.json")       //from JSON file
+    >>> val df = spark.read.parquet("someparquetsource")    //from a parquet file
+    >>> val df = spark.read
+            .format("jdbc")
+            .option("url", "UrlToConnect")
+            .option("dbtable", "schema.tablename)
+            .option("user", "username")
+            .option("password", "pass")
+            .load()                                         //from JDBC source
+    >>> val spark = SparkSession
+            .builder()
+            .appName("Spark Hive Application")
+            .config("spark.sql.warehouse.dir", "spark-warehouse")
+            .enableHiveSupport()
+            .getOrCreate()
+    >>> import spark.implicits._
+    >>> import spark.sql
+    >>> val sqlDF = sql("SELECT key, value FROM src WHERE key < 10 ORDER BY key") //from a Hive Table
 
 The DataFrame interface makes it possible to operate on a variety of data sources. A DataFrame can be operated on as a normal RDD and/or registered as a temporary table. Registering a DataFrame as a table allows you to run SQL queries over its data. Below is a list of the general methods for loading and saving data using the Spark data sources, with some specific options that are available for the built-in data sources.
 
-#### JSON file
-You can also manually specify the data source that will be used along with any extra options that you would like to pass to the data source. Data sources are specified by their fully qualified name (for example, org.apache.spark.sql.parquet), but for built-in sources you can also use the shortened name (JSON, Parquet, JDBC). DataFrames of any type can be converted into other types using this syntax.
-
-Spark SQL can automatically infer the schema of a JSON dataset and load it as a DataFrame. This conversion can be done using one of two methods in a SQLContext:
-* `jsonFile` – Loads data from a directory of JSON files, where each line of the files is a JSON object.
-* `jsonRDD` – Loads data from an existing RDD, where each element of the RDD is a string containing a JSON object.
-
-Note that the file that is offered as `jsonFile` is not a typical JSON file. Each line must contain a separate, self-contained valid JSON object. As a consequence, a regular multi-line JSON file will most often fail.
-
-#### Hive table
-Spark SQL also supports reading and writing data stored in Apache Hive. However, since Hive has a large number of dependencies, it is not included in the default Spark assembly. Hive support is enabled by adding the -Phive and -Phive-thriftserver flags to the Spark build. This command builds a new assembly jar that includes Hive. Note that this Hive assembly jar must also be present on all of the worker nodes, as they will need access to the Hive serialization and deserialization libraries (SerDes) in order to access data stored in Hive.
-Configuration of Hive is done by placing your `hive-site.xml` file in conf/.
-
-#### Parquet file
-In the simplest form, the default data source (parquet unless otherwise configured by spark.sql.sources.default) will be used for all operations.
-
-#### Java Database Connectivity (JDBC) source
-Spark SQL also includes a data source that can read data from other databases using JDBC. This functionality should be preferred over using JdbcRDD. This is because the results are returned as a DataFrame and can be easily processed in Spark SQL or joined with other data sources. The JDBC data source is also easier to use from Java or Python as it does not require the user to provide a ClassTag. (Note that this is different than the Spark SQL JDBC server, which allows other applications to run queries using Spark SQL.)
+Read the [Spark documentation](https://spark.apache.org/docs/latest/sql-programming-guide.html#data-sources) for the latest information on the various supported data sources and how to use them.
 
 ### Creating DataFrames from RDDs
 
@@ -197,15 +194,11 @@ You can create DataForms from existing RDDs in two ways:
 1. **Use reflection:** Infer the schema of an RDD that contains specific types of objects. This approach leads to more concise code. It works well when you already know the schema while writing your Spark application.
 2. **Specify the schema programmatically:** Enables you to construct a schema then apply it to an existing RDD. This method is more verbose, but it enables you to construct DataFrames when the columns and their types are not known until runtime.
 
-#### Create DataFrames from existing a JSON RDD, using the `jsonRDD` function.
-
-    >>> val df = sqlContext.jsonRDD(anUserRDD)
-
 ### DataFrame operations
 
 DataFrames provide a domain-specific language for structured data manipulation in Scala, Java, and Python. Below is a sample of various operations you can use:
 
-    >>> val df = sqlContext.jsonFile(”somejsonfile.json“)
+    >>> val df = spark.read.json(”somejsonfile.json“)
     >>> df.show()				 	// Show the contents of the DataFrame
     >>> df.printSchema()				// Print the schema in a tree format
     >>> df.select(“name”).show()			// Select and show the name columns
