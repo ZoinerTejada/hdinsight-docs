@@ -35,12 +35,12 @@ Create a StreamingContext from the SparkContext that points to your cluster. Whe
     val ssc = new StreamingContext(spark, Seconds(1))
 
 #### Create a DStream
-Using the StreamingContext instance you created, create an input DStream for your input source. In this case, we are opening up a TCP socket listener on the local machine on port 9999. 
+Using the StreamingContext instance you created, create an input DStream for your input source. In this case, we are opening watching for the appearance of new files in default storage attached to the HDInsight cluster. 
 
-    val lines = ssc.socketTextStream("localhost", 9999)
+    val lines = ssc.textFileStream("/uploads/2017/01/")
 
 #### Apply transformations
-You implement the processing by applying transformations on the DStream. Our application will receive one line of text at a time from socket, split each line into words, and then follows the map reduce pattern to count the number of times each word appears.
+You implement the processing by applying transformations on the DStream. Our application will receive one line of text at a time from the file, split each line into words, and then follows the map reduce pattern to count the number of times each word appears.
 
     val words = lines.flatMap(_.split(" "))
     val pairs = words.map(word => (word, 1))
