@@ -29,7 +29,7 @@ There are many built-in data sources that come prepackaged with the Spark distri
 ## SparkSession
 
 The entry point into all functionality in Spark SQL is the `SparkSession` class. Use the `SparkSession.builder()` method to create a basic `SparkSession` object:
-
+```Scala
     import org.apache.spark.sql.SparkSession
 
     val spark = SparkSession
@@ -40,7 +40,7 @@ The entry point into all functionality in Spark SQL is the `SparkSession` class.
 
     // For implicit conversions like converting RDDs to DataFrames
     import spark.implicits._
-
+```
 `SparkSession` is new to Spark 2.0. In earlier versions, you have the choice between a `SQLContext` and a `HiveContext`. These two older contexts are kept for backward compatibility.
 
 `SparkSession` also allows you to:
@@ -61,7 +61,7 @@ Once built, DataFrames provide a domain-specific language for distributed data m
 ### Creating DataFrames from data sources
 
 A Spark data source can read in data to create DataFrames, which has a schema that Spark understands. Examples include: JSON files, JDBC source, Parquet, and Hive tables. 
-
+```Scala
     >>> val df = spark.read.json("somejsonfile.json")       //from JSON file
     >>> val df = spark.read.parquet("someparquetsource")    //from a parquet file
     >>> val df = spark.read
@@ -80,7 +80,7 @@ A Spark data source can read in data to create DataFrames, which has a schema th
     >>> import spark.implicits._
     >>> import spark.sql
     >>> val sqlDF = sql("SELECT key, value FROM src WHERE key < 10 ORDER BY key") //from a Hive Table
-
+```
 The DataFrame interface makes it possible to operate on a variety of data sources. A DataFrame can be operated on as a normal RDD and/or registered as a temporary table. Registering a DataFrame as a table allows you to run SQL queries over its data. Below is a list of the general methods for loading and saving data using the Spark data sources, with some specific options that are available for the built-in data sources.
 
 Read the [Spark documentation](https://spark.apache.org/docs/latest/sql-programming-guide.html#data-sources) for the latest information on the various supported data sources and how to use them.
@@ -95,7 +95,7 @@ You can create DataFrames from existing RDDs in two ways:
 ### DataFrame operations
 
 DataFrames provide a domain-specific language for structured data manipulation in Scala, Java, and Python. Below is a sample of various operations you can use:
-
+```Scala
     >>> val df = spark.read.json(”somejsonfile.json“)
     >>> df.show()				 	// Show the contents of the DataFrame
     >>> df.printSchema()				// Print the schema in a tree format
@@ -103,7 +103,7 @@ DataFrames provide a domain-specific language for structured data manipulation i
     >>> df.select(df(”name”),df (“age”) +1).show() 	// Select all but increment the age by 1
     >>> df.filter(df(”age”) > 21).show()		// Select people older than 21
     >>> df.groupBy(“age”).count().show()		// Count people by age
-
+```
 Through certain DataFrame operations, you can use `SQLContext` to understand the construction and demographics of your data.
 
 | Option | Description |
