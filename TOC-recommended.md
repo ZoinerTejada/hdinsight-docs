@@ -166,9 +166,9 @@ https://msdn.microsoft.com/en-us/library/dn749783.aspx)
 ### Use R Server
 #### [R Server](hdinsight-hadoop-r-server-overview.md)
 > ACTION: RETITLE. Change to "What is R server?"
-#### [Submit jobs from Visual Studio Tools for R](hdinsight-tbd.md)
+#### [Submit jobs from Visual Studio Tools for R](hdinsight-submit-jobs-from-r-tools-for-vs.md)
 > ACTION: NEW
-#### [Submit R jobs from R Studio Server](hdinsight-tbd.md)
+#### [Submit R jobs from R Studio Server](hdinsight-submit-jobs-from-r-studio-server.md)
 > ACTION: NEW
 #### [Storage options](hdinsight-hadoop-r-server-storage.md)
 > ACTION: RETITLE. Change to "Analyze data from Azure Storage and Data Lake Store using R"
