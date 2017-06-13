@@ -17,7 +17,7 @@ The DStream represents a few layers of abstraction on top of the raw event data.
 
 Start with a single event, say a temperature reading from a connected thermostat. When this event arrives at your Spark Streaming application, the first thing that happens is the event is stored in a reliable way- it is replicated so that multiple nodes have a copy of your event. This ensures that the failure of any single node will not result in the loss of your event. Spark core has a data structure that distributes data across multiple nodes in the cluster, where each node generally maintains its data completely in-memory for best performance. This data structure is called a resilient distributed dataset or RDD. The temperature reading event will be stored in an RDD. 
 
-Each RDD represents a window of time in the stream and the set of RDD's is further collected into a DStream. Each DStream represent a sequence of RDD's where the continous stream of data is split into discrete batches of a configured size, measured in seconds. So for example, if the batch size was configured to be 1 second long, your DStream emits a batch every second containing a collection of RDD's that contain the data ingested during that second. When processing the DStream, the temperature event would appear in one of these batches. A Spark Streaming application that processes these events, processes the batches that contains the events. 
+Each RDD represents events collected over some user defined timeframe called the batch interval. Everytime the batch interval elapses a new RDD is produced that contains all the data in the interval of time that just completed. It is this continuous set of RDD's that are collected into a DStream. So for example, if the batch interval was configured to be 1 second long, your DStream emits a batch every second containing one RDD that contains all the data ingested during that second. When processing the DStream, the temperature event would appear in one of these batches. A Spark Streaming application that processes these events, processes the batches that contains the events and ultimately acts on the data stored in the RDD each batch contains. 
 
 ![Example DStream with Temperature Events ](./media/hdinsight-spark-streaming-overview/hdinsight-spark-streaming-example.png)
 
@@ -59,6 +59,67 @@ Start the streaming application and run until a termination signal is received.
 
 For details on the Spark Stream API, along with the event sources, transformations and output operations it supports see [Spark Streaming Programming Guide](https://people.apache.org/~pwendell/spark-releases/latest/streaming-programming-guide.html).
 
+Here is another sample application that is completely self-contained that you can run inside a [Jupyter Notebook](hdinsight-apache-spark-jupyter-notebook-kernels.md). In the example below, we create a mock data source in the class DummySource that outputs the value of a counter and the current time in milliseconds every 5 seconds. We create a new StreamingContext object that has a batch interval of 30 seconds. Every time a batch is created, it examines the RDD produced, converts it to a Spark DataFrame and creates a temporary table over the DataFrame. 
+
+    class DummySource extends org.apache.spark.streaming.receiver.Receiver[(Int, Long)](org.apache.spark.storage.StorageLevel.MEMORY_AND_DISK_2) {
+
+        /** Start the thread that simulates receiving data */
+        def onStart() {
+            new Thread("Dummy Source") { override def run() { receive() } }.start()
+        }
+
+        def onStop() {  }
+
+        /** Periodically generate a random number from 0 to 9, and the timestamp */
+        private def receive() {
+            var counter = 0  
+            while(!isStopped()) {
+            store(Iterator((counter, System.currentTimeMillis)))
+            counter += 1
+            Thread.sleep(5000)
+            }
+        }
+    }
+
+    // A batch is created every 30 seconds
+    val ssc = new org.apache.spark.streaming.StreamingContext(spark.sparkContext, org.apache.spark.streaming.Seconds(30))
+
+    // Set the active SQLContext so that we can access it statically within the foreachRDD
+    org.apache.spark.sql.SQLContext.setActive(spark.sqlContext)
+
+    // Create the stream
+    val stream = ssc.receiverStream(new DummySource())
+
+    // Process RDDs in the batch
+    stream.foreachRDD { rdd =>
+
+        // Access the SQLContext and create a table called demo_numbers we can query
+        val _sqlContext = org.apache.spark.sql.SQLContext.getOrCreate(rdd.sparkContext)
+        _sqlContext.createDataFrame(rdd).toDF("value", "time")
+            .registerTempTable("demo_numbers")
+    } 
+
+    // Start the stream processing
+    ssc.start()
+
+We can then query the DataFrame periodically to see the current set of values present in the batch. In this case, we use the following SQL query. 
+
+    %%sql
+    SELECT * FROM demo_numbers
+
+The resulting output looks similar to the following:
+
+| value	| time |
+| --- | --- |
+|10 | 1497314465256 |
+|11 | 1497314470272 |
+|12	| 1497314475289 |
+|13	| 1497314480310 |
+|14	| 1497314485327 |
+|15	| 1497314490346 |
+
+In the above expect six values in the typical case, because the DummySource creates a value every 5 seconds, and we emit a batch every 30 seconds.
+
 ## Sliding Windows
 If you want to perform aggregate calculations on your DStream over some time period, for example to get an average temperature over the last 2 seconds, you can use the sliding window operations included with Spark Streaming. A sliding window is defined as having a duration (referred to as the window length) and the interval at which the window's content are evaluated (referred toas the slide interval). 
 
@@ -67,6 +128,46 @@ These sliding windows can overlap, for example you can define a window with a le
 ![Example Initial Window with Temperature Events ](./media/hdinsight-spark-streaming-overview/hdinsight-spark-streaming-window-01.png)
 
 ![Example Window with Temperature Events After Sliding](./media/hdinsight-spark-streaming-overview/hdinsight-spark-streaming-window-02.png)
+
+By way of example, we can enhance the code that uses the DummySource above to first collect the batches into a window with a 1 minute duration, that slides by 1 minute as well.
+
+    // A batch is created every 30 seconds
+    val ssc = new org.apache.spark.streaming.StreamingContext(spark.sparkContext, org.apache.spark.streaming.Seconds(30))
+
+    // Set the active SQLContext so that we can access it statically within the foreachRDD
+    org.apache.spark.sql.SQLContext.setActive(spark.sqlContext)
+
+    // Create the stream
+    val stream = ssc.receiverStream(new DummySource())
+
+    // Process batches in 1 minute windows
+    stream.window(org.apache.spark.streaming.Minutes(1)).foreachRDD { rdd =>
+
+        // Access the SQLContext and create a table called demo_numbers we can query
+        val _sqlContext = org.apache.spark.sql.SQLContext.getOrCreate(rdd.sparkContext)
+        _sqlContext.createDataFrame(rdd).toDF("value", "time")
+        .registerTempTable("demo_numbers")
+    } 
+
+    // Start the stream processing
+    ssc.start()
+
+After the first minute, this will yield 12 entries or six entries from each of the two batches collected in the window.
+
+| value	| time |
+| --- | --- |
+| 1 |	1497316294139 |
+| 2 |	1497316299158
+| 3	| 1497316304178
+| 4	| 1497316309204
+| 5	| 1497316314224
+| 6	| 1497316319243
+| 7	| 1497316324260
+| 8	| 1497316329278
+| 9	| 1497316334293
+| 10 | 1497316339314
+| 11 | 1497316344339
+| 12 | 1497316349361
 
 The sliding window functions available in the Spark Streaming API include window, countByWindow, reduceByWindow and countByValueAndWindow. For details on these functions see [Transformations on DStreams](https://people.apache.org/~pwendell/spark-releases/latest/streaming-programming-guide.html#transformations-on-dstreams).
 
