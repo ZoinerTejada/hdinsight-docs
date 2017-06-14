@@ -183,8 +183,8 @@ https://msdn.microsoft.com/en-us/library/dn749783.aspx)
 ### Use Spark for Machine Learning
 #### [Use Spark for Machine Learning](hdinsight-tbd.md)
 > ACTION: NEW
-#### [Configuring R Server on Spark](hdinsight-tbd.md)
-> ACTION: NEW
+#### [Configuring R Server on Spark](https://msdn.microsoft.com/microsoft-r/rserver-install-hadoop-yarnqueueusage)
+> ACTION: NEW <-- suggest moving content from [here](https://msdn.microsoft.com/microsoft-r/rserver-install-hadoop-yarnqueueusage)
 #### [Creating SparkML pipelines](hdinsight-tbd.md)
 > ACTION: NEW
 #### [Creating SparkML models in notebooks](hdinsight-tbd.md)
