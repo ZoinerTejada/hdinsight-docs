@@ -185,7 +185,7 @@ https://msdn.microsoft.com/en-us/library/dn749783.aspx)
 > ACTION: NEW
 #### [Configuring R Server on Spark](https://msdn.microsoft.com/microsoft-r/rserver-install-hadoop-yarnqueueusage)
 > ACTION: NEW <-- suggest moving content from [here](https://msdn.microsoft.com/microsoft-r/rserver-install-hadoop-yarnqueueusage)
-#### [Creating SparkML pipelines](hdinsight-tbd.md)
+#### [Creating SparkML pipelines](hdinsight-creating-spark-ml-pipelines.md)
 > ACTION: NEW
 #### [Creating SparkML models in notebooks](https://docs.microsoft.com/azure/machine-learning/machine-learning-data-science-process-scala-walkthrough)
 > ACTION: NEW <-- suggest linking to content [here](https://docs.microsoft.com/azure/machine-learning/machine-learning-data-science-process-scala-walkthrough)
