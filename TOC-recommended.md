@@ -187,8 +187,8 @@ https://msdn.microsoft.com/en-us/library/dn749783.aspx)
 > ACTION: NEW <-- suggest moving content from [here](https://msdn.microsoft.com/microsoft-r/rserver-install-hadoop-yarnqueueusage)
 #### [Creating SparkML pipelines](hdinsight-tbd.md)
 > ACTION: NEW
-#### [Creating SparkML models in notebooks](hdinsight-tbd.md)
-> ACTION: NEW
+#### [Creating SparkML models in notebooks](https://docs.microsoft.com/azure/machine-learning/machine-learning-data-science-process-scala-walkthrough)
+> ACTION: NEW <-- suggest linking to content [here](https://docs.microsoft.com/azure/machine-learning/machine-learning-data-science-process-scala-walkthrough)
 #### [Use the Microsoft Cognitive Toolkit](hdinsight-apache-spark-microsoft-cognitive-toolkit.md)
 > ACTION: RETITLE. Change title to "Use the Microsoft Cognitive Toolkit from Spark"
 
