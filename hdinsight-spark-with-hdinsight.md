@@ -82,7 +82,7 @@ There are two types of operations that RDDs support:
 ### Transformations and actions code sample
 
 The following code sample demonstrates searching through error messages in a log file that is stored in HDFS:
-
+```Scala
     val file = spark.textFile("hdfs://...")
     val errors = file.filter(line => line.contains("ERROR"))
     // Cache errors
@@ -93,7 +93,7 @@ The following code sample demonstrates searching through error messages in a log
     errors.filter(line => line.contains(“Web")).count()
     // Fetch the MySQL errors as an array of strings
     errors.filter(line => line.contains(“Error")).collect()
-
+```
 In this sample, we're using `hdfs()` and `filter()` **transformations**, and `count()` and `collect()` **actions**.
 
 Notice that in the block of sample code, there are 4 comments:

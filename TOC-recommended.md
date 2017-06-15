@@ -166,9 +166,9 @@ https://msdn.microsoft.com/en-us/library/dn749783.aspx)
 ### Use R Server
 #### [R Server](hdinsight-hadoop-r-server-overview.md)
 > ACTION: RETITLE. Change to "What is R server?"
-#### [Submit jobs from Visual Studio Tools for R](hdinsight-tbd.md)
+#### [Submit jobs from Visual Studio Tools for R](hdinsight-submit-jobs-from-r-tools-for-vs.md)
 > ACTION: NEW
-#### [Submit R jobs from R Studio Server](hdinsight-tbd.md)
+#### [Submit R jobs from R Studio Server](hdinsight-submit-jobs-from-r-studio-server.md)
 > ACTION: NEW
 #### [Storage options](hdinsight-hadoop-r-server-storage.md)
 > ACTION: RETITLE. Change to "Analyze data from Azure Storage and Data Lake Store using R"
@@ -181,14 +181,14 @@ https://msdn.microsoft.com/en-us/library/dn749783.aspx)
 
 
 ### Use Spark for Machine Learning
-#### [Use Spark for Machine Learning](hdinsight-tbd.md)
+#### [Use Spark for Machine Learning](https://docs.microsoft.com/azure/machine-learning/machine-learning-data-science-spark-overview)
+> ACTION: NEW <-- suggest linking to content [here](https://docs.microsoft.com/azure/machine-learning/machine-learning-data-science-spark-overview)
+#### [Configuring R Server on Spark](https://msdn.microsoft.com/microsoft-r/rserver-install-hadoop-yarnqueueusage)
+> ACTION: NEW <-- suggest moving content from [here](https://msdn.microsoft.com/microsoft-r/rserver-install-hadoop-yarnqueueusage)
+#### [Creating SparkML pipelines](hdinsight-creating-spark-ml-pipelines.md)
 > ACTION: NEW
-#### [Configuring R Server on Spark](hdinsight-tbd.md)
-> ACTION: NEW
-#### [Creating SparkML pipelines](hdinsight-tbd.md)
-> ACTION: NEW
-#### [Creating SparkML models in notebooks](hdinsight-tbd.md)
-> ACTION: NEW
+#### [Creating SparkML models in notebooks](https://docs.microsoft.com/azure/machine-learning/machine-learning-data-science-process-scala-walkthrough)
+> ACTION: NEW <-- suggest linking to content [here](https://docs.microsoft.com/azure/machine-learning/machine-learning-data-science-process-scala-walkthrough)
 #### [Use the Microsoft Cognitive Toolkit](hdinsight-apache-spark-microsoft-cognitive-toolkit.md)
 > ACTION: RETITLE. Change title to "Use the Microsoft Cognitive Toolkit from Spark"
 
@@ -249,7 +249,7 @@ https://msdn.microsoft.com/en-us/library/dn749783.aspx)
 #### [Using external metadata stores](hdinsight-tbd.md)
 > ACTION: NEW. Pull content for this from MSDN blog at https://blogs.msdn.microsoft.com/azuredatalake/2017/03/24/hive-metastore-in-hdinsight-tips-tricks-best-practices/
 #### [Writing Hive applications using Java and Python](hdinsight-tbd.md)
-> ACTION: NEW. Create content for this
+> ACTION: NEW. Link to [Java article](https://docs.microsoft.com/azure/hdinsight/hdinsight-hadoop-hive-java-udf) and [Python article](https://docs.microsoft.com/azure/hdinsight/hdinsight-python)
 #### [Use C# user-defined functions](hdinsight-hadoop-hive-pig-udf-dotnet-csharp.md)
 > ACTION: RETITLE. Change title to "Creating user defined functions".
 #### [Process and analyze JSON documents](hdinsight-using-json-in-hive.md)
