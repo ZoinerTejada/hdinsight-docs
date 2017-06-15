@@ -342,8 +342,8 @@ https://msdn.microsoft.com/en-us/library/dn749783.aspx)
 ### Manage Clusters
 #### [Key scenarios to monitor](hdinsight-tbd.md)
 > ACTION: NEW
-#### [Administering HDInsight using the Azure Portal](hdinsight-tbd.md)
-> ACTION: NEW
+#### [Administering HDInsight using the Azure Portal](hdinsight-administer-use-portal-linux.md)
+> ACTION: NEW <-- Link to existing article. Existing article included in this repo and updated with introduction and a couple more links
 
 #### [Cluster and service ports and URIs](hdinsight-hadoop-port-settings-for-services.md)
 > ACTION: RETITLE. Change to "Ports used by Hadoop services on HDInsight"

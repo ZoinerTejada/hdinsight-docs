@@ -24,6 +24,12 @@ ms.author: jgao
 
 Using the [Azure portal][azure-portal], you can manage Hadoop clusters in Azure HDInsight. Use the tab selector for information on managing Hadoop clusters in HDInsight using other tools.
 
+There are many benefits of deploying Hadoop-based clusters in HDInsight, such as not needing to purchase new hardware or other tyical up-front costs. The installation involves answering a few simple questions, and you don't have to worry about capacity planning. Your HDInsight cluster handles any amount of data, scaling from terabytes to petabytes on demand. Spin up any number of nodes at anytime, and you only pay for the compute and storage that you use. What you get is managed Hadoop, backed by an SLA with guaranteed uptime and availability. Managed also means that OS patching and security updates are [performed automatically by Azure](hdinsight-os-patching), requiring minimal IT resources for upgrades and patching. In addition, Hadoop versions are rapidly releasing throughout the year, so you are always on the latest version without effort. Again, this minimizes the IT resources you would otherwise need to update Hadoop versions. Follow [these instructions](hdinsight-upgrade-cluster) to upgrade to a newer version of HDInsight.
+
+Other benefits include automatic geo-replication of data within the same geo-political region (i.e., country), as well as having a second head node for increased availability of the service. Standard implementations of Hadoop clusters typically have a single head node. HDInsight removes this single point of failure with the addition of a [secondary head node](hdinsight-high-availability-linux). The switch to a new HA cluster configuration doesn't change the price of the cluster, unless customers create clusters with an extra-large head node instead of the default large-size node.
+
+Already, you can see that just by using HDInsight, you have fewer responsibilities when it comes to managing your cluster, as opposed to running instances on-premises. Now let's review your options for managing and administering your HDInsight clusters in the Azure portal.
+
 **Prerequisites**
 
 Before you begin this article, you must have the following:
@@ -212,7 +218,7 @@ An HDInsight cluster can have two user accounts. The HDInsight cluster user acco
 You can use the Ambari Web UI to change the Cluster user password. To log into Ambari, you must use the existing cluster username and password.
 
 > [!NOTE]
-> If you change the cluster user (admin) password, this may cause script actions ran against this cluster to fail. If you have any persisted script actions that target worker nodes, these may fail when you add nodes to the cluster through resize operations. For more information on script actions, see [Customize HDInsight clusters using script actions](hdinsight-hadoop-customize-cluster-linux.md).
+> If you change the cluster user (admin) password, this may cause script actions run against this cluster to fail. If you have any persisted script actions that target worker nodes, these may fail when you add nodes to the cluster through resize operations. For more information on script actions, see [Customize HDInsight clusters using script actions](hdinsight-hadoop-customize-cluster-linux.md).
 >
 >
 
@@ -333,6 +339,8 @@ In this article, you have learned how to create an HDInsight cluster by using th
 * [Use Sqoop in HDInsight](hdinsight-use-sqoop.md)
 * [Get Started with Azure HDInsight](hdinsight-hadoop-linux-tutorial-get-started.md)
 * [What version of Hadoop is in Azure HDInsight?](hdinsight-component-versioning.md)
+* [Read more about using the Ambari Web UI](hdinsight-hadoop-manage-ambari)
+* [Details on using the Ambari REST API](hdinsight-hadoop-manage-ambari-rest-api)
 
 [azure-portal]: https://portal.azure.com
 [image-hadoopcommandline]: ./media/hdinsight-administer-use-portal-linux/hdinsight-hadoop-command-line.png "Hadoop command line"
