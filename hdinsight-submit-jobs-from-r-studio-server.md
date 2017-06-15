@@ -204,10 +204,10 @@ If the **R Studio Server** option is not available on the cluster dashboard, as 
 ![Compile Notebook...](./media/hdinsight-submit-jobs-from-r-studio-server/compile-notebook.png)
 ![Compiled Notebook in markdown format](./media/hdinsight-submit-jobs-from-r-studio-server/markdown.png)
 
-## See also
+## Next steps
 
-* Some overview link
+In this article, we've shown how easy it is to execute R scripts through the web-based R Studio Server.
 
-### Scenarios
-
-
+* Learn how to [install R Studio Server](hdinsight-hadoop-r-server-install-r-studio) if you didn't select the option to install it when provisioning your cluster.
+* Walk through an example of [combining ScaleR and SparkR](hdinsight-hadoop-r-scaler-sparkr) for airline flight delay predictions.
+* Learn about using [R Tools for Visual Studio](hdinsight-submit-jobs-from-r-tools-for-vs) as an alternative to submitting jobs, as well as the nice features it offers, such as debugging and intellisense (code completion).
