@@ -249,7 +249,7 @@ https://msdn.microsoft.com/en-us/library/dn749783.aspx)
 #### [Using external metadata stores](hdinsight-tbd.md)
 > ACTION: NEW. Pull content for this from MSDN blog at https://blogs.msdn.microsoft.com/azuredatalake/2017/03/24/hive-metastore-in-hdinsight-tips-tricks-best-practices/
 #### [Writing Hive applications using Java and Python](hdinsight-tbd.md)
-> ACTION: NEW. Create content for this
+> ACTION: NEW. Link to [Java article](https://docs.microsoft.com/azure/hdinsight/hdinsight-hadoop-hive-java-udf) and [Python article](https://docs.microsoft.com/azure/hdinsight/hdinsight-python)
 #### [Use C# user-defined functions](hdinsight-hadoop-hive-pig-udf-dotnet-csharp.md)
 > ACTION: RETITLE. Change title to "Creating user defined functions".
 #### [Process and analyze JSON documents](hdinsight-using-json-in-hive.md)
