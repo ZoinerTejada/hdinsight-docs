@@ -115,13 +115,12 @@ only showing top 20 rows
 
 
 
-From this point, the `model` object can be used to make predictions. The full sample of this machine learning application, and step-by-step instructions for running it, can be found [here](hdinsight-apache-spark-ipython-notebook-machine-learning).
+From this point, the `model` object can be used to make predictions. The full sample of this machine learning application, and step-by-step instructions for running it, can be found [here](https://docs.microsoft.com/azure/hdinsight/hdinsight-apache-spark-ipython-notebook-machine-learning).
 
 
-## See also
+## Next steps
 
-* Some overview link
+This article introduced the key concepts behind Spark ML Pipelines, and illustrated a sample use case of pipelines through code examples.
 
-### Scenarios
-
-
+* See a [full example machine learning application](https://docs.microsoft.com/azure/hdinsight/hdinsight-apache-spark-ipython-notebook-machine-learning) that incorporates Spark ML Pipelines.
+* Learn more about [creating Spark ML models in notebooks](https://docs.microsoft.com/azure/machine-learning/machine-learning-data-science-process-scala-walkthrough).
