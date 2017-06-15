@@ -17,7 +17,7 @@
 	ms.date="09/20/2016" 
 	ms.author="larryfr"/>
 
-#Analyze sensor data using the Hive Query Console on Hadoop in HDInsight
+# Analyze sensor data using the Hive Query Console on Hadoop in HDInsight
 
 Learn how to analyze sensor data by using the Hive Query Console with HDInsight (Hadoop), then visualize the data in Microsoft Excel by using Power View.
 
