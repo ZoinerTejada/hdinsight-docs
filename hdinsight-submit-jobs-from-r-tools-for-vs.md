@@ -118,7 +118,11 @@ After running the `rxHadoopCopy` command that copies the `people.json` file from
 
 ![Containers](./media/hdinsight-submit-jobs-from-r-tools-for-vs/copied-file.png)
 
+5. Make sure you stop your Spark context. You cannot run multiple contexts at once:
 
+```R
+rxStopEngine(mySparkCluster)
+```
 
 ## See also
 
