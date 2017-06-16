@@ -96,16 +96,16 @@ The Hive statements below create a new table, named hvac, by describing the fiel
 2.  Copy and paste the query below and put it in the white textbox in the middle of the screen.
 
 
-	DROP TABLE IF EXISTS hvac;
+		DROP TABLE IF EXISTS hvac;
 
-	--create the hvac table on comma-separated sensor data
-	CREATE EXTERNAL TABLE hvac(`date` STRING, time STRING, targettemp BIGINT,
-		actualtemp BIGINT, 
-		system BIGINT, 
-		systemage BIGINT, 
-		buildingid BIGINT)
-	ROW FORMAT DELIMITED FIELDS TERMINATED BY ',' 
-	STORED AS TEXTFILE LOCATION 'wasbs://sensordata@hivesensordata.blob.core.windows.net/hvac/';
+		--create the hvac table on comma-separated sensor data
+		CREATE EXTERNAL TABLE hvac(`date` STRING, time STRING, targettemp BIGINT,
+			actualtemp BIGINT, 
+			system BIGINT, 
+			systemage BIGINT, 
+			buildingid BIGINT)
+		ROW FORMAT DELIMITED FIELDS TERMINATED BY ',' 
+		STORED AS TEXTFILE LOCATION 'wasbs://sensordata@hivesensordata.blob.core.windows.net/hvac/';
 
 
 3.  Click the green "Execute" button.
@@ -122,15 +122,15 @@ The query will write the results into a new tables: hvac_temperatures (see the C
 2.  Copy and paste the query below and put it in the white textbox in the middle of the screen.
 
 
-	DROP TABLE IF EXISTS hvac_temperatures;
+		DROP TABLE IF EXISTS hvac_temperatures;
 
-	--create the hvac_temperatures table by selecting from the hvac table
-	CREATE TABLE hvac_temperatures AS
-	SELECT *, targettemp - actualtemp AS temp_diff, 
-		IF((targettemp - actualtemp) > 5, 'COLD', 
-		IF((targettemp - actualtemp) < -5, 'HOT', 'NORMAL')) AS temprange, 
-		IF((targettemp - actualtemp) > 5, '1', IF((targettemp - actualtemp) < -5, '1', 0)) AS extremetemp
-	FROM hvac;
+		--create the hvac_temperatures table by selecting from the hvac table
+		CREATE TABLE hvac_temperatures AS
+		SELECT *, targettemp - actualtemp AS temp_diff, 
+			IF((targettemp - actualtemp) > 5, 'COLD', 
+			IF((targettemp - actualtemp) < -5, 'HOT', 'NORMAL')) AS temprange, 
+			IF((targettemp - actualtemp) > 5, '1', IF((targettemp - actualtemp) < -5, '1', 0)) AS extremetemp
+		FROM hvac;
 
 
 3.  Click the green "Execute" button.

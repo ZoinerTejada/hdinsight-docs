@@ -12,7 +12,7 @@ keywords: HDInsight, Catalog, Hive
 
 Hive Metastore is critical part of Hadoop architecture as it acts as a central schema repository which can be used by other access tools like Spark, Interactive Hive (LLAP), Presto, Pig, and many other Big Data engines.
 
-[HDInsight Hive Metadata Store Architecture](./media/hdinsight-use-external-metadata-stores/metadata-store-architecture.png)
+![HDInsight Hive Metadata Store Architecture](./media/hdinsight-use-external-metadata-stores/metadata-store-architecture.png)
 
 In HDInsight, we use Azure SQL database as Hive Metastore. Azure SQL DB is relational database-as-a-service (DBaaS) hosted in the Azure.
 
@@ -35,7 +35,7 @@ This is generally good option for relatively simple workload where you don’t h
 * You pay for the cost of Metastore (Azure SQL DB) according to the performane level you choose.  
 * You can scale up the metastore as needed.
 
-[HDInsight Hive Metadata Store Use Case](./media/hdinsight-use-external-metadata-stores/metadata-store-use-case.png)
+![HDInsight Hive Metadata Store Use Case](./media/hdinsight-use-external-metadata-stores/metadata-store-use-case.png)
 
 Image – Typical shared custom Metastore scenario in HDInsight
 
@@ -52,11 +52,11 @@ Here are general HDinsight Hive Metastore best practices that you should conside
 
 You can easily point your cluster to a pre-created Azure SQL DB during cluster creation as well as after cluster is created. The option is under storage –> Metastore settings while creating a new Hadoop , Spark or Intractive Hive cluster from Azure portal
 
-[HDInsight Hive Metadata Store Azure Portal](./media/hdinsight-use-external-metadata-stores/metadata-store-azure-portal.png)
+![HDInsight Hive Metadata Store Azure Portal](./media/hdinsight-use-external-metadata-stores/metadata-store-azure-portal.png)
 
 Additionally, You can add additional clusters to the Custom Metastore for Azure Portal as well as from Ambari configurations ( Hive –>Advanced)
 
-[HDInsight Hive Metadata Store Ambari](./media/hdinsight-use-external-metadata-stores/metadata-store-ambari.png)
+![HDInsight Hive Metadata Store Ambari](./media/hdinsight-use-external-metadata-stores/metadata-store-ambari.png)
 As discussed above Hive Metastore is critical component of Hadoop and Spark architecture and picking up right Metastore strategy will certainly help you with right Architecture and user experience.
 
 
