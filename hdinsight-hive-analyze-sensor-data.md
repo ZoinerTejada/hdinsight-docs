@@ -36,7 +36,7 @@ In this example, you'll use Hive to process historical data produced by heating,
 	 	https://<clustername>.azurehdinsight.net
 
 When prompted, authenticate by using the administrator user name and password you used when provisioning this cluster.  On the right, click on "Hive".  Look for Hive View 2.0 towards the bottom of the center page, then click on "Go to View."  Stay on this page as we begin the tutorial.
-[Hive Dashboard](./media/hdinsight-hive-analyze-sensor-data/hdinsight-sensor-data-dashboard.png)
+![Hive Dashboard](./media/hdinsight-hive-analyze-sensor-data/hdinsight-sensor-data-dashboard.png)
 
 
 2. Install the Hive ODBC Driver on Windows.
@@ -61,13 +61,13 @@ Let's load the sensor data into your default storage account.
 
 2.  On the right pane, click on  **Storage Accounts**. 
 
-[Storage Account](./media/hdinsight-hive-analyze-sensor-data/hdinsight-sensor-data-storage-account.png)
+![Storage Account](./media/hdinsight-hive-analyze-sensor-data/hdinsight-sensor-data-storage-account.png)
 
 3.  Click on your storage account.
 
 4.  Click on "Open in Explorer"
 
-[Open in Explorer](./media/hdinsight-hive-analyze-sensor-data/hdinsight-sensor-data-open-in-explorer.png)
+![Open in Explorer](./media/hdinsight-hive-analyze-sensor-data/hdinsight-sensor-data-open-in-explorer.png)
 
 5.  If you haven't already installed Azure Storage Explorer, this will prompt you to.
 
@@ -85,7 +85,7 @@ Let's load the sensor data into your default storage account.
 
 [hvac csv file](./media/hdinsight-hive-analyze-sensor-data/hvac.csv)
 
-## Creating Hive Tables to Query the Sensor Data in the Windows Azure Blob Storage
+## Creating Hive Tables to Query the Sensor Data in the Azure Storage Blobs
 
 The following Hive statement creates an external table that allows Hive to query data stored in Azure Blob Storage. External tables preserve the data in the original file format while allowing Hive to perform queries against the data within the file. In this case, the data is stored in the file as comma separated values (CSV).
 
@@ -95,16 +95,18 @@ The Hive statements below create a new table, named hvac, by describing the fiel
 
 2.  Copy and paste the query below and put it in the white textbox in the middle of the screen.
 
-DROP TABLE IF EXISTS hvac;
 
---create the hvac table on comma-separated sensor data
-CREATE EXTERNAL TABLE hvac(`date` STRING, time STRING, targettemp BIGINT,
-    actualtemp BIGINT, 
-    system BIGINT, 
-    systemage BIGINT, 
-    buildingid BIGINT)
-ROW FORMAT DELIMITED FIELDS TERMINATED BY ',' 
-STORED AS TEXTFILE LOCATION 'wasbs://sensordata@hivesensordata.blob.core.windows.net/hvac/';
+	DROP TABLE IF EXISTS hvac;
+
+	--create the hvac table on comma-separated sensor data
+	CREATE EXTERNAL TABLE hvac(`date` STRING, time STRING, targettemp BIGINT,
+		actualtemp BIGINT, 
+		system BIGINT, 
+		systemage BIGINT, 
+		buildingid BIGINT)
+	ROW FORMAT DELIMITED FIELDS TERMINATED BY ',' 
+	STORED AS TEXTFILE LOCATION 'wasbs://sensordata@hivesensordata.blob.core.windows.net/hvac/';
+
 
 3.  Click the green "Execute" button.
 
@@ -119,15 +121,17 @@ The query will write the results into a new tables: hvac_temperatures (see the C
 
 2.  Copy and paste the query below and put it in the white textbox in the middle of the screen.
 
-DROP TABLE IF EXISTS hvac_temperatures;
 
---create the hvac_temperatures table by selecting from the hvac table
-CREATE TABLE hvac_temperatures AS
-SELECT *, targettemp - actualtemp AS temp_diff, 
-    IF((targettemp - actualtemp) > 5, 'COLD', 
-    IF((targettemp - actualtemp) < -5, 'HOT', 'NORMAL')) AS temprange, 
-    IF((targettemp - actualtemp) > 5, '1', IF((targettemp - actualtemp) < -5, '1', 0)) AS extremetemp
-FROM hvac;
+	DROP TABLE IF EXISTS hvac_temperatures;
+
+	--create the hvac_temperatures table by selecting from the hvac table
+	CREATE TABLE hvac_temperatures AS
+	SELECT *, targettemp - actualtemp AS temp_diff, 
+		IF((targettemp - actualtemp) > 5, 'COLD', 
+		IF((targettemp - actualtemp) < -5, 'HOT', 'NORMAL')) AS temprange, 
+		IF((targettemp - actualtemp) > 5, '1', IF((targettemp - actualtemp) < -5, '1', 0)) AS extremetemp
+	FROM hvac;
+
 
 3.  Click the green "Execute" button.
 
@@ -141,11 +145,11 @@ Once the job has successfully completed, you can use the Microsoft Hive ODBC Dri
 
 2. From the Data tab, select From Other Sources, and then select From Microsoft Query.
 
-[Excel Open Other Data Sources](./media/hdinsight-hive-analyze-sensor-data/hdinsight-sensor-data-open-other-data-sources.png)
+![Excel Open Other Data Sources](./media/hdinsight-hive-analyze-sensor-data/hdinsight-sensor-data-open-other-data-sources.png)
 
 3. Choose the hive ODBC driver.
 
-[Excel Open Hive Driver](./media/hdinsight-hive-analyze-sensor-data/hdinsight-sensor-data-choose-hive-odbc.png)
+![Excel Open Hive Driver](./media/hdinsight-hive-analyze-sensor-data/hdinsight-sensor-data-choose-hive-odbc.png)
 
 4. In the Microsoft Hive ODBC Driver Connection dialog, enter the following values, and then click OK.
 
@@ -154,35 +158,33 @@ Once the job has successfully completed, you can use the Microsoft Hive ODBC Dri
 * Password - The administrator password
 * All other fields can be left as the default values.
 
-[Excel Hive ODBC Connection Information](./media/hdinsight-hive-analyze-sensor-data/hdinsight-sensor-data-connectioninformation.png)
+![Excel Hive ODBC Connection Information](./media/hdinsight-hive-analyze-sensor-data/hdinsight-sensor-data-connectioninformation.png)
 
 5. In the Query Wizard, select the hvac_temperatures table, and then select the > button.
 
-[Excel Hive Query Wizard](./media/hdinsight-hive-analyze-sensor-data/hdinsight-sensor-data-querywizard.png)
+![Excel Hive Query Wizard](./media/hdinsight-hive-analyze-sensor-data/hdinsight-sensor-data-querywizard.png)
 
 6. Click Next to continue through the wizard, until you reach a dialog with a Finish button. Click Finish.
 
 7. When the Import Data dialog appears, click OK to accept the defaults. After the query completes, the data will be displayed in Excel.
 
-[Excel Hive Query Results](./media/hdinsight-hive-analyze-sensor-data/hdinsight-sensor-data-queryresults)
-
 8.  Click **Pivot Table Report** and then **OK**
 
-[Excel Hive Pivot Table](./media/hdinsight-hive-analyze-sensor-data/hdinsight-sensor-data-pivottable.png)
+![Excel Hive Pivot Table](./media/hdinsight-hive-analyze-sensor-data/hdinsight-sensor-data-pivottable.png)
 
 9.  In the pivot table, buildingid to rows, date to columns, and actualtemp to the values.
 
-[Excel Hive Setup Pivot](./media/hdinsight-hive-analyze-sensor-data/hdinsight-sensor-data-createpivot.png)
+![Excel Hive Setup Pivot](./media/hdinsight-hive-analyze-sensor-data/hdinsight-sensor-data-createpivot.png)
 
 10.  Click on the dropdown arrow next ot actualtemp in the values section and click **Value Field Settings**.
 
-[Excel Hive Setup Pivot](./media/hdinsight-hive-analyze-sensor-data/hdinsight-sensor-data-value-change.png)
+![Excel Hive Setup Pivot](./media/hdinsight-hive-analyze-sensor-data/hdinsight-sensor-data-value-change.png)
 
 11.  Change the count to an average and click **OK**.
 
 12.  You should be able to see interesting trends by date for each buildings temperature.  Your results should look like the following:
 
-[Excel Hive Setup Pivot](./media/hdinsight-hive-analyze-sensor-data/hdinsight-sensor-data-results.png)
+![Excel Hive Setup Pivot](./media/hdinsight-hive-analyze-sensor-data/hdinsight-sensor-data-results.png)
 
 
 
