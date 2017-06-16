@@ -18,7 +18,7 @@ Another way to architect an ETL solution is to use ELT.  ELT systems simply do t
 ## Use case and model overview
 Figure 1 shows an overview of the use case and model for ETL automation. Input data is transformed to generate the appropriate output.  During that transformation the data can change shape, data type, and even language.  ETL processes can convert Imperial to Metric, change time zones, improve precision to properly align with existing data in the destination.  ETL processes will also combine new data with existing data to either keep reporting up to date or provide further insight into existing data.  Applications such as reporting tools and services can then consume this data in an appropriate format, and use it for a variety of purposes.
 
-[Apache Hive as ETL](./media/hdinsight-using-apache-hive=as=an-etl-tool/hdinsight-etl-architecture.png)
+![Apache Hive as ETL](./media/hdinsight-using-apache-hive-as-an-etl-tool/hdinsight-etl-architecture.png)
 
 Hadoop is typically used in ETL processes that import either a massive amount of text files (like CSVs) or a smaller, but frequently changing amount of text files, or both massive and frequently changing.  Hive is a great tool to use to prepare the data before loading it into the data destination.  The Hive metadata store allows you to create a schema over the CSV and use a SQL-like language to interact with it.  SQL is an accessible language that most developers have already mastered.
 
@@ -32,7 +32,16 @@ The typical steps to using Hive to perform ETL would look like this:
 
 4)  Create a Hive Metadata Store table that looks like this:
 
-TODO: Show Hive Syntax
+    DROP TABLE IF EXISTS hvac;
+
+    --create the hvac table on comma-separated sensor data
+    CREATE EXTERNAL TABLE hvac(`date` STRING, time STRING, targettemp BIGINT,
+        actualtemp BIGINT, 
+        system BIGINT, 
+        systemage BIGINT, 
+        buildingid BIGINT)
+    ROW FORMAT DELIMITED FIELDS TERMINATED BY ',' 
+    STORED AS TEXTFILE LOCATION 'wasb://{container}@{storageaccount}.blob.core.windows.net/HdiSamples/SensorSampleData/hvac/';
 
 5)  Transform it and load it into the destination.  There are two ways to do that:
 
