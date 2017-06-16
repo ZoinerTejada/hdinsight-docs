@@ -1,14 +1,21 @@
 # Overview   
 ## [About HDInsight and Hadoop](hdinsight-hadoop-introduction.md)
 ### [Iterative data exploration](hdinsight-tbd.md) 
-> ACTION: NEW. Pull content for this from P&P site at https://msdn.microsoft.com/en-us/library/dn749842.aspx
+> ACTION: MIGRATE. Migrate content for this from P&P site at https://msdn.microsoft.com/en-us/library/dn749842.aspx
 ### [Data Warehouse on demand](hdinsight-tbd.md) 
-> ACTION: NEW. Pull content for this from P&P site at  
+> ACTION: MIGRATE. Migrate content for this from P&P site at  
 https://msdn.microsoft.com/en-us/library/dn749783.aspx) 
+### [ETL at scale](hdinsight-tbd.md)
+> ACTION: NEW
 ### [Streaming at scale](hdinsight-streaming-at-scale-overview.md)
 > ACTION: NEW
 ### [Machine learning](hdinsight-machine-learning-overview.md) 
 > ACTION: NEW
+### [Hadoop, Spark Programming](hdinsight-tbd.md)
+> ACTION: NEW
+### [Run Custom Programs](hdinsight-tbd.md)
+> ACTION: NEW 
+
 ## [Hadoop components on HDInsight](hdinsight-component-versioning.md)
 ### [R Server](hdinsight-hadoop-r-server-overview.md)
 ### [Apache Hive](hdinsight-use-hive)
@@ -19,14 +26,17 @@ https://msdn.microsoft.com/en-us/library/dn749783.aspx)
 ### [Kafka (Preview)](hdinsight-apache-kafka-introduction.md)
 > ACTION: RETITLE. Change to "Apache Kafka (Preview)".
 ### [Domain-joined HDInsight clusters (Preview)](hdinsight-domain-joined-introduction.md)
+
 ## Azure HDInsight and Hadoop Architecture
-### [HDInsight Architecture](hdinsight-tbd.md)
+### [HDInsight Architecture](hdinsight-architecture.md)
 > ACTION: NEW
-### [Lifecycle of an HDInsight Cluster](hdinsight-tbd.md) 
+### [Hadoop Architecture](hdinsight-architecture.md)
+> ACTION: NEW
+### [Lifecycle of an HDInsight Cluster](hdinsight-lifecycle-of-an-hdinsight-cluster.md) 
 > ACTION: NEW
 ### [High availability](hdinsight-high-availability-linux.md)
-> ACTION: NEW
-### [Capacity planning](hdinsight-tbd.md)
+> ACTION: POINTTO existing article hdinsight-high-availability-linux 
+### [Capacity planning](hdinsight-capacity-planning.md)
 > ACTION: NEW
 ## Release notes
 ### [Recent](hdinsight-release-notes.md)
@@ -102,7 +112,7 @@ https://msdn.microsoft.com/en-us/library/dn749783.aspx)
 ##### [Use DataFu](hdinsight-hadoop-use-pig-datafu-udf.md)
 
 ### Use Spark for batch processing
-#### [Use Spark with HDInsight](hdinsight-tbd.md)
+#### [Use Spark with HDInsight](hdinsight-spark-with-hdinsight.md)
 > ACTION: NEW
 #### [With Data Lake Store](hdinsight-apache-spark-use-with-data-lake-store.md)
 > ACTION: RETITLE. Change to "Use Spark to process data in Data Lake Store"
@@ -112,7 +122,7 @@ https://msdn.microsoft.com/en-us/library/dn749783.aspx)
 > ACTION: RETITLE: Submit Spark batch jobs using Livy
 
 ### Use Spark SQL for batch queries
-#### [Use Spark SQL with HDInsight](hdinsight-tbd.md)
+#### [Use Spark SQL with HDInsight](hdinsight-spark-sql-with-hdinsight.md)
 > ACTION: NEW
 
 ## Interactively query data
@@ -129,9 +139,9 @@ https://msdn.microsoft.com/en-us/library/dn749783.aspx)
 ## Process data in real-time
 
 ### Use Spark for stream processing
-#### [What is Spark Streaming?](hdinsight-tbd.md)
+#### [What is Spark Streaming?](hdinsight-spark-streaming-overview.md)
 > ACTION: NEW
-#### [What is Spark Structured Streaming?](hdinsight-tbd.md)
+#### [What is Spark Structured Streaming?](hdinsight-spark-structured-streaming-overview.md)
 > ACTION: NEW
 #### [Use with Spark](hdinsight-apache-spark-with-kafka.md)
 > ACTION: RETITLE. Change to "Use Spark to process events from Kafka"
@@ -143,7 +153,7 @@ https://msdn.microsoft.com/en-us/library/dn749783.aspx)
 > ACTION: UPDATE. Update to include coverage of both Spark Streaming and Stuctured Streaming
 #### [Creating highly available Spark Streaming jobs in YARN](hdinsight-tbd.md)
 > ACTION: NEW
-#### [Creating Spark Streaming jobs with exactly once event processing guarantees](hdinsight-tbd.md)
+#### [Creating Spark Streaming jobs with exactly once event processing guarantees](hdinsight-spark-streaming-exactly-once.md)
 > ACTION: NEW
 #### [Publishing real-time updates from Spark to Power BI](hdinsight-tbd.md)
 > ACTION: NEW
@@ -172,8 +182,6 @@ https://msdn.microsoft.com/en-us/library/dn749783.aspx)
 > ACTION: NEW
 #### [Storage options](hdinsight-hadoop-r-server-storage.md)
 > ACTION: RETITLE. Change to "Analyze data from Azure Storage and Data Lake Store using R"
-
-
 #### [Compute contexts](hdinsight-hadoop-r-server-compute-contexts.md)
 > ACTION: UPDATE. Add additional guidance on benefits of Spark vs. R Server on Hadoop
 
@@ -182,13 +190,13 @@ https://msdn.microsoft.com/en-us/library/dn749783.aspx)
 
 ### Use Spark for Machine Learning
 #### [Use Spark for Machine Learning](https://docs.microsoft.com/azure/machine-learning/machine-learning-data-science-spark-overview)
-> ACTION: NEW <-- suggest linking to content [here](https://docs.microsoft.com/azure/machine-learning/machine-learning-data-science-spark-overview)
+> ACTION: POINTTO suggest linking to content [here](https://docs.microsoft.com/azure/machine-learning/machine-learning-data-science-spark-overview)
 #### [Configuring R Server on Spark](https://msdn.microsoft.com/microsoft-r/rserver-install-hadoop-yarnqueueusage)
-> ACTION: NEW <-- suggest moving content from [here](https://msdn.microsoft.com/microsoft-r/rserver-install-hadoop-yarnqueueusage)
+> ACTION: MIGRATE suggest migrating content from [here](https://msdn.microsoft.com/microsoft-r/rserver-install-hadoop-yarnqueueusage)
 #### [Creating SparkML pipelines](hdinsight-creating-spark-ml-pipelines.md)
 > ACTION: NEW
 #### [Creating SparkML models in notebooks](https://docs.microsoft.com/azure/machine-learning/machine-learning-data-science-process-scala-walkthrough)
-> ACTION: NEW <-- suggest linking to content [here](https://docs.microsoft.com/azure/machine-learning/machine-learning-data-science-process-scala-walkthrough)
+> ACTION: POINTO suggest linking to content [here](https://docs.microsoft.com/azure/machine-learning/machine-learning-data-science-process-scala-walkthrough)
 #### [Use the Microsoft Cognitive Toolkit](hdinsight-apache-spark-microsoft-cognitive-toolkit.md)
 > ACTION: RETITLE. Change title to "Use the Microsoft Cognitive Toolkit from Spark"
 
@@ -242,14 +250,14 @@ https://msdn.microsoft.com/en-us/library/dn749783.aspx)
 #### [Use Python with Hive and Pig](hdinsight-python.md)
 
 ### Develop Hive applications
-#### [Hive and ETL Overview](hdinsight-tbd.md)
+#### [Hive and ETL Overview](hdinsight-using-apache-hive-as-an-etl-tool.md)
 > ACTION: NEW. Create content for this
 #### [Connect using the Hive JDBC driver](hdinsight-connect-hive-jdbc-driver.md)
 > ACTION: RETITLE. Change title to "Connect to Hive with JDBC or ODBC".
-#### [Using external metadata stores](hdinsight-tbd.md)
+#### [Using external metadata stores](hdinsight-using-external-metadata-stores.md)
 > ACTION: NEW. Pull content for this from MSDN blog at https://blogs.msdn.microsoft.com/azuredatalake/2017/03/24/hive-metastore-in-hdinsight-tips-tricks-best-practices/
 #### [Writing Hive applications using Java and Python](hdinsight-tbd.md)
-> ACTION: NEW. Link to [Java article](https://docs.microsoft.com/azure/hdinsight/hdinsight-hadoop-hive-java-udf) and [Python article](https://docs.microsoft.com/azure/hdinsight/hdinsight-python)
+> ACTION: POINTTO. Link to [Java article](https://docs.microsoft.com/azure/hdinsight/hdinsight-hadoop-hive-java-udf) and [Python article](https://docs.microsoft.com/azure/hdinsight/hdinsight-python)
 #### [Use C# user-defined functions](hdinsight-hadoop-hive-pig-udf-dotnet-csharp.md)
 > ACTION: RETITLE. Change title to "Creating user defined functions".
 #### [Process and analyze JSON documents](hdinsight-using-json-in-hive.md)
@@ -269,7 +277,7 @@ https://msdn.microsoft.com/en-us/library/dn749783.aspx)
 > ACTION: UPDATE. Content is written for a Windows cluster, update for Linux.
 
 ### Develop Spark applications
-#### [Run Spark from the Shell](hdinsight-tbd.md)
+#### [Run Spark from the Shell](hdinsight-spark-shell.md)
 > ACTION: NEW. Create content for this. 
 #### [Create standalone app](hdinsight-apache-spark-create-standalone-application.md)
 #### [Create apps using Eclipse](hdinsight-apache-spark-eclipse-tool-plugin.md)
@@ -277,8 +285,8 @@ https://msdn.microsoft.com/en-us/library/dn749783.aspx)
 > ACTION: RETITLE. Change to "Use the HDInsight Tools for Eclipse"
 #### [Create apps using IntelliJ](hdinsight-apache-spark-intellij-tool-plugin.md)
 #### [Debug jobs remotely with IntelliJ](hdinsight-apache-spark-intellij-tool-plugin-debug-jobs-remotely.md)
-#### [Debug Spark apps by setting up VPNs](hdinsight-tbd.md)
-> ACTION: New. Create content for this.
+#### [Debug Spark apps by setting up VPNs](hdinsight-apache-spark-intellij-tool-plugin-debug-jobs-remotely)
+> ACTION: POINTTO. VPN debugging is already covered in hdinsight-apache-spark-intellij-tool-plugin-debug-jobs-remotely
 #### Spark samples
 ##### [Analyze Application Insights telemetry logs](hdinsight-spark-analyze-application-insight-logs.md)
 > ACTION: RETITLE. Change to "Analyze Application Insights telemetry with Spark"
@@ -302,12 +310,9 @@ https://msdn.microsoft.com/en-us/library/dn749783.aspx)
 ###  Serialize and deserialize data
 #### [Serialize data with Avro Library](hdinsight-dotnet-avro-serialization.md)
 
-
-
 ## Analyze big data
 ### [Analyze using Power Query](hdinsight-connect-excel-power-query.md)
 ### [Generate recommendations with Mahout](hdinsight-hadoop-mahout-linux-mac.md)
-
 
 ## Extend clusters
 ### [Customize clusters using Bootstrap](hdinsight-hadoop-customize-cluster-bootstrap.md)
@@ -342,8 +347,8 @@ https://msdn.microsoft.com/en-us/library/dn749783.aspx)
 ### Manage Clusters
 #### [Key scenarios to monitor](hdinsight-tbd.md)
 > ACTION: NEW
-#### [Administering HDInsight using the Azure Portal](hdinsight-tbd.md)
-> ACTION: NEW
+#### [Administering HDInsight using the Azure Portal](hdinsight-administer-use-portal-linux.md)
+> ACTION: NEW <-- Link to existing article. Existing article included in this repo and updated with introduction and a couple more links
 
 #### [Cluster and service ports and URIs](hdinsight-hadoop-port-settings-for-services.md)
 > ACTION: RETITLE. Change to "Ports used by Hadoop services on HDInsight"
@@ -367,9 +372,6 @@ https://msdn.microsoft.com/en-us/library/dn749783.aspx)
 > ACTION: RETITLE. Change to "Using a single Data Lake Store from multiple HDInsight clusters"
 #### [Install RStudio](hdinsight-hadoop-r-server-install-r-studio.md)
 > ACTION: RETITLE. Change to "Install R Studio Server on HDInsight"
-
-### Manage Windows Clusters
-> ACTION: ??? - Is this useful?
 
 ### [Manage Hadoop clusters](hdinsight-administer-use-portal-linux.md)
 #### [Use .NET SDK](hdinsight-administer-use-dotnet-sdk.md)

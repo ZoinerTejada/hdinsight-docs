@@ -124,10 +124,10 @@ After running the `rxHadoopCopy` command that copies the `people.json` file from
 rxStopEngine(mySparkCluster)
 ```
 
-## See also
+## Next steps
 
-* Some overview link
+In this article, we've walked through the steps to use R Tools for Visual Studio, and how to create a compute context that allows you to execute commands on your HDInsight cluster.
 
-### Scenarios
-
-
+* Learn more about [compute context options for R Server on HDInsight](hdinsight-hadoop-r-server-compute-contexts).
+* Walk through an example of [combining ScaleR and SparkR](hdinsight-hadoop-r-scaler-sparkr) for airline flight delay predictions.
+* Read about an alternative way of submitting R jobs, using [R Studio Server](hdinsight-submit-jobs-from-r-studio-server)

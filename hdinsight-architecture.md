@@ -81,6 +81,19 @@ In addition to an OS disk and a temp disk, Azure Virtual Machines support data d
 >
 >
 
+## Gateway Nodes
+In addition to the node type previously described, in every HDInsight cluster there are another two nodes that are invisibly supporting communication with the cluster. These are the Gateway nodes. The Gateway nodes provide load balanced HTTPS access to the cluster (such as when accessing Ambari), provide SSL support, handles cluster credential validation, and act as a reverse proxy to communicate with a subset of Hadoop services running on the cluster. 
+
+![HDInsight Gateway Nodes](./media/hdinsight-architecture/hdinsight-gateway-nodes.png)
+
+If you are accessing your cluster via a URL of the form:
+
+    https://<clustername>.azurehdinsight.net
+
+Then you are communicating with the cluster through one of the Gateway nodes.
+
+It is important to note that the Gateway nodes do not provide support for SSH access to the cluster, as that is accomplished thru direct access to the head nodes. 
+
 ## <a name="cluster-types"></a> Data Storage Architecture  
 Given that you should not use the local virtual machine storage for your data, where should you store the data managed by your HDInsight cluster? 
 
