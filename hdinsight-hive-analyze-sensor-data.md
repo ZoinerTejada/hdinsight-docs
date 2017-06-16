@@ -19,9 +19,7 @@ In this example, you'll use Hive to process historical data produced by heating,
 * Use Microsoft Excel to connect to HDInsight (using open database connectivity (ODBC) to retrieve the analyzed data.
 * Use Power View to visualize the data.
 
-![A diagram of the solution architecture](./media/hdinsight-hive-analyze-sensor-data/hvac-architecture.png)
-
-##Prerequisites
+## Prerequisites
 
 * An HDInsight (Hadoop) cluster: See [Provision Hadoop clusters in HDInsight](hdinsight-provision-clusters.md) for information about creating a cluster.
 
@@ -55,7 +53,7 @@ In this tutorial, you'll learn how HDInsight can be used to process historical d
 * Infer reliability of HVAC systems used in the buildings
 * Visualize the data in Microsoft Excel
 
-# Sensor Data Loaded Into Windows Azure Storage Blob
+# Sensor Data Loaded Into Azure Storage Blobs
 
 Let's load the sensor data into your default storage account.  
 
