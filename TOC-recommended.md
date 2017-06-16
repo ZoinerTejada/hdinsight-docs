@@ -28,7 +28,7 @@ https://msdn.microsoft.com/en-us/library/dn749783.aspx)
 ### [Domain-joined HDInsight clusters (Preview)](hdinsight-domain-joined-introduction.md)
 
 ## Azure HDInsight and Hadoop Architecture
-### [HDInsight Architecture](hdinsight-architecture.md)
+### [HDInsight Architecture](hdinsight-hadoop-architecture.md)
 > ACTION: NEW
 ### [Hadoop Architecture](hdinsight-architecture.md)
 > ACTION: NEW
