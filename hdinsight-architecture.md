@@ -125,7 +125,7 @@ HDInsight supports the use of a custom metastore for Hive and Oozie. The Hive me
 
 By default, the metastore is an embedded Derby database, but in HDInsight you can configure the cluster to use an Azure SQL Database instance instead by configuring a custom metastore. Custom metastores can only be configured during the cluster creation process.
 
-Oozie uses a metatore to store details about current and completed worklflows. To increase performance when using Oozie, you can use SQL Database as a custom metastore. The metastore can also provide access to Oozie job data after you delete your cluster. 
+Oozie uses a metastore to store details about current and completed worklflows. To increase performance when using Oozie, you can use SQL Database as a custom metastore. The metastore can also provide access to Oozie job data after you delete your cluster. 
 
 By combining use of SQL Database as your metastore with Azure Storage or Data Lake Store for persisting your data, you ensure that you can re-create your cluster without first having to reload either the data or the metadata.
 
