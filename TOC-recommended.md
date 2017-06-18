@@ -150,7 +150,9 @@ https://msdn.microsoft.com/en-us/library/dn749783.aspx)
 #### [Process streaming events](hdinsight-apache-spark-eventhub-streaming.md)
 > ACTION: RETITLE. Change to "Use Spark to process events from Event Hubs"
 
-> ACTION: UPDATE. Update to include coverage of both Spark Streaming and Stuctured Streaming
+#### [Process streaming events from Event Hubs with Spark Structured Streaming](hdinsight-spark-structured-streaming-from-event-hubs.md)
+> ACTION: NEW. 
+
 #### [Creating highly available Spark Streaming jobs in YARN](hdinsight-tbd.md)
 > ACTION: NEW
 #### [Creating Spark Streaming jobs with exactly once event processing guarantees](hdinsight-spark-streaming-exactly-once.md)
