@@ -325,6 +325,96 @@ The number of mappers can be controlled by modifying the property `pig.maxCombin
 The number of reducers is calculated based on the parameter `pig.exec.reducers.bytes.per.reducer`. The parameter specifies the number of bytes processed per reducer. The default value is 1 GB. To limit the maximum number of reducers, set the `pig.exec.reducers.max` property. The default value is 999.
 
 
+## HBase optimization with the Ambari web UI
+
+HBase configuration can be easily modified from the HBase Configs tab. In this section, we’ll look at some of the important configuration settings that affect HBase performance.
+
+
+### Set HBASE_HEAPSIZE
+
+This specifies the maximum amount of heap to be used in megabytes by **region** and **master** servers. The default value is 1,000 MB. This should be tuned as per the cluster workload.
+
+1. To modify, navigate to the **Advanced HBase-env** pane in the HBase **Configs** tab, and then find the `HBASE_HEAPSIZE` setting.
+
+2. Change the default value to 5,000 MB.
+
+![HBASE_HEAPSIZE](./media/hdinsight-changing-configs-via-ambari/hbase-heapsize.png)
+
+
+### Optimize read-heavy workloads
+
+The following configurations are important to improve the performance of read-heavy workloads.
+
+#### Block cache size
+
+The block cache is the read cache. This is controlled by the `hfile.block.cache.size` parameter. The default value is 0.4, which is 40 percent of the total region server memory. The larger the block cache size, the faster the random reads will be.
+
+1. To modify this parameter, navigate to the **Settings** tab in the HBase **Configs** tab, and then locate **% of RegionServer Allocated to Read Buffers**.
+
+![HBase block cache size](./media/hdinsight-changing-configs-via-ambari/hbase-block-cache-size.png)
+ 
+2. Click the **Edit** icon to change the value.
+
+
+#### Memstore size
+
+All edits are stored in the memory buffer, or Memstore. This increases the total amount of data that can be written to disk in a single operation, and it speeds subsequent access to the recent edits. The Memstore size is defined by the following two parameters:
+
+* `hbase.regionserver.global.memstore.UpperLimit`: Defines the maximum percentage of the region server that Memstore combined can use.
+
+* `hbase.regionserver.global.memstore.LowerLimit`: Defines the minimum percentage of the region server that Memstore combined can use.
+
+To optimize for random reads, you can reduce the Memstore upper and lower limits using these parameters.
+
+
+#### Number of rows fetched when scanning from disk
+
+This setting defines the number of rows read from disk when the next method is called on a scanner. This is defined by the parameter `hbase.client.scanner.caching`. The default value is 100. The higher the number, the fewer the remote calls made from the client to the region server, resulting in faster scans. However, this will also increase memory pressure on the client.
+
+![HBase number of rows fetched](./media/hdinsight-changing-configs-via-ambari/hbase-num-rows-fetched.png)
+
+> Note: Do not set the values such that the time between invocation of the next method on a scanner is greater than the scanner timeout. The scanner timeout is defined by the `hbase.regionserver.lease.period` property.
+
+
+### Optimize write-heavy workloads
+
+The following configurations are important to improve the performance of write-heavy workloads.
+
+
+#### Maximum region file size
+
+The property `hbase.hregion.max.filesize` defines the size of a single HFile for a region. HBase stores the data in an internal file format, or HFile. A region is split into two regions if the sum of all HFiles in a region is greater than this setting.
+ 
+![HBase HRegion max filesize](./media/hdinsight-changing-configs-via-ambari/hbase-hregion-max-filesize.png)
+
+The larger the region file size, the fewer number of splits. Ideally, you can increase the value and settle for the one that gets you the maximum write performance.
+
+
+#### Avoid update blocking
+
+The property `hbase.hregion.memstore.flush.size` defines the size at which Memstore will be flushed to disk. The default size is 128 MB.
+
+The Hbase region block multiplier is defined by `hbase.hregion.memstore.block.multiplier`. The default value is 4. The maximum allowed is 8.
+
+HBase blocks update if the Memstore is (`hbase.hregion.memstore.flush.size` * `hbase.hregion.memstore.block.multiplier`) bytes.
+
+Considering the default values, updates are blocked when Memstore is of 128 * 4 = 512 MB in size. To reduce the update blocking count, increase the value of `hbase.hregion.memstore.block.multiplier`.
+
+![HBase Region Block Multiplier](./media/hdinsight-changing-configs-via-ambari/hbase-hregion-memstore-block-multiplier.png)
+
+
+### Define Memstore size
+
+Memstore size is defined by the `hbase.regionserver.global.memstore.UpperLimit` and `hbase.regionserver.global.memstore.LowerLimit` parameters. Setting these values equal to each other reduces pauses during writes (also causing more frequent flushing) and results in increased write performance.
+
+
+### Set Memstore local allocation buffer
+
+Defined by the property `hbase.hregion.memstore.mslab.enabled`. When enabled, this prevents heap fragmentation during heavy write operation. The default value is true.
+ 
+![hbase.hregion.memstore.mslab.enabled](./media/hdinsight-changing-configs-via-ambari/hbase-hregion-memstore-mslab-enabled.png)
+
+
 ## Next steps
 
 * Read more about [managing HDInsight clusters by using the Ambari Web UI](hdinsight-hadoop-manage-ambari)
