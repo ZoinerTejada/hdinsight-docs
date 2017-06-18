@@ -43,9 +43,28 @@ Click on any of the host names for a detailed look at components running on that
 
 ## Are the YARN queues properly configured?
 
-As a distributed platform, Hadoop has various services running across the platform. These services need to be coordinated, cluster resources allocated, and access to a common data set needs to be managed. YARN (Yet Another Resource Negotiator) helps perform these tasks.
+As a distributed platform, Hadoop has various services running across the platform. These services need to be coordinated, cluster resources allocated, and access to a common data set needs to be managed. YARN (Yet Another Resource Negotiator) helps perform these tasks. The fundamental idea of YARN is to split up two major responsibilities of the JobTracker (resource management and job scheduling/monitoring) into separate daemons: a global ResourceManager, and a per-application ApplicationMaster (AM). The ResourceManager is what's called a *pure scheduler*. This means that it is strictly limited to arbitrating available resources in the system among the competing applications. While doing this, it makes sure that all resources are in use all the time, optimizing against various constrants like SLAs, capacity guarantees, etc. The ApplicationMaster negotiates resources from the ResourceManager, and works with the NodeManager(s) to execute and monitor the containers and their resource consumption.
 
-Read [Manage HDInsight clusters by using the Ambari Web UI](hdinsight-hadoop-manage-ambari) for details on setting alerts and viewing metrics.
+> Read [Manage HDInsight clusters by using the Ambari Web UI](hdinsight-hadoop-manage-ambari) for details on setting alerts and viewing metrics.
+
+When there are multiple tenants who share a large cluster, there can be a lot of competition for that cluster's resources. The CapacityScheduler is a pluggable scheduler which helps facilitate resource sharing through the concept of *queues*. The CapacityScheduler also supports *hierarchical queues* to ensure that resources are shared amongst the sub-queues of an organization before other queues are granted to use free resources. This provides affinity for sharing free resources among the applications of a given organization.
+
+Yarn allows us to allocate resources to these queues, and it shows you whether all of your available resources have been assigned. To view information about your queues, login to the Ambari Web UI, then select **YARN Queue Manager** from the top menu.
+
+![YARN Queue Manager](./media/hdinsight-key-scenarios-to-monitor/yarn-queue-manager.png)
+
+On the YARN Queue Manager page, you will see a list of your queues on the left, along with the percentage of capacity assigned to each.
+
+![YARN Queue Manager details page](./media/hdinsight-key-scenarios-to-monitor/yarn-queue-manager-details.png)
+
+For a more detailed look at your queues, from the Ambari dashboard, select the **YARN** service from the list on the left. Then under the **Quick Links** dropdown menu, select **ResourceManager UI** underneath your active node.
+
+![ResourceManager UI menu link](./media/hdinsight-key-scenarios-to-monitor/resource-manager-ui-menu.png)
+
+On the ResourceManager UI, select **Scheduler** from the left-hand menu. You will see a list of your queues underneath *Application Queues*. Here you can see the capacity used for each of your queues, how well the jobs are distributed between them, and whether any are resource-constrained.
+
+![ResourceManager UI menu link](./media/hdinsight-key-scenarios-to-monitor/resource-manager-ui.png)
+
 
 ## Is there any storage throttling happening?
 
