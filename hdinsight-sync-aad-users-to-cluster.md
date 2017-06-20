@@ -10,7 +10,7 @@ keywords: domain-joined clusters,Azure Active Directory
 ---
 # Sync Other Users from Azure AD to Cluster
 
-When you [provision a domain-joined HDInsight cluster](hdinsight-domain-joined-configure), you are able to take advantage of strong authentication with Azure Active Directory (Azure AD) users, as well as use role-based access control (RBAC) policies. As you add more users and groups to Azure AD, you will need to synchronize those users who you want to have access to your cluster.
+When you [provision a domain-joined HDInsight cluster](hdinsight-domain-joined-introduction), you are able to take advantage of strong authentication with Azure Active Directory (Azure AD) users, as well as use role-based access control (RBAC) policies. As you add more users and groups to Azure AD, you will need to synchronize those users who you want to have access to your cluster.
 
 
 ## Provision a domain-joined HDInsight cluster
