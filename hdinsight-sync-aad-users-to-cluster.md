@@ -49,8 +49,8 @@ We will be POSTing to the Ambari REST API, following the instructions found [her
 
 ```bash
 curl -u admin:<YOUR PASSWORD> -sS -H "X-Requested-By: ambari" \
- -X POST -d '{"Event": {"specs": [{"principal_type": "groups", "sync_type": "existing"}]}}' \
- "https://<YOUR CLUSTER NAME>.azurehdinsight.net/api/v1/ldap_sync_events"
+-X POST -d '{"Event": {"specs": [{"principal_type": "groups", "sync_type": "existing"}]}}' \
+"https://<YOUR CLUSTER NAME>.azurehdinsight.net/api/v1/ldap_sync_events"
 ```
 
 You will receive a response similar to:
