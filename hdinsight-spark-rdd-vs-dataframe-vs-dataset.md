@@ -195,7 +195,7 @@ The Spark Dataset API is very performant and provides a more natural way to code
 
 The Spark API is moving from unstructured computation (RDDs) towards structured computation (Datasets) because of the many performance optimizations that the latter allows. DataFrames were a step in direction of structured computation but lacked developer-desired features such as compile time safety and lambda functions. The Spark Dataset API unifies both Dataframes and RDDs.
 
-![Unified Spark API showing Datasets, Dataframes and RDDs](./media/hdinsight-spark-rdd-vs-dataframe-vs-dataset/RDD-dataframe.png)
+![Unified Spark API showing Datasets, Dataframes and RDDs](./media/hdinsight-spark-rdd-vs-dataframe-vs-dataset/RDD-Dataframe.png)
 
 ## See also
 
