@@ -55,7 +55,7 @@ curl -u admin:<YOUR PASSWORD> -sS -H "X-Requested-By: ambari" \
 
 You will receive a response similar to:
 
-```bash
+```json
 {
   "resources" : [
     {
@@ -76,7 +76,7 @@ curl -u admin:<YOUR PASSWORD> http://hn0-hadoop.<YOUR DOMAIN>.com:8080/api/v1/ld
 
 You should see an output with the status similar to:
 
-```bash
+```json
 {
   "href" : "http://hn0-hadoop.YOURDOMAIN.com:8080/api/v1/ldap_sync_events/1",
   "Event" : {
@@ -138,7 +138,7 @@ Open the [Ambari Web UI](hdinsight-hadoop-manage-ambari) to verify that the new 
 
 ## Logging in to Ambari with the new user
 
-When the new user (or any other domain user) logs in to Ambari, they must do so using their Azure AD user name (which is in the form of an email address). Even though Ambari displays users with just the alias, which is the display name of the user in Azure AD, they must log in with the full username.
+When the new user (or any other domain user) logs in to Ambari, they must do so using their Azure AD user name (which is in the form of an email address). Even though Ambari displays users with just the alias, which is the display name of the user in Azure AD, they must log in with the full username. In other words, the same domain credentials they use to log in to other services.
 
 For example, the new user we added has a user name of *hiveuser3@contoso.com*. In Ambari, this new user shows up simply as **hiveuser3**. However, when we log in to Ambari with this user, we do so with **hiveuser3@contoso.com**.
 
