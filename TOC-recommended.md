@@ -150,7 +150,9 @@ https://msdn.microsoft.com/en-us/library/dn749783.aspx)
 #### [Process streaming events](hdinsight-apache-spark-eventhub-streaming.md)
 > ACTION: RETITLE. Change to "Use Spark to process events from Event Hubs"
 
-> ACTION: UPDATE. Update to include coverage of both Spark Streaming and Stuctured Streaming
+#### [Process streaming events from Event Hubs with Spark Structured Streaming](hdinsight-spark-structured-streaming-from-event-hubs.md)
+> ACTION: NEW. 
+
 #### [Creating highly available Spark Streaming jobs in YARN](hdinsight-tbd.md)
 > ACTION: NEW
 #### [Creating Spark Streaming jobs with exactly once event processing guarantees](hdinsight-spark-streaming-exactly-once.md)
@@ -345,7 +347,7 @@ https://msdn.microsoft.com/en-us/library/dn749783.aspx)
 ## Manage
 
 ### Manage Clusters
-#### [Key scenarios to monitor](hdinsight-tbd.md)
+#### [Key scenarios to monitor](hdinsight-key-scenarios-to-monitor.md)
 > ACTION: NEW
 #### [Administering HDInsight using the Azure Portal](hdinsight-administer-use-portal-linux.md)
 > ACTION: NEW <-- Link to existing article. Existing article included in this repo and updated with introduction and a couple more links

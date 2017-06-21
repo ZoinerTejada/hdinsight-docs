@@ -27,5 +27,5 @@ This article provided an architectural overview of Hadoop on HDInsight.
 
 * To further explore the architecture of HDInsight, see [HDInsight Architecture](./hdinsight-architecture.md).
 * For further details on MapReduce, see [What is MapReduce](https://docs.microsoft.com/azure/hdinsight/hdinsight-use-mapreduce#a-idwhatisawhat-is-mapreduce).
-* To run a sample MapReduce application on HDInsight, see [Use MapReduce with Hadoop and HDInsight with SSH](https://docs.microsoft.com/azure/hdinsight/hdinsight-hadoop-use-mapreduce-ssh).
+* To run a sample MapReduce application on HDInsight, see [Use MapReduce with Hadoop in HDInsight](https://docs.microsoft.com/azure/hdinsight/hdinsight-use-mapreduce).
 

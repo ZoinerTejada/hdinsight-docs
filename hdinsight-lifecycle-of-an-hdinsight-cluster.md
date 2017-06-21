@@ -8,11 +8,11 @@ tags: azure-portal
 keywords: HDInsight, Clusters
 
 ---
-#HDInsight Cluster Lifecycle
+# HDInsight Dynamic Lifecycle
 
 You can create HDInsight clusters that are either temporary, permenant, or scheduled scale.  
 
-##Temporary Clusters
+## On-Demand Clusters
 
 Since you only pay for HDInsight when a cluster is up and running, deleting a cluster when it is not in use provides a big opportunity for cost savings.  In order to stop the charges, you have to delete the cluster.  There is no concept of pausing a cluster.  
 
@@ -32,18 +32,25 @@ Since the charges for the cluster are many times more than the charges for stora
 
 **4.  Tear down the cluster using PowerShell.**  This can be done automatically using the methods mentioned above, or it can be done manually in the morning after confirmation that the jobs have all completed successfully.  See [Manage Hadoop clusters in HDInsight by using Azure PowerShell](https://docs.microsoft.com/en-us/azure/hdinsight/hdinsight-administer-use-powershell)
 
-##Permenant Clusters
+## Long-Running Clusters
+
+If all you want to do is submit a job and get results, then you will want to have an on-demand cluster. For all other scenarios, you'll tend to use long-running clusters.
 
 If HDInsight will be used in a more interactive fashion, then it makes sense to keep the HDInsight cluster up and running permenantly.  Some of these workloads include:
 
-1) Using Kafka or Storm for stream analytics.
+1) Using Spark, Kafka or Storm for stream analytics.
 
 2) Using Apache Hive, Storm, and Pig for interactive querying and analytics.
 
 3) Using ETL and data cleaning tools permentantly for real-time data processing.
 
 
-##Scheduled Scale.  
+        ![NOTE]
+        When you create an HDInsight cluster, the processing can begin as soon as the nodes become available. You do not need to wait for all nodes in the cluster to be ready before using it to process jobs.
+
+
+
+## Scheduled Scale  
 The cost of HDInsight clusters is determined by the number of nodes and the virtual machines sizes for the nodes.
 
 You can use PowerShell to select the number of nodes and virtual machine sizes for those nodes.  You can scale them up during heavy usage and scale them down for light usage.  Scheduling the scaling of nodes and virtual machine size can represent a significant cost savings.
