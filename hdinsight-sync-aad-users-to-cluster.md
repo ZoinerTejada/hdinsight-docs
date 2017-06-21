@@ -136,6 +136,12 @@ Open the [Ambari Web UI](hdinsight-hadoop-manage-ambari) to verify that the new 
 ![Users page](./media/hdinsight-sync-aad-users-to-cluster/users.png)
 
 
+## Logging in to Ambari with the new user
+
+When the new user (or any other domain user) logs in to Ambari, they must do so using their Azure AD user name (which is in the form of an email address). Even though Ambari displays users with just the alias, which is the display name of the user in Azure AD, they must log in with the full username.
+
+For example, the new user we added has a user name of *hiveuser3@contoso.com*. In Ambari, this new user shows up simply as **hiveuser3**. However, when we log in to Ambari with this user, we do so with **hiveuser3@contoso.com**.
+
 
 ## Next steps
 
@@ -143,3 +149,4 @@ This article focused on the steps required to synchronize users from your Azure 
 
 * [Configure Hive policies in Domain-joined HDInsight](hdinsight-domain-joined-run-hive)
 * [Manage Domain-joined HDInsight clusters](hdinsight-domain-joined-manage)
+* [Manage Ambari - Authorize Users to Ambari](hdinsight-authorize-users-to-ambari)
