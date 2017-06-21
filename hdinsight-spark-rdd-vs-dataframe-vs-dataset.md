@@ -173,8 +173,8 @@ When it comes to serializing data, the Dataset API has the concept of encoders w
 
 Additionally, the Dataset API is designed to work equally well with both Java and Scala. When working with Java objects, it is important that they are fully bean-compliant. In writing the examples to accompany this article, we ran into errors when trying to create a Dataset in Java from a list of Java objects that were not fully bean-compliant.
 
-![Unified API](./media/hdinsight-spark-rdd-vs-dataframe-vs-dataset/unfied-api.png)
-
+![Unified API]
+(./media/hdinsight-spark-rdd-vs-dataframe-vs-dataset/unified-api.png)
 
 ## Example: Creating Dataset from a list of objects
 
