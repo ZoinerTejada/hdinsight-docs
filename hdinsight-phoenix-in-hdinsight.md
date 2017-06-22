@@ -96,7 +96,22 @@ To mitigate this problem, achieving better performance, we can pre-split tables 
 Example:
 
 ```sql
-CREATE TABLE Saltedweblogs ( transactionid varchar(500) Primary Key,transactiondate Date NULL, customerid varchar(50) NULL,bookid varchar(50) NULL,purchasetype varchar(50) NULL,orderid varchar(50) NULL,bookname varchar(50) NULL,categoryname varchar(50) NULL,invoicenumber varchar(50) NULL,invoicestatus varchar(50) NULL,city varchar(50) NULL,state varchar(50) NULL,paymentamount DOUBLE NULL,quantity INTEGER NULL,shippingamount DOUBLE NULL) SALT_BUCKETS=4;
+CREATE TABLE Saltedweblogs (
+    transactionid varchar(500) Primary Key,
+    transactiondate Date NULL,
+    customerid varchar(50) NULL,
+    bookid varchar(50) NULL,
+    purchasetype varchar(50) NULL,
+    orderid varchar(50) NULL,
+    bookname varchar(50) NULL,
+    categoryname varchar(50) NULL,
+    invoicenumber varchar(50) NULL,
+    invoicestatus varchar(50) NULL,
+    city varchar(50) NULL,
+    state varchar(50) NULL,
+    paymentamount DOUBLE NULL,
+    quantity INTEGER NULL,
+    shippingamount DOUBLE NULL) SALT_BUCKETS=4;
 ```
 
 ## Enabling and tuning Phoenix through Ambari
