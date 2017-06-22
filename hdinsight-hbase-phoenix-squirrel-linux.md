@@ -1,6 +1,6 @@
 ---
-title: Use Apache Phoenix & SQuirreL with HBase - Azure HDInsight | Microsoft Docs
-description: Learn how to use Apache Phoenix in HDInsight, and how to install and configure SQuirreL on your workstation to connect to an HBase cluster in HDInsight.
+title: Use Apache Phoenix with HBase - Azure HDInsight | Microsoft Docs
+description: Learn how to use Apache Phoenix in HDInsight.
 services: hdinsight
 documentationcenter: ''
 author: mumian
@@ -18,10 +18,13 @@ ms.date: 05/26/2017
 ms.author: jgao
 
 ---
-# Use Apache Phoenix with Linux-based HBase clusters in HDInsight
-Learn how to use [Apache Phoenix](http://phoenix.apache.org/) in HDInsight, and how to use SQLLine. For more information about Phoenix, see [Phoenix in 15 minutes or less](http://phoenix.apache.org/Phoenix-in-15-minutes-or-less.html). For the Phoenix grammar, see [Phoenix Grammar](http://phoenix.apache.org/language/index.html).
+# Use Apache Phoenix with HBase clusters in HDInsight
 
-Learn more about [Phoenix in HDInsight](hdinsight-phoenix-in-hdinsight).
+If you want to query HBase using SQL instead of scans, you can by using [Apache Phoenix](http://phoenix.apache.org/) in HDInsight. You use the SQLLine utility to submit SQL to Phoenix and view the results.
+
+For more information about Phoenix, see [Phoenix in 15 minutes or less](http://phoenix.apache.org/Phoenix-in-15-minutes-or-less.html) and [Phoenix in HDInsight](hdinsight-phoenix-in-hdinsight) for an overview.
+
+For information on the Phoenix grammar, see [Phoenix Grammar](http://phoenix.apache.org/language/index.html).
 
 > [!NOTE]
 > For the Phoenix version information in HDInsight, see [What's new in the Hadoop cluster versions provided by HDInsight?](hdinsight-component-versioning.md).
@@ -35,11 +38,11 @@ Learn more about [Phoenix in HDInsight](hdinsight-phoenix-in-hdinsight).
 Before you can use SQLLine, you must have the following:
 
 * **An HBase cluster in HDInsight**. For information on provisioning an HBase cluster, see [Get started with Apache HBase in HDInsight][hdinsight-hbase-get-started].
-* **Connect to the HBase cluster via the remote desktop protocol**. For instructions, see [Manage Hadoop clusters in HDInsight by using the Azure portal][hdinsight-manage-portal].
+* **Connect to the HBase cluster via SSH**. For instructions, see [Connect to HDInsight using SSH][hdinsight-hadoop-linux-use-ssh-unix].
 
-When you connect to an HBase cluster, you need to connect to one of the Zookeepers. Each HDInsight cluster has three Zookeepers.
+To query HBase, you SSH into the head node and then run queries. These queries need to commnuicate with the ZooKeeper quorum.
 
-**To find out the Zookeeper host name**
+### Locating your ZooKeeper host names
 
 1. Open Ambari by browsing to **`https://<ClusterName>.azurehdinsight.net`**.
 2. Enter the HTTP (cluster) username and password to login.
@@ -48,11 +51,9 @@ When you connect to an HBase cluster, you need to connect to one of the Zookeepe
 
 To highlight how you can efficiently leverage HDInsight HBase and Phoenix to analyze big data stores, this walkthrough shows you how to use HBase Phoenix to do sales analysis of an imaginary online book store.
 
-### Bulk Load data into HBase using Phoenix
+### Upload sample data to HDInsight cluster storage account
 
-Phoenix provides two ways to bulk load into HBase. The `PSQL` command line utility, which is a single-threaded client loading tool, and a MapReduce bulk loading utility. PSQL is suited for gigabytes of data, whereas MapReduce is used for much larger data volumes.
-
-To bulk upload data into HBase using the Phoenix PSQL command line tool, perform the following actions:
+To begin, we need to upload the sample data we'll use for the remaining exercies. Read more about various ways to [upload data for Hadoop jobs in HDInsight](https://docs.microsoft.com/en-us/azure/hdinsight/hdinsight-upload-data).
 
 1. Browse to the HBase HDInsight cluster on the Azure portal.
 
@@ -68,6 +69,12 @@ To bulk upload data into HBase using the Phoenix PSQL command line tool, perform
   * In Azure Data Lake Store, use the data explorer to navigate to `/clusters/hbase/example/data`.
 
 5. **TODO: ADD LINK TO CSV FILE** Upload the [sample weblogs.csv]() file to this location.
+
+### Bulk Load data into HBase using Phoenix
+
+Phoenix provides two ways to bulk load into HBase. The `PSQL` command line utility, which is a single-threaded client loading tool, and a MapReduce bulk loading utility. PSQL is suited for gigabytes of data, whereas MapReduce is used for much larger data volumes.
+
+To bulk upload data into HBase using the Phoenix PSQL command line tool, perform the following actions:
 
 6. SSH into your HBase cluster. For more information, see [Use SSH with HDInsight](hdinsight-hadoop-linux-use-ssh-unix.md).
 
