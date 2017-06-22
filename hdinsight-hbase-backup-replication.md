@@ -1,5 +1,5 @@
 # Setting up Backup and Replication for HBase on HDInsight
- 
+
 HBase supports a few different approaches for guarding against data loss. These approaches are:
 
 * Copying the hbase folder 
