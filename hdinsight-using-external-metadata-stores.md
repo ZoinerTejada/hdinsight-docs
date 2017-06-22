@@ -62,5 +62,5 @@ As discussed above Hive Metastore is critical component of Hadoop and Spark arch
 # Oozie Metastore
 Apache Oozie is a workflow/coordination system that manages Hadoop jobs.  It supports Hadoop jobs for Apache MapReduce, Apache Pig, and Apache Hive.  Oozie uses a metastore to store details about current and completed worklflows. To increase performance when using Oozie, you can use SQL Database as a custom metastore. The metastore can also provide access to Oozie job data after you delete your cluster.  It can also be used as a job scheduler for java programs or shell scripts.
 
-For instructions on creating an Oozie metastore with Azure SQL Database, [see here](https://docs.microsoft.com/en-us/azure/hdinsight/hdinsight-use-oozie-linux-mac#create-the-database).
+For instructions on creating an Oozie metastore with Azure SQL Database, [see here](https://docs.microsoft.com/en-us/azure/hdinsight/hdinsight-use-oozie-linux-mac#create-the-database)I.
 
