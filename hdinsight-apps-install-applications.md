@@ -71,7 +71,7 @@ There are seven currently seven published applications:
 The instructions provided in this article use Azure portal. You can also export the Azure Resource Manager template from the portal or obtain a copy of the Resource Manager template from vendors, and use Azure PowerShell and Azure CLI to deploy the template.  See [Create Linux-based Hadoop clusters in HDInsight using Resource Manager templates](hdinsight-hadoop-create-linux-clusters-arm-templates.md).
 
 ## Prerequisites
-If you want to install HDInsight applications on an existing HDInsight cluster, you must have an HDInsight cluster. To create one, see [Create clusters](hdinsight-hadoop-linux-tutorial-get-started.md#create-cluster). You can also install HDInsight applications when you create an HDInsight cluster.
+All that's needed is an existing HDInsight cluster, or you can follow steps to [create an HDInsight cluster](hdinsight-hadoop-linux-tutorial-get-started.md#create-cluster).
 
 ## Install applications to existing clusters
 The following procedure shows you how to install HDInsight applications to an existing HDInsight cluster.
