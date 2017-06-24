@@ -38,7 +38,7 @@ The instructions provided in this article use Azure portal. You can also export 
 
 All that's needed is an existing HDInsight cluster, or you can follow steps to [create an HDInsight cluster](hdinsight-hadoop-linux-tutorial-get-started.md#create-cluster).
 
-## Install application to existing clusters
+## Install on existing clusters
 The following procedure shows you how to install the HDInsight application to an existing HDInsight cluster.
 
 **To install Datameer**
@@ -60,7 +60,7 @@ The following procedure shows you how to install the HDInsight application to an
 
 You can see the installation status from the portal notifications (click the bell icon on the top of the portal). After the application is installed, the application will appear on the Installed Apps blade.
 
-## Install applications during cluster creation
+## Install during cluster creation
 You have the option to install Datameer when you create a cluster. During the process, HDInsight applications are installed after the cluster is created and is in the running state. The following procedure shows you how to install Datameer when you create a cluster.
 
 **To install Datameer**
