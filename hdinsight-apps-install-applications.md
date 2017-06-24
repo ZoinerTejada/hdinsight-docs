@@ -23,15 +23,50 @@ ms.author: jgao
 
 In this article, you will learn how to install an already published third-party Hadoop application on Azure HDInsight. For instructions on installing your own application, see [Install custom HDInsight applications](hdinsight-apps-install-custom-applications.md).
 
-An HDInsight application is an application that users can install on a Linux-based HDInsight cluster. These applications can be developed by Microsoft, independent software vendors (ISV) or by yourself.  
+## The HDInsight application platform
 
-Currently there are four published applications:
+An HDInsight application is an application that users can install on an HDInsight cluster to help them be more productive with the [range of available Hadoop cluster types](hdinsight-component-versioning). These solutions can span a variety of scenarios from data ingestion, data wrangling, monitoring, visualization, optimizing performance, security, analyzing, visualization, reporting, and many more. Applications can be developed by Microsoft, independent software vendors (ISV), or by yourself.
+
+Most of the HDInsight applications are installed on an empty edge node. An empty edge node is a
+Linux virtual machine with the same client tools installed and configured as in the head node, but with no Hadoop services running. You can use the edge node for accessing the cluster, testing your client applications, and hosting your client applications. For more information, see [Use empty edge nodes in HDInsight](hdinsight-apps-use-edge-node).
+
+HDInsight applications offer the following benefits:
+
+**Ease of authoring, deploying, and management**
+
+You can install these apps on an existing HDInsight cluster as well as during new cluster creation. 
+
+**Native access to cluster**
+
+The apps are installed on the Edge node and have access to the entire cluster.
+
+**Ease of configuring the app on the cluster**
+
+End users of these applications do not have to install or manage packages on each and every node and configure the application.
+
+**Install solutions on existing HDInsight clusters**
+
+Solution providers can make their solutions available to users who already have an HDInsight cluster running. This allows them to use these solutions easily and increase their productivity.
+
+## About ISVs
+
+ISVs, or Independent Software Vendors, are organizations who build products, provide custom development services, and serve as a valuable resource to Microsoft and our customers. We invite ISVs to leverage the capability to make it easier for customers to discover and use your solution through the [Azure Marketplace](hdinsight-apps-publish-applications). Please reach out to [hdipartners@microsoft.com](mailto:hdipartners@microsoft.com) if you would like to participate. 
+
+
+## Published ISV applications
+
+There are seven currently seven published applications:
 
 * **DATAIKU DDS on HDInsight**: Dataiku DSS (Data Science Studio) is a software that allows data professionals (data scientists, business analysts, developers...) to prototype, build, and deploy highly specific services that transform raw data into impactful business predictions.
 * **Datameer**: [Datameer](http://www.datameer.com/documentation/display/DAS50/Home?ls=Partners&lsd=Microsoft&c=Partners&cd=Microsoft) offers analysts an interactive way to discover, analyze, and visualize the results on Big Data. Pull in additional data sources easily to discover new relationships and get the answers you need quickly.
 * **Streamsets Data Collector for HDnsight** provides a full-featured integrated development environment (IDE) that lets you design, test, deploy, and manage any-to-any ingest pipelines that mesh stream and batch data, and include a variety of in-stream transformations—all without having to write custom code. 
 * **Cask CDAP 3.5/4.0/4.1 for HDInsight** provides the first unified integration platform for big data that cuts down the time to production for data applications and data lakes by 80%. This application only supports Standard HBase 3.4 clusters.
 * **H2O Artificial Intelligence for HDInsight (Beta)** H2O Sparkling Water supports the following distributed algorithms: GLM, Naïve Bayes, Distributed Random Forest, Gradient Boosting Machine, Deep Neural Networks , Deep learning, K-means , PCA, Generalized Low Rank Models, Anomaly Detection, and Autoencoders.
+* **AtScale** makes BI work on Hadoop. With AtScale, business users get interactive and multi-dimensional analysis capabilities, directly on Hadoop, at maximum speed, using the tools they already know, own and love – from Microsoft Excel to Tableau Software to QlikView.
+* **Talena** ensures data resiliency in the event of disasters or corruption, enabling companies to get back online faster, by leveraging the power of machine learning. Talena backs up and recovers terabyte and petabyte-sized data sets and beyond 5-10 times faster than any other solution on the market, minimizing the impact of data loss associated with human and application errors and reducing downtime to minutes and hours, as opposed to days and weeks.
+
+
+## How to install a published application
 
 The instructions provided in this article use Azure portal. You can also export the Azure Resource Manager template from the portal or obtain a copy of the Resource Manager template from vendors, and use Azure PowerShell and Azure CLI to deploy the template.  See [Create Linux-based Hadoop clusters in HDInsight using Resource Manager templates](hdinsight-hadoop-create-linux-clusters-arm-templates.md).
 
