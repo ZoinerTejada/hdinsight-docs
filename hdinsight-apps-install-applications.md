@@ -55,12 +55,12 @@ ISVs, or Independent Software Vendors, are organizations who build products, pro
 
 ## Published ISV applications
 
-There are seven currently seven published applications:
+There are seven currently seven published applications. Click each for more information:
 
-* **DATAIKU DDS on HDInsight**: Dataiku DSS (Data Science Studio) is a software that allows data professionals (data scientists, business analysts, developers...) to prototype, build, and deploy highly specific services that transform raw data into impactful business predictions.
+* [**DATAIKU DDS on HDInsight**](https://azure.microsoft.com/en-us/blog/introducing-dataiku-s-dss-on-microsoft-azure-hdinsight-to-make-data-science-easier/): Dataiku DSS (Data Science Studio) is a software that allows data professionals (data scientists, business analysts, developers...) to prototype, build, and deploy highly specific services that transform raw data into impactful business predictions.
 * **Datameer**: [Datameer](http://www.datameer.com/documentation/display/DAS50/Home?ls=Partners&lsd=Microsoft&c=Partners&cd=Microsoft) offers analysts an interactive way to discover, analyze, and visualize the results on Big Data. Pull in additional data sources easily to discover new relationships and get the answers you need quickly.
 * **Streamsets Data Collector for HDnsight** provides a full-featured integrated development environment (IDE) that lets you design, test, deploy, and manage any-to-any ingest pipelines that mesh stream and batch data, and include a variety of in-stream transformations—all without having to write custom code. 
-* **Cask CDAP 3.5/4.0/4.1 for HDInsight** provides the first unified integration platform for big data that cuts down the time to production for data applications and data lakes by 80%. This application only supports Standard HBase 3.4 clusters.
+* [**Cask CDAP 3.5/4.0/4.1 for HDInsight**](https://blogs.msdn.microsoft.com/azuredatalake/2016/10/17/using-cask-data-application-platform-on-azure-hdinsight/) provides the first unified integration platform for big data that cuts down the time to production for data applications and data lakes by 80%. This application only supports Standard HBase 3.4 clusters.
 * **H2O Artificial Intelligence for HDInsight (Beta)** H2O Sparkling Water supports the following distributed algorithms: GLM, Naïve Bayes, Distributed Random Forest, Gradient Boosting Machine, Deep Neural Networks , Deep learning, K-means , PCA, Generalized Low Rank Models, Anomaly Detection, and Autoencoders.
 * **AtScale** makes BI work on Hadoop. With AtScale, business users get interactive and multi-dimensional analysis capabilities, directly on Hadoop, at maximum speed, using the tools they already know, own and love – from Microsoft Excel to Tableau Software to QlikView.
 * **Talena** ensures data resiliency in the event of disasters or corruption, enabling companies to get back online faster, by leveraging the power of machine learning. Talena backs up and recovers terabyte and petabyte-sized data sets and beyond 5-10 times faster than any other solution on the market, minimizing the impact of data loss associated with human and application errors and reducing downtime to minutes and hours, as opposed to days and weeks.
@@ -102,19 +102,23 @@ You have the option to install HDInsight applications when you create a cluster.
 
 1. Sign in to the [Azure  portal](https://portal.azure.com).
 2. Click **NEW**, Click **Data + Analytics**, and then click **HDInsight**.
-3. Enter **Cluster Name**: This name must be globally unique.
-4. Click **Subscription** to select the Azure subscription that will be used for the cluster.
-5. Click **Select cluster Type**, and then select:
+3. Select **Custom (size, settings, apps)**.
+4. Enter **Cluster Name**: This name must be globally unique.
+5. Click **Subscription** to select the Azure subscription that will be used for the cluster.
+6. Click **Select cluster Type**, and then select:
    
    * **Cluster Type**: If you don't know what to choose, select **Hadoop**. It is the most popular cluster type.
    * **Operating System**: Select **Linux**.
    * **Version**: Use the default version if you don't know what to choose. For more information, see [HDInsight cluster versions](hdinsight-component-versioning.md).
    * **Cluster Tier**: Azure HDInsight provides the big data cloud offerings in two categories: Standard tier and Premium tier. For more information, see [Cluster tiers](hdinsight-hadoop-provision-linux-clusters.md#cluster-tiers).
-6. Click **Applications**, click one of the published applications, and then click **Select**.
 7. Click **Credentials** and then enter a password for the admin user. You must also enter an **SSH Username** and either a **PASSWORD** or **PUBLIC KEY**, which will be used to authenticate the SSH user. Using a public key is the recommended approach. Click **Select** at the bottom to save the credentials configuration.
-8. Click **Data Source**, select one of the existing storage account or create a new storage account to be used as the default storage account for the cluster.
-9. Click **Resource Group** to select an existing resource group, or click **New** to create a new resource group
-10. On the **New HDInsight Cluster** blade, ensure that **Pin to Startboard** is selected, and then click **Create**. 
+8. Click **Resource Group** to select an existing resource group, or click **New** to create a new resource group.
+9. Select the cluster **Location**.
+10. Click **Next**.
+11. Select your **Storage Account Settings**, selecting one of the existing storage accounts or creating a new one to be used as the default storage account for the cluster. In this blade, you may also select additional storage accounts as well as configure metastore settings to preserve your metadata outside of the cluster.
+12. Click **Next**.
+13. Search or browse from available applications in the **Applications** blade. Select one, accept the license agreement, then click **Next**.
+14. Complete the remaining steps, such as cluster size and advanced settings. On the **Summary** blade, confirm your settings, and then click **Create**.
 
 ## List installed HDInsight apps and properties
 The portal shows a list of the installed HDInsight applications for a cluster, and the properties of each installed application.
