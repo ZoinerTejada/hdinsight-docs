@@ -10,7 +10,7 @@ keywords: HBase,.NET,c#,sdk
 ---
 # Using the HBase REST SDK
 
-When you use [HBase](hdinsight-hbase-overview) as your masively scalable NoSQL database, you are given two primary choices to work with your data: [Hive queries and calls to HBase's RESTful API](hdinsight-hbase-tutorial-get-started-linux). A common way to work with the REST API is through the use of `curl`, or similar.
+When you use [HBase](hdinsight-hbase-overview) as your massively scalable NoSQL database, you are given two primary choices to work with your data: [Hive queries and calls to HBase's RESTful API](hdinsight-hbase-tutorial-get-started-linux). A common way to work with the REST API is through the use of `curl`, or similar.
 
 If your developers are more familiar with `C#`, with .NET as the platform of choice, the [Microsoft HBase REST Client Library for .NET](https://www.nuget.org/packages/Microsoft.HBase.Client/) provides a client library on top of the HBase REST API, and is available as a NuGet package to quickly get started.
 
