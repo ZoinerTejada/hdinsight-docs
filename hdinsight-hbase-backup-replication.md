@@ -1,4 +1,4 @@
-# Setting up Backup and Replication for HBase on HDInsight
+# Setting up Backup and Replication for HBase and Phoenix on HDInsight
  
 HBase supports a few different approaches for guarding against data loss. These approaches are:
 
@@ -7,6 +7,8 @@ HBase supports a few different approaches for guarding against data loss. These 
 * Copy table
 * Snapshots
 * Replication
+
+As Apache Phoenix stores all of its metadata in HBase tables, any option you take that backs up the HBase system catalog tables applies to the backup of Phoenix metadata. 
 
 This article covers each of these approaches, providing guidance one when to use which and how to setup that form of backup.
 
@@ -170,7 +172,7 @@ Irrespective of the deployment topology, the general setup for replication is as
 
 Enabling replication in this way on HDInsight is accomplished by applying a Script Action to your running source HDInsight cluster. 
 
-For a step by step walkthru of enabling replication in your cluster, or to experiment with replication on sample clusters provisoned in Virtual Networks using ARM templates, see [Configure HBase replication](https://docs.microsoft.com/azure/hdinsight/hdinsight-hbase-replication). 
+For a step by step walkthru of enabling replication in your cluster, or to experiment with replication on sample clusters provisoned in Virtual Networks using ARM templates, see [Configure HBase replication](https://docs.microsoft.com/azure/hdinsight/hdinsight-hbase-replication). This guide also includes instructions for enabling replication of Phoenix metadata, which is still experimental. 
 
 
 ## See also
