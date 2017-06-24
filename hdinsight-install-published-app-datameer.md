@@ -45,7 +45,71 @@ When creating a new HDInsight cluster, or to install on an existing one, you mus
 
 ## Launching Datameer for the first time
 
-TODO
+After installation, you can launch Datameer from your cluster in Azure Portal by going to the the **Settings** blade, then clicking **Applications** under the **General** category. The Installed Apps blade lists all the installed applications.
+
+![Installed Datameer app](./media/hdinsight-install-published-app-datameer/datameer-app.png)
+
+When you select Datameer, you'll see a link to the web page, as well as the SSH endpoint path. Select the WEBPAGE link.
+
+On first launch, you'll be presented with two license options: a free 14 day trial, or the ability to activate an existing license.
+
+![License options](./media/hdinsight-install-published-app-datameer/license.png)
+
+After completing your selected license option, you'll be presented with a login form. Enter the default credentials displayed prior to the login form. After logging in, accept the softwarae agreement to continue.
+
+![Login](./media/hdinsight-install-published-app-datameer/login.png)
+
+Now that you've logged into Datameer, please follow these steps for a "Hello World" demonstration:
+
+* [Download the sample CSV](https://datameer.box.com/s/wzzw27za3agic4yjj8zrn6vfrph0ppnf).
+* Click the **+** sign on top of the Datameer dashboard, and click **File Upload**.
+
+    ![File Upload](./media/hdinsight-install-published-app-datameer/upload.png)
+
+* In the upload dialog, browse and select the **Hello World.csv** file you just downloaded. Make sure the **File Type** is set to CSV / TSV. Click **Next**. Keep clicking **Next** until you reach the end of the wizard.
+
+    ![File Upload](./media/hdinsight-install-published-app-datameer/upload-browse.png)
+
+* Name the file **Hello World** underneath a New Folder. You may rename the new folder as "Demo", or similar. Click **Save**.
+
+    ![Save](./media/hdinsight-install-published-app-datameer/save.png)
+
+* Click the **+** sign once more and select **Workbook** to create a new Workbook for our data.
+
+    ![Add workbook](./media/hdinsight-install-published-app-datameer/add-workbook.png)
+
+* Expand the **Data** folder, **FileUploads**, then the **Demo** folder you created when saving the "Hello World" file. Select **Hello World** form the list of files, then click **Add Data**.
+
+    ![Save](./media/hdinsight-install-published-app-datameer/select-file.png)
+
+* You will now see the data loaded in a familiar spreadsheet interface. Click the **Filter** button in the toolbar to select a subset of the data.
+
+    ![Filter button](./media/hdinsight-install-published-app-datameer/filter-button.png)
+
+* In the Apply Filter dialog, select the **City** column, **equals** operator, and type **Chicago** in the filter text box. Check the **Create filter in new sheet** checkbox, then click **Create Filter**.
+
+    ![Apply Filter](./media/hdinsight-install-published-app-datameer/apply-filter.png)
+
+* Save the Workbook by clicking **File**, then **Save**. Supply a name, such as "Hello World Workbook".
+
+* After entering your file name and clicking Save, you'll be presented with options for how and when to run the Workbook. For now, leave all of the options at their default values, then check the **Start calculation process immediately after saave**, and click **Save**.
+
+    ![Save Workbook](./media/hdinsight-install-published-app-datameer/save-workbook.png)
+
+* Datameer provides powerful visualization tools. To display our data, we'll create an Infographic. Once again, click the **+** sign on top of the dashboard, then select **Infographic**.
+
+    ![Add Infographic](./media/hdinsight-install-published-app-datameer/infographic-button.png)
+
+* Drag a Bar Chart widget from the list of widgets on the left (step 1). Next, navigate through the Data folder under the data browser on the right, expand your Workbook, then your worksheet you added with the filter (step 2). Drag the **Name** column over top of the bar chart. Drop it into the **Label** target to set the Workbook's Name column as the chart's label field.
+
+    ![Infographic](./media/hdinsight-install-published-app-datameer/infographic.png)
+
+* Now drag the **Age** column into the chart's **Data* field, thus setting Age as the chart's Y axis.
+
+    ![Infographic](./media/hdinsight-install-published-app-datameer/infographic-age.png)
+
+
+Congratulations! At this point, you've created a nice visualization of your data without writing any code. Feel free to add text over top of your chart, change colors, and adding additional visualizations to discover the great options at your disposal.
 
 
 ## Next steps
