@@ -38,7 +38,7 @@ For step-by-step instructions on installing this and other available ISV applica
 
 When creating a new HDInsight cluster, or to install on an existing one, you must have the following configuration to install this app:
 
-* Cluster tier:Standard
+* Cluster tier: Standard
 * Cluster type: Hadoop
 * Cluster version: 3.4
 
