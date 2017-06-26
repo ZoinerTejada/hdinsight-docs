@@ -36,16 +36,6 @@ The high-level process for enabling your Spark cluster to query your HDInsight c
 The following sections walk thru each section in detail.
 
 ---
-### Configuration Notes for Phoenix and Spark
-
-The exception you got due to class org.apache.phoenix.jdbc.PhoenixDriver missing in the spark executors classpath.
-Try to add phoenix-core-4.9.0-HBase-1.2.jar when you start spark-shell.
-
-```bash
-    spark-shell --jars /usr/lib/phoenix/phoenix-spark-4.9.0-HBase-1.2.jar,/usr/lib/phoenix/phoenix-core-4.9.0-HBase-1.2.jar
-```
-    phoenix-spark jar has additional compile dependencies - hbase-client, hadoop-common, hadoop-client you can see them here. You can add all of them to the list of jars with --jars parameter or build an uber jar of phoenix-spark contains all dependencies having compile scope
-----
 
 ## Prepare sample data in HBase
 In this step, you will create a simple table in HBase with some basic content you can query using Spark. 
@@ -236,7 +226,19 @@ In this step you define a catalog object that maps the schema from Spark to HBas
         |  Calvin Raji|5415 San Gabriel Dr.|
         +-------------+--------------------+
     ```
+---
 
+# TODO 
+
+## Update to show Phoenix Features
+
+* Add a secondary index
+* Create a view
+* Skip Scan
+* Add a transaction
+* Use a salted table
+
+---
 
 ## Insert new data
 
@@ -277,7 +279,7 @@ In this step you define a catalog object that maps the schema from Spark to HBas
 
 5. You should have output similar to the following:
 
-     ```scala
+     ```
         +------+--------------------+--------------+------------+--------------+
         |rowkey|       officeAddress|   officePhone|personalName| personalPhone|
         +------+--------------------+--------------+------------+--------------+
