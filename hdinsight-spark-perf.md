@@ -5,7 +5,7 @@ services: hdinsight
 documentationcenter: ''
 
 tags: azure-portal
-keywords: spark, RDD, dataframe
+keywords: spark, configuration
 ---
 # Optimizing and configuring Spark Jobs for Performance
 
