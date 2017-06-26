@@ -9,24 +9,29 @@ keywords: spark, Apache Phoenix
 ---
 # Read and Write Phoenix Data from a Spark cluster
 
-Apache HBase is typically queried either with its low level API of scans, gets and puts or with a SQL syntax using Apache Phoenix. Phoenix is an extension to HBase and it uses JDBC (rather than Hadoop MapReduce). It extends the key-value store of HBase by extending it to enable features that make it similiar to a relational database.  Phoenix was originially developed at Salesforce, and then was open-sourced as an Apache project.
+Apache HBase is typically queried either with its low level API of scans, gets and puts or with a SQL syntax using Apache Phoenix. Phoenix is an extension to HBase which uses a JDBC driver (rather than Hadoop MapReduce) to extend the HBase key-value store to enable features that make it similiar to a relational database.  These features include adding a SQL query engine, metadata repository and an embedded JDBC driver.  Phoenix was originially developed at Salesforce, and it was subsequently open-sourced as an Apache project.  It is important to note that Phoenix is desinged to work only with HBase data on a HDInsight cluster.
 
-Apache Spark can be used as a convinient and performant alternative way to query and modify data stored by HBase, which can include data accessed via Phoenix. This method of cross-cluster access is enabled by the use of the Spark HBase Connector (sometimes called the `SHC`). 
+Apache Spark can be used as a convenient and performant alternative way to query and modify data stored by HBase, including data accessed via Phoenix. This method of cross-cluster access is enabled by the use of the Spark HBase Connector (also called the `SHC`). 
 
-This article covers how to setup one HDInsight Spark cluster so that you can query and modify data in a second HDInsight HBase cluster which uses Apache Pheonix as it's core data access mechanism.  You'll do this by using the Spark HBase Connector. 
+This article covers how to setup one HDInsight Spark cluster so that you can query and modify data in a second HDInsight HBase cluster which uses Apache Pheonix as it's core data access mechanism.  You'll do this by using the Spark HBase Connector. Shown below are two blades from the Azure portal showing two running HDInsights clusters (one of type Spark cluster).
+
+![Two HDInsight Clusters](./media/hdinsight-phoenix-read-write-spark/two-clusters.png)
+
+----
 
 ## Deployment Environment
-To begin, you will need two separate HDInsight clusters - one of the HBase cluster type (with Apache Phoenix enabled on this first cluster) and one of the Spark cluster type with Spark 2.1 (HDI 3.6) installed. Your first (Spark) cluster will need to be able to communicate directly with your second (HBase + Phoenix) cluster with minimal latency, so deploying both clusters within the same Virtual Network is the recommended configuration. For instructions on how to deploy an HDInsight cluster into a Virtual Network, see [Create Linux based clusters in HDInsight using the Azure Portal](https://docs.microsoft.com/en-us/azure/hdinsight/hdinsight-hadoop-create-linux-clusters-portal). 
+To begin, you will need two separate HDInsight clusters - one of the HBase cluster type (with Apache Phoenix enabled on it) and another of the Spark cluster type with Spark 2.1 (HDI 3.6) installed. The Spark cluster will need to be able to communicate directly with your the HBase + Phoenix cluster with minimal latency, so deploying both clusters within the same Virtual Network is the recommended configuration. For instructions on how to deploy an HDInsight cluster into a Virtual Network, see [Create Linux based clusters in HDInsight using the Azure Portal](https://docs.microsoft.com/en-us/azure/hdinsight/hdinsight-hadoop-create-linux-clusters-portal). 
 
 This article assumes you have deployed your Spark and HDInsight cluster into one Virtual Network and that you have SSH access to both. You will also need to have access to the default storage attached to each cluster. 
 
 ## Overall Process
 The high-level process for enabling your Spark cluster to query your HDInsight cluster is as follows:
-1. Acquire the hbase-site.xml file from your HBase cluster configuration folder (/etc/hbase/conf). 
-2. Place a copy of hbase-site.xml in your Spark 2 configuration folder (/etc/spark2/conf).
-3. Run spark-shell referencing the Spark Hbase Connector by its Maven coordinates in the packages switch.
+0. Setup up two HDInsight clusters, one of type HBase w/Phoenix enabled and another of type Spark.
+1. Acquire the `hbase-site.xml` file from your HBase cluster configuration folder (/etc/hbase/conf). 
+2. Place a copy of `hbase-site.xml` in your Spark 2 configuration folder (/etc/spark2/conf).
+3. Run `spark-shell` referencing the Spark HBase Connector by its Maven coordinates in the packages switch.
 4. Define a catalog that maps the schema from Spark to Hbase
-5. Interact with the HBase data via either the RDD or DataFrame APIs. 
+5. Interact with the HBase data via either the RDD or DataFrame APIs. XXXXX via the Phoenix API XXX
 
 The following sections walk thru each section in detail.
 
@@ -72,7 +77,9 @@ In this step, you SSH into the head node of your HBase cluster and copy the hbas
 1. Connect to the head node of your HBase cluster via SSH.
 2. Run the following command to copy the hbase-site.xml from local storage to the root of your HBase cluster's default storage: 
 
+    ```bash
         hdfs dfs -copyFromLocal /etc/hbase/conf/hbase-site.xml /
+    ```
 
 3. Navigate to your HBase cluster using the [Azure Portal](https://portal.azure.com).
 4. Select Storage accounts. 
@@ -88,17 +95,17 @@ In this step, you SSH into the head node of your HBase cluster and copy the hbas
     ![Blobs tile](./media/hdinsight-using-spark-to-query-hbase/blobs-tile.png)
 
 7. In the list of containers, select the container that is used by your HBase cluster.
-8. In the file list, select hbase-site.xml. 
+8. In the file list, select `hbase-site.xml`. 
 
     ![HBase-site.xml](./media/hdinsight-using-spark-to-query-hbase/hbase-site-xml.png)
 
-9. On the Blob properties panel, select Download and save it hbase-site.xml to a location on your local machine.
+9. On the Blob properties panel, select Download and save it as `hbase-site.xml` to a location on your local machine.
 
     ![Download](./media/hdinsight-using-spark-to-query-hbase/download.png)
 
 
 ## Place hbase-site.xml on your Spark cluster
-In this step you upload the hbase-site.xml to the default storage within your Spark cluster and copy it to the correct location in your Spark clusters local storage.   
+In this step you upload the `hbase-site.xml` to the default storage within your Spark cluster and copy it to the correct location in your Spark clusters local storage.   
 
 1. Navigate to your Spark cluster using the [Azure Portal](https://portal.azure.com).
 2. Select Storage accounts.
@@ -118,7 +125,7 @@ In this step you upload the hbase-site.xml to the default storage within your Sp
 
     ![Upload](./media/hdinsight-using-spark-to-query-hbase/upload.png)
 
-7. Choose the hbase-site.xml file you previously downloaded to your local machine.
+7. Choose the `hbase-site.xml` file you previously downloaded to your local machine.
 
     ![Upload hbase-site.xml](./media/hdinsight-using-spark-to-query-hbase/upload-selection.png)
 
@@ -126,7 +133,9 @@ In this step you upload the hbase-site.xml to the default storage within your Sp
 9. Connect to the head node of your Spark cluster via SSH.
 10. Run the following command to copy hbase-site.xml from your Spark cluster's default storage to the Spark 2 conf folder on the cluster's local storage:
 
+    ```bash
         sudo hdfs dfs -copyToLocal /hbase-site.xml /etc/spark2/conf
+    ```
 ___
 
 ## Run Spark Shell referencing the Spark HBase Connector
@@ -135,7 +144,9 @@ In this step you launch an instance of Spark Shell that references the Spark HBa
 1. Connect to the head node of your Spark cluster via SSH.
 2. Run the following command, note the packages switch which references the Spark HBase Connector.
 
+    ```bash
         spark-shell --packages com.hortonworks:shc-core:1.1.0-2.1-s_2.11
+    ```
 
 3. Keep this Spark Shell instance open and continue to the next step.
 
@@ -144,13 +155,16 @@ In this step you define a catalog object that maps the schema from Spark to HBas
 
 1. Within your open Spark Shell, run the following import statements
 
+    ```scala
         import org.apache.spark.sql.{SQLContext, _}
         import org.apache.spark.sql.execution.datasources.hbase._
         import org.apache.spark.{SparkConf, SparkContext}
         import spark.sqlContext.implicits._
+    ```
 
 2. Run the following to define a catalog for the Contacts table you create in HBase. In the belowm you defines a schema for the HBase table with name Contacts, identify the row key as key, and map the column names as they will be used in Spark to the column family, column name and column type as they appear in HBase. Note that the rowkey also has to be defined in details as a named column (rowkey), which has a specific column family, cf, of rowkey.
 
+    ```scala
             def catalog = s"""{
                 |"table":{"namespace":"default", "name":"Contacts"},
                 |"rowkey":"key",
@@ -162,9 +176,11 @@ In this step you define a catalog object that maps the schema from Spark to HBas
                 |"personalPhone":{"cf":"Personal", "col":"Phone", "type":"string"}
                 |}
             |}""".stripMargin
+    ```
 
 3. Run the following to define a method that will provide a DataFrame around your Contacts table in HBase:
 
+    ```scala
             def withCatalog(cat: String): DataFrame = {
                 spark.sqlContext
                 .read
@@ -172,47 +188,61 @@ In this step you define a catalog object that maps the schema from Spark to HBas
                 .format("org.apache.spark.sql.execution.datasources.hbase")
                 .load()
             }
+    ```
 
 4. Create an instance of the DataFrame by running:
 
+    ```scala
         val df = withCatalog(catalog)
+    ```
 
 5. Query the DataFrame by running:
 
+    ```scala
         df.show()
+    ```
 
 6. You should see your two rows of data in output similar to the following:
 
+    ```
         +------+--------------------+--------------+-------------+--------------+
         |rowkey|       officeAddress|   officePhone| personalName| personalPhone|
         +------+--------------------+--------------+-------------+--------------+
         |  1000|1111 San Gabriel Dr.|1-425-000-0002|    John Dole|1-425-000-0001|
         |  8396|5415 San Gabriel Dr.|  230-555-0191|  Calvin Raji|  230-555-0191|
         +------+--------------------+--------------+-------------+--------------+
+    ```
 
 7. Next, register a temp table so you can query the HBase table use Spark SQL:
 
+    ```scala
         df.registerTempTable("contacts")
+    ```
 
 8. Issue a SQL query against the contacts table:
 
+    ```scala
         val query = spark.sqlContext.sql("select personalName, officeAddress from contacts")
         query.show()
+    ```
 
 9. You should see results similar to the following:
 
+    ```
         +-------------+--------------------+
         | personalName|       officeAddress|
         +-------------+--------------------+
         |    John Dole|1111 San Gabriel Dr.|
         |  Calvin Raji|5415 San Gabriel Dr.|
         +-------------+--------------------+
+    ```
 
 
 ## Insert new data
 
 1. Next, insert a new Contact record. To do so, define the ContactRecord class:
 
+    ```scala
         case class ContactRecord(
             rowkey: String,
             officeAddress: String,
@@ -220,26 +250,34 @@ In this step you define a catalog object that maps the schema from Spark to HBas
             personalName: String,
             personalPhone: String
             )
+    ```
 
 2. Create an instance of ContactRecord and save it within an array:
 
+     ```scala
         val newContact = ContactRecord("16891", "40 Ellis St.", "674-555-0110","John Jackson","230-555-0194")
 
         var newData = new Array[ContactRecord](1)
         newData(0) = newContact
+    ```
 
 3. Save the array of new data to HBase:
 
+     ```scala
         sc.parallelize(newData).toDF.write
         .options(Map(HBaseTableCatalog.tableCatalog -> catalog))
         .format("org.apache.spark.sql.execution.datasources.hbase").save()
+    ```
 
 4. Examine the results:
     
+     ```scala
         df.show()
+    ```
 
 5. You should have output similar to the following:
 
+     ```scala
         +------+--------------------+--------------+------------+--------------+
         |rowkey|       officeAddress|   officePhone|personalName| personalPhone|
         +------+--------------------+--------------+------------+--------------+
@@ -247,6 +285,7 @@ In this step you define a catalog object that maps the schema from Spark to HBas
         | 16891|        40 Ellis St.|  674-555-0110|John Jackson|  230-555-0194|
         |  8396|5415 San Gabriel Dr.|  230-555-0191| Calvin Raji|  230-555-0191|
         +------+--------------------+--------------+------------+--------------+
+    ```
 
 
 ## Next Steps:
