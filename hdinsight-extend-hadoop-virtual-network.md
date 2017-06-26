@@ -105,7 +105,7 @@ For more information on Virtual Network features, benefits, and capabilities, se
 > [!NOTE]
 > Create the Azure Virtual Network before provisioning an HDInsight cluster, then specify the network when creating the cluster. If you plan on using a custom DNS server, it must be added to the virtual network before HDInsight. For more information, see [Virtual Network configuration tasks](https://azure.microsoft.com/documentation/services/virtual-network/).
 
-##<a id="hdinsight-ip"></a> Required IP addresses
+## <a id="hdinsight-ip"></a>Required IP addresses
 
 The HDInsight service is a managed service, and requires access to Azure management services during provisioning and while running. Azure management performs the following services:
 
@@ -364,6 +364,45 @@ az network nic list --resource-group <resourcegroupname> --output table --query 
 > In the Azure CLI 2.0 example, replace `<resourcegroupname>` with the name of the resource group that contains the virtual network.
 
 The scripts work by querying the virtual network interface cards (NICs) for the cluster. The NICs exist in the resource group that contains the virtual network used by HDInsight.
+
+## Static Internal Private IP (DIP) addresses
+
+There are times when a static IP address is required for your cluster nodes. For instance, when you require cluster-to-cluster communication across virtual networks, such as a Spark cluster communicating with an HBase cluster, they would need to address each other by IP that you wouldn't want to randomly change. Another example would be [replication between HBase clusters across virtual networks](hdinsight-hbase-replication), for high availability and minimal downtime.
+
+### Configure static IP addresses through the portal
+
+1. From the left-hand menu in the [Azure portal](https://portal.azure.com), click **Resource Groups**.
+2. Select the resource group that contains your HDInsight cluster.
+3. In the list of resources, you will see the virtual network that contains your cluster. For example, click **vnet-xxxx**. Once open, you will see a list of network interfaces (NIC) for the cluster node VMs. For instance, your ZooKeeper nodes will have NICs with the following naming convention: **nic-zookeepermode-xxxx**.
+4. Click one of the NICs you wish to configure.
+5. Click **IP configurations**.
+6. Click **ipConfig1** from the list.
+7. Click **Static**. This sets the IP assignment from dynamic to static. Make note of the IP address for future reference.
+
+  ![HDInsight HBase Replication ZooKeeper static IP](./media/hdinsight-extend-hadoop-virtual-network/static-ip.png)
+
+8. Repeat these steps to set the static IP address for each of the cluster nodes as required.
+
+### Configure static IP addresses using PowerShell
+
+PowerShell can be used to mark a DIP as "static" while creating a new Network Interface, by setting the `PrivateIpAddress` parameter:
+
+```PowerShell
+New-AzureRmNetworkInterface -Name InterfaceName -ResourceGroupName $gname -Location $PrimaryLocation -Subnet $vnet1.Subnets[1] –PublicIpAddress $dcvip `
+
+-PrivateIpAddress "10.1.1.4" -InternalDnsNameLabel $dnssuffix -DnsServer "10.1.1.5", "10.1.1.4"
+```
+
+When you specify an explicit IP value as in the example above, Azure will consider that address as static and will never change.
+
+## Communicating between virtual networks
+
+Cluster-to-cluster communication across virtual networks, where each cluster resides in a different virtual network in the same region, requires you to peer the networks. Once peered, both virtual networks are able to communicate with each other over the Azure backbone network through their private IP addresses. In other words, the virtual machine resources in both virtual networks, such as your HDInsight cluster nodes, communicate as if they are part of the same network.
+
+Read more about how to [create a virtual network peering](https://docs.microsoft.com/en-us/azure/virtual-network/virtual-network-create-peering)
+
+If your virtual networks are in different regions, you will need to [configure a VNet-to-VNet VPN gateway connection](https://docs.microsoft.com/en-us/azure/vpn-gateway/vpn-gateway-howto-vnet-vnet-resource-manager-portal).
+
 
 ## <a id="nextsteps"></a>Next steps
 
