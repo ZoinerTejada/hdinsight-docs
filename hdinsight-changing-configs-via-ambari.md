@@ -56,7 +56,7 @@ To modify the NameNode Java heap size, follow the steps below:
 
 ![Save changes](./media/hdinsight-changing-configs-via-ambari/save-changes.png)
 
-### Hive optimization
+## Hive optimization
 
 As mentioned earlier, each service has certain configuration parameters that can be easily modified using the Ambari web UI. In this section, we’ll learn about important configuration options to optimize overall Hive performance.
 
@@ -83,6 +83,8 @@ Hadoop tries to split a single file into multiple files and process the resultin
 * `tez.grouping.min-size`: Lower limit on the size of a grouped split (default value of 16,777,216 bytes).
 * `tez.grouping.max-size`: Upper limit on the size of a grouped split (default value of 1,073,741,824 bytes).
 
+> As a performance rule of thumb, decrease both of these parameters to improve latency, increase for more throughput.
+
 For example, to set four mapper tasks for a data size of 128 MB, you would set both parameters to 32 MB each (33,554,432 bytes).
 
 1. Modify the above configuration parameters by navigating to the **Configs** tab of the Tez service. Expand the General panel, and then locate the `tez.grouping.max-size` and `tez.grouping.min-size` parameters.
@@ -96,7 +98,15 @@ For example, to set four mapper tasks for a data size of 128 MB, you would set b
 
 ### Tune reducers
 
-The number of reducers is calculated based on the parameter `hive.exec.reducers.bytes.per.reducer`. The parameter specifies the number of bytes processed per reducer. The default value is 64 MB.
+ORC and Snappy both offer high performance. However, Hive may choose too few reducers by default, causing bottlenecks.
+
+For example, say you have an input data size of 50GB. That data in ORC format with Snappy compression is 1GB. Hive estimates the number of reducers needed as:
+
+(number of bytes input to mappers / `hive.exec.reducers.bytes.per.reducer`)
+
+With the default settings, this means 4 reducers in our scenario.
+
+Thus, the `hive.exec.reducers.bytes.per.reducer` parameter specifies the number of bytes processed per reducer. The default value is 64 MB. Tuning this value down will increase parallelism and may improve performance. Tuning it too low could also cause too many reducers, potentially adversely affecting performance. You will need to adjust this setting based on your particular data requirements, compression settings, and other environmental factors.
 
 1. To modify the parameter, navigate to the Hive **Configs** tab and find the **Data per Reducer** parameter on the Settings page.
 
@@ -167,6 +177,19 @@ Basic partition statistics such as number of rows, data size, and file size are 
 ### Enable intermediate compression
 
 Map tasks create intermediate files that are used by the reducer tasks. Intermediate compression shrinks the intermediate file size.
+
+Hadoop jobs are usually I/O bottlenecked. Compressing data can speed up I/O and overall network transfer.
+
+Here are the various available compression types:
+
+| Format | Tool | Algorithm | File Extension | Splittable? |
+| -- | -- | -- | -- | -- |
+| Gzip | Gzip | DEFLATE | .gz | No |
+| Bzip2 | Bzip2 | Bzip2 | .bz2 | Yes |
+| LZO | Lzop | LZO | .lzo | Yes, if indexed |
+| Snappy | N/A | Snappy | Snappy | No |
+
+As a general rule, having the compression method splittable is important, otherwise very few mappers will be created. If the input data is text, `bzip2` is the best option since it's splittable. For ORC format, Snappy is the fastest compression option.
 
 1. To enable intermediate compression, navigate to the Hive **Configs** tab, and then set the `hive.exec.compress.intermediate` parameter to **true**. The default value is false.
  
@@ -246,6 +269,33 @@ When this property is set to true, a MultiGROUP BY query with common group by ke
 1. To enable this, add the hive.multigroupby.singlereducer parameter to the Custom hive-site pane, as explained earlier.
 
 ![Hive set single MapReduce MultiGROUP BY](./media/hdinsight-changing-configs-via-ambari/hive-multigroupby-singlereducer.png)
+
+### Additional Hive optimizations
+
+Now that you understand how to go about finding and updating configurations in Ambari, here is a list of additional Hive-related optimizations you can set:
+
+**Join Optimizations**
+
+The default join type in Hive is a **shuffle join**. The way joining works in Hive, is that special mappers read the input, emit a join key/value pair to an intermediate file. Hadoop sorts and merges these pairs in a shuffle stage. This shuffle stage is expensive. Thus, selecting the right Join based on your data can significantly improve performance.
+
+| Join Type | When | How | Hive settings | Comments |
+| -- | -- | -- | -- | -- |
+| Shuffle Join | <ul><li>Default choice</li><li>Always works</li></ul> | <ul><li>Reads from part of one of the tables</li><li>Buckets and sorts on Join key</li><li>Sends one bucket to each reduce</li><li>Join is done on the Reduce side</li></ul> | No significant Hive setting needed | Works every time |
+| Map Join | <ul><li>One table can fit in memory</li></ul> | <ul><li>Reads small table into memory hash table</li><li>Streams through part of the big file</li><li>Joins each record from hash table</li><li>Joins will be performed by the mapper alone</li></ul> | `hive.auto.confvert.join=true` | Very fast, but limited |
+| Sort Merge Bucket | If both tables are: <ul><li>Sorted the same</li><li>Bucketed the same</li><li>Joining on the sorted/bucketed column</li></ul> | Each process: <ul><li>Reads a bucket from each table</li><li>Processes the row with the lowest value</li></ul> | `hive.auto.convert.sortmerge.join=true` | Very efficient |
+
+**Execution Engine Optimizations**
+
+Additional recommendations for optimizing the Hive execution engine:
+
+| Setting | Recommended | HDI Default |
+| -- | -- | -- |
+| `hive.mapjoin.hybridgrace.hashtable` | true = safer, slower; false = faster | false |
+| `tez.am.resource.memory.mb` | 4GB upper bound for most | Auto-Tuned |
+| `tez.session.am.dag.submit.timeout.secs` | 300+ | 300 |
+| `tez.am.container.idle.release-timeout-min.millis` | 20000+ | 10000 |
+| `tez.am.container.idle.release-timeout-max.millis` | 40000+ | 20000 |
+
 
 
 ## Pig optimization
