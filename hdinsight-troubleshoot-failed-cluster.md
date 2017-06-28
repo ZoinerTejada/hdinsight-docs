@@ -18,9 +18,9 @@ all associated Azure Services, cluster configuration, job execution information 
 ### Troubleshooting Steps to Diagnose a Failed HDInsight Cluster
 * Step 1: Gather Data About the Issue 
 * Step 2: Validate the HDInsight Cluster Environment 
-* Step 3: Review the Last Environment State Change 
+* Step 3: Review the Environment Stack and Versions
 * Step 4: Examine the Cluster Log Files 
-* Step 5: Test the Cluster Step-by-Step 
+* Step 5: Reproduce the failure on a different Cluster 
 
 ---
 
@@ -75,108 +75,44 @@ the 'HDInsight cluster dashboard' blade to open the Ambari UI.  You'll be prompt
 
 ![Ambari UI](./media/hdinsight-troubleshoot-failed-cluster/ambari-ui.png)
 
-#### Check for Azure Service Outages
-HDInsight uses several Azure Web Services internally. It runs virtual servers on Azure HDInsight, stores data and scripts on Azure Blob storage and indexes log files in Azure Table storage.   Events that disrupt these services are rare — but when they occur — can cause issues in HDInsight.
+Also, you can click the blade named 'Ambari Views' on the Azure portal page for HDInsight to open a list of service views.  This list will vary, depending on which libraries you've installed.
+For example, you may see YARN Queue Manager, Hive View and Tez View, if you've installed these services.  Click any service link of interest to drill down to see configuration and service information.
 
-Before you go further, check the [Azure Status Dashboard](https://azure.microsoft.com/en-us/status/). Check the region where you launched your
-cluster to see whether there are disruption events in any of these services.
+#### Check for Azure Service Outages
+HDInsight uses several Azure Web Services internally. It runs virtual servers on Azure HDInsight, stores data and scripts on Azure Blob storage and indexes log files in Azure Table storage.   Events that disrupt these services are rare — but when they occur — can cause issues in HDInsight.  Before you go further, check the [Azure Status Dashboard](https://azure.microsoft.com/en-us/status/). Check the region where you launched your cluster to see whether there are disruption events in any of these services.
 
 #### Check Azure Service Usage Limits
 If you are launching a large cluster, have launched many clusters simultaneously, the cluster may have failed because you exceeded an Azure service limit.
-
-Azure HDInsight limits the number of virtual server instances running on a single Azure region to 20 on-demand
-or reserved instances. If you launch a cluster with more than 20 nodes, or launch a cluster that
-causes the total number of HDInsight instances active on your Azure account to exceed 20, the cluster will not
-be able to launch all of the HDInsight instances it requires and may fail. When this happens, HDInsight
-returns an HDInsight QUOTA EXCEEDED error. You can request that Azure increase the number of HDInsight instances
-that you can run on your account by submitting a Request to Increase Azure HDInsight Instance Limit
-application.
-
-Another thing that may cause you to exceed your usage limits is the delay between when a cluster is
-terminated and when it releases all of its resources. Depending on its configuration, it may take up to
-5-20 minutes for a cluster to fully terminate and release allocated resources. If you are getting an HDInsight
-QUOTA EXCEEDED error when you attempt to launch a cluster, it may be because resources from a recently
-terminated cluster may not yet have been released. In this case, you can either request that your Azure
-HDInsight quota be increased, or you can wait twenty minutes and re-launch the cluster.
-Azure S3 limits the number of buckets created on an account to 100. If your cluster creates a new
-bucket that exceeds this limit, the bucket creation will fail and may cause the cluster to fail.
+Service limits can vary based on your Azure subscription.  Read more about [Azure subscription and service limits, quotas, and constraints](https://docs.microsoft.com/en-us/azure/azure-subscription-service-limits).
+You can request that Microsoft increase the number of HDInsight resources available (such as VM cores and VM instances) by completing a [Resource Manager core quota increase request](https://docs.microsoft.com/en-us/azure/azure-supportability/resource-manager-core-quotas-request).
 
 #### Check the Release Version
-Compare the release label that you used to launch the cluster with the latest HDInsight release. Each
-release of HDInsight includes improvements such as new applications, features, patches, and bug
-fixes. The issue that is affecting your cluster may have already been fixed in the latest release version. If
-possible, re-run your cluster using the latest version.
+Compare the release label that you used to launch the cluster with the latest HDInsight release. Each release of HDInsight includes improvements such as new applications, features, patches, and bug
+fixes. The issue that is affecting your cluster may have already been fixed in the latest release version. If possible, re-run your cluster using the latest version of HDInsight and associated libraries (i.e. Apache HBase, Apache Spark, etc...).
 
-#### Check the Azure Virtual Network Subnet Configuration
-If your cluster was launched in a Azure Virtual Network subnet, the subnet needs to be configured as described in
-Plan and Configure Networking. In addition, check that the subnet you launch the cluster into has
-enough available public IP addresses to assign one to each node in the cluster.
+----
 
-## Step 3: Review the Last State Change
-The last state change provides information about what occurred the last time the cluster changed state.
-This often has information that can tell you what went wrong as a cluster changes state to FAILED. For
-example, if you launch a streaming cluster and specify an output location that already exists in Azure
-Blob storage, the cluster will fail with a last state change of "Streaming output directory already exists".
-You can locate the last state change value from the console by viewing the details pane for the
-cluster, from the azure-cli using the `list-steps` or `describe-cluster` arguments, or from the API using the
-`DescribeCluster` and `ListSteps` actions. For more information, see View Cluster Details.
+## Step 3: Review the Environment Stack and Versions
+The Ambari UI 'Stack and Version' page provides information about the cluster services configuration and service version history.  Incorrect Hadoop service libary versions can be a cause of cluster failure.  In the Ambari UI, click on the 'Admin' menu and then on 'Stacks and Versions' to navigate to this section.  Then click on the 'Versions' tab on the page to see service version information.  An example is shown below.
+
+![Stack and Versions](./media/hdinsight-troubleshoot-failed-cluster/stack-versions.png)
 
 ---
 
 ## Step 4: Examine the Log Files
-The next step is to examine the log files in order to locate an error code or other indication of the issue
-that your cluster experienced. 
-
-It may take some investigative work to determine what happened. Hadoop runs the work of the jobs
-in task attempts on various nodes in the cluster. HDInsight can initiate speculative task attempts,
-terminating the other task attempts that do not complete first. This generates significant activity that is
-logged to the controller, stderr and syslog log files as it happens. In addition, multiple tasks attempts are
-running simultaneously, but a log file can only display results linearly.
-
-Start by checking the bootstrap action logs for errors or unexpected configuration changes during the
-launch of the cluster. From there, look in the step logs to identify Hadoop jobs launched as part of a step
-with errors. Examine the Hadoop job logs to identify the failed task attempts. The task attempt log will
-contain details about what caused a task attempt to fail.
+The next step is to examine the log files in order to locate an error code or other indication of the issue that your cluster experienced. A Hadoop cluster produces a large number of verbose logs, so finding a useful error log can be time-consuming.  Understanding the logging system is important so that you can locate the log for your desired (failing) job step quickly.  An example log is shown below.
 
 ![HDInsight log file example](./media/hdinsight-troubleshoot-failed-cluster/logs.png)
 
-The following sections describe how to use the various log files to identify error in your cluster.
+Hadoop runs the work of the jobs in task attempts on various nodes in the cluster. HDInsight can initiate speculative task attempts, terminating the other task attempts that do not complete first. This generates significant activity that is logged to the controller, stderr and syslog log files as it happens. In addition, multiple tasks attempts are running simultaneously, but a log file can only display results linearly.  Start by checking the bootstrap action logs for errors or unexpected configuration changes during the launch of the cluster. From there, look in the step logs to identify Hadoop jobs launched as part of a step  with errors. Examine the Hadoop job logs to identify the failed task attempts. The task attempt log will contain details about what caused a task attempt to fail. The following sections describe how to use the various log files to identify error in your cluster.
 
-#### Check the Bootstrap Action Logs
-Bootstrap actions run scripts on the cluster as it is launched. They are commonly used to install
-additional software on the cluster or to alter configuration settings from the default values. Checking
-these logs may provide insight into errors that occurred during set up of the cluster as well as
-configuration settings changes that could affect performance.
+#### Check the Script Action Logs
+HDInsight [Script Actions](https://docs.microsoft.com/en-us/azure/hdinsight/hdinsight-hadoop-customize-cluster-linux) run scripts on the cluster manually or when specified. For example, they can be used to install additional software on the cluster or to alter configuration settings from the default values. Checking these logs may provide insight into errors that occurred during set up of the cluster as well as configuration settings changes that could affect availability.  You can view the status of a script action by clicking on the 'ops' button on your Ambari UI or by accessing them from the default storage account.
+The storage logs are available at `\STORAGE_ACCOUNT_NAME\DEFAULT_CONTAINER_NAME\custom-scriptaction-logs\CLUSTER_NAME\DATE`.
 
-#### Check the Step Logs
-There are four types of step logs:
-* **controller**—Contains files generated by HDInsight (HDInsight) that arise from errors
-encountered while trying to run your step. If your step fails while loading, you can find the stack trace
-in this log. Errors loading or accessing your application are often described here, as are missing mapper
-file errors.
-* **stderr**—Contains error messages that occurred while processing the step. Application loading errors
-are often described here. This log sometimes contains a stack trace.
-* **stdout**—Contains status generated by your mapper and reducer executables. Application loading
-errors are often described here. This log sometimes contains application error messages.
-* **syslog**—Contains logs from non-Azure software, such as Apache and Hadoop. Streaming errors are
-often described here.
+#### View Logs via HDInsight via Quick Links in Ambari
 
-Check stderr for obvious errors. If stderr displays a short list of errors, the step came to a quick stop with
-an error thrown. This is most often caused by an error in the mapper and reducer applications being run
-in the cluster.
-
-Examine the last lines of controller and syslog for notices of errors or failures. Follow any notices about
-failed tasks, particularly if it says "Job Failed".
-
-#### Check the Task Attempt Logs
-If the previous analysis of the step logs turned up one or more failed tasks, investigate the logs of the
-corresponding task attempts for more detailed error information.
-
----
-#### View HDInsight via Quick Links in Ambari
-
-The HDInsight Ambari UI includes a number of 'Quick Links' sections.  To access the log links for a particular service in your HDInsight cluster, open the Ambari UI for your clustuer, 
-then click on the service link from the list at left, next click on the 'Quick Links' drop down and then on the HDInsight node of interest and then on the link for its associated log.
+The HDInsight Ambari UI includes a number of 'Quick Links' sections.  To access the log links for a particular service in your HDInsight cluster, open the Ambari UI for your clustuer, then click on the service link from the list at left, next click on the 'Quick Links' drop down and then on the HDInsight node of interest and then on the link for its associated log.
 An example, for HDFS logs, is shown below:
 
 ![Ambari Quick Links to Log Files](./media/hdinsight-troubleshoot-failed-cluster/quick-links.png)
@@ -197,7 +133,6 @@ Note: For Windows-based HDInsight clusters, different log tables are created.  S
 HDInsight clusters are configured to write task logs to an Azure Blob Storage account for any job that is submitted using the Azure PowerShell cmdlets or the .NET Job Submission APIs.  If you submit jobs through RDP/command-line access to the cluster then the execution logging information will be found in the Azure Tables discussed in the previous paragraph.
 
 #### HDInsight Logs genered by YARN
-
 YARN aggregates logs across all containers on a worker node and stores them as one aggregated log file per worker node. The log is stored on the default file system after an application finishes. Your application may use hundreds or thousands of containers, but logs for ALL containers run on a single worker node are always aggregated to a single file. So there is only one log per worker node used by your application. Log Aggregation is enabled by default on HDInsight clusters version 3.0 and above. Aggregated logs are located in default storage for the cluster. The following path is the HDFS path to the logs:
 
 ```
@@ -230,33 +165,22 @@ Heap dumps contain a snapshot of the application's memory, including the values 
 
 ---
 
-## Step 5: Test the Cluster Step by Step
+## Step 5: Reproduce the Failure on a different cluster
 
-A useful technique when you are trying to track down the source of an error is to restart the cluster
-and submit the steps to it one by one. This lets you check the results of each step before processing the
-next one, and gives you the opportunity to correct and re-run a step that has failed. This also has the
-advantage that you only load your input data once.
+A useful technique when you are trying to track down the source of an error is to restart a new cluster withe the same configuration and then to submit the job steps (one-by-one) that caused the original cluster to fail. In this way, you can check the results of each step before processing the next one. This method gives you the opportunity to correct and re-run a single step that has failed. This also has the advantage that you only load your input data once which can save time in the troubleshooting process.
 
-To test a cluster step by step:
-1. Launch a new cluster, with both keep alive and termination protection enabled. Keep alive keeps
-the cluster running after it has processed all of its pending steps. Termination protection prevents a
-cluster from shutting down in the event of an error. 
-2. Submit a step to the cluster.
-3. When the step completes processing, check for errors in the step log files. The fastest way to locate these log files is by connecting to
-the master node and viewing the log files there. The step log files do not appear until the step runs
-for some time, finishes, or fails.
-4. If the step succeeded without error, run the next step. If there were errors, investigate the error in
-the log files. If it was an error in your code, make the correction and re-run the step. Continue until
-all steps run without error.
-5. When you are done debugging the cluster, and want to terminate it, you will have to manually
-terminate it. This is necessary because the cluster was launched with termination pprotection
-enabled.
+To test a cluster step-by-step:
+1. Launch a new cluster, with the same configuration as the failed cluster.
+2. Submit the first job step to the cluster.
+3. When the step completes processing, check for errors in the step log files. The fastest way to locate these log files is by connecting to the master node and viewing the log files there. The step log files do not appear until the step runs for some time, finishes, or fails.
+4. If the step succeeded without error, run the next step. If there were errors, investigate the error in the log files. If it was an error in your code, make the correction and re-run the step. Continue until all steps run without error.
+5. When you are done debugging the test cluster, delete it.
 
 ----
 
 ## Conclusion
 
-There are a number of core considerations you need to pay attention to make sure your Spark Jobs run in a predictable and performant way.  It's key for you to focus on using the best Spark cluster configuration for your particular workload.  Along with that, you'll need to monitor the execution of long-running and/or high resource consuming Spark Job executions.  The most common challenges center around memory pressure due to improper configurations (particularly wrong-sized executors), long-running operations and tasks which result in cartesian operations.  Using caching judiciously can significantly speed up jobs.  Finally, it's important to adjust for data skew in your job tasks.
+There are a number of considerations you need to pay attention to make sure your HDInsight cluster is operational.  You should focus on using the best HDInsight cluster configuration for your particular workload.  Along with that, you'll need to monitor the execution of long-running and/or high resource consuming job executions to make sure that they don't fail and possibly bring down your entire cluster.  It's also critically important to manage your cluster configuration over time, so that you can revert to working state should the need arise.
 
 ## See also
 
