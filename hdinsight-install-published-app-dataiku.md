@@ -23,7 +23,7 @@ ms.author:
 
 In this article, you will learn how to install the [Dataiku DDS](https://www.dataiku.com/) published Hadoop application on Azure HDInsight. Read [Install third-party Hadoop applications](hdinsight-apps-install-applications) for a list of available Independent Software Vendor (ISV) applications, as well as an overview of the HDInsight application platform. For instructions on installing your own application, see [Install custom HDInsight applications](hdinsight-apps-install-custom-applications.md).
 
-## About Datameer
+## About Dataiku DSS
 
 Dataiku develops [Data Science Studio (DSS)](https://www.dataiku.com/dss/features/connectivity/), a collaborative data science platform that enables professionals (data scientists, data engineers etc.) to build and deliver their analytical solutions more efficiently. Offering DSS as an HDInsight application enables customers to easily use data science to build big data solutions and run them at enterprise grade and scale.
 
