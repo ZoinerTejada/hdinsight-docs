@@ -20,7 +20,7 @@ The image below shows an overview of the use case and model for a standalone ite
 
 ![High-level view of the iterative exploration model](./media/hdinsight-iterative-data-exploration/use-case.png)
 
-Text files and compressed binary files can be loaded directly into the cluster storage, while stream data will usually need to be collected and handled by a suitable stream capture mechanism (see Collecting and loading data into HDInsight for more information). The output data may be combined with other datasets within your visualization and reporting tools to augment the information and to provide comparisons, as you will see later in this topic.
+Text files and compressed binary files can be loaded directly into the cluster storage, while stream data will usually need to be collected and handled by a suitable stream capture mechanism (see [Upload data for Hadoop jobs in HDInsight](hdinsight-upload-data.md) for more information). The output data may be combined with other datasets within your visualization and reporting tools to augment the information and to provide comparisons, as you will see later in this topic.
 
 When using HDInsight for iterative data exploration, you will often do so as an interactive process. For example, you might use the Power Query add-in for Excel to submit a query to an HDInsight cluster and wait for the results to be returned, usually within a few seconds or even a few minutes. You can then modify and experiment with the query to optimize the information it returns.
 
@@ -55,7 +55,7 @@ The input data for this model typically includes the following:
 
 * Internal data extracted from databases or data warehouses for experimentation and one-off analysis.
 
-* Streaming data that is captured, filtered, and pre-processed through a suitable tool or framework (see Collecting and loading data into HDInsight).
+* Streaming data that is captured, filtered, and pre-processed through a suitable tool or framework (see [Upload data for Hadoop jobs in HDInsight](hdinsight-upload-data.md)).
 
 Notice that, as well as externally obtained data, you might process data from within your organization's existing database or data warehouse. HDInsight is an ideal solution when you want to perform offline exploration of existing data in a sandbox. For example, you may join several datasets from your data warehouse to create large datasets that act as the source for some experimental investigation, or to test new analysis techniques. This avoids the risk of interrupting existing systems, affecting performance of your data warehouse system, or accidently corrupting the core data.
 
@@ -93,3 +93,4 @@ There are some important points to consider when choosing the iterative explorat
 
 * [HDInsight Architecture](hdinsight-architecture.md)
 * [Data Warehouse on Demand](hdinsight-data-warehouse-on-demand)
+* [Upload data for Hadoop jobs in HDInsight](hdinsight-upload-data.md)
