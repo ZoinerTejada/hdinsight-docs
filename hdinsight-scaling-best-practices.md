@@ -156,7 +156,7 @@ The `hive.exec.scratchdir` parameter in Hive is configured within `/etc/hive/con
 
 #### View the health and state of your HDFS file system
 
-You can view a status report from each name node to see whether nodes are in safe nodes. To view the report, SSH into each head node to run the following command:
+You can view a status report from each name node to see whether nodes are in safe mode. To view the report, SSH into each head node to run the following command:
 
 ```
 hdfs dfsadmin -D 'fs.default.name=hdfs://mycluster/' -safemode get
@@ -267,7 +267,7 @@ hadoop fs -rm -r -skipTrash hdfs://mycluster/tmp/hive/
 
 #### How to Prevent HDInsight from getting stuck in safe mode due to under-replicated blocks
 
-There are some ways in which you can prevent HDInsight being left in safe mode. A few options are:
+There are some ways in which you can prevent HDInsight from being left in safe mode. A few options are:
 
 * Stop all Hive jobs before scaling HDInsight down. Alternately, schedule the scale down process to avoid conflicting with running Hive jobs.
 * Manually clean up Hive's scratch Tmp directory files in HDFS before scaling down.
