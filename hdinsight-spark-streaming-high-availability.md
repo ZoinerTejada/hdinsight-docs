@@ -20,21 +20,29 @@ Spark Streaming takes a micro-batch approach to how it processes data. This mean
 
 The design goals of Spark Streaming include low latency (measured in seconds) and linear scalability. However, what sets Spark Streaming apart are its support for fault tolerance with the guarantee that any given event would be processed exactly once, even in the face of a node failure. Additionally, Spark Streaming is integrated with the Spark core API, giving Spark developers a familiar programming model and new developers one less new framework to learn when first starting with Spark. 
 
-## Introducing the DStream  
-Spark Streaming represents a continous stream of data using a discretized stream or DStream. This DStream can be created from input sources like Event Hubs or Kafka, or by applying transformation on another DStream. 
-
-The DStream represents a few layers of abstraction on top of the raw event data. To understand how they work, it helps to build up a DStream from a single event. 
+Spark Streaming represents a continous stream of data using a discretized stream or DStream. A DStream can be thought of as a series of RDDs.  This DStream can be created from input sources like Event Hubs or Kafka, or by applying transformation on another DStream.  The DStream represents a few layers of abstraction on top of the raw event data. To understand how they work, it helps to build up a DStream from a single event. 
 
 Start with a single event, say a temperature reading from a connected thermostat. When this event arrives at your Spark Streaming application, the first thing that happens is the event is stored in a reliable way- it is replicated so that multiple nodes have a copy of your event. This ensures that the failure of any single node will not result in the loss of your event. Spark core has a data structure that distributes data across multiple nodes in the cluster, where each node generally maintains its data completely in-memory for best performance. This data structure is called a resilient distributed dataset or RDD. The temperature reading event will be stored in an RDD. 
 
 Each RDD represents events collected over some user defined timeframe called the batch interval. Everytime the batch interval elapses a new RDD is produced that contains all the data in the interval of time that just completed. It is this continuous set of RDD's that are collected into a DStream. So for example, if the batch interval was configured to be 1 second long, your DStream emits a batch every second containing one RDD that contains all the data ingested during that second. When processing the DStream, the temperature event would appear in one of these batches. A Spark Streaming application that processes these events, processes the batches that contains the events and ultimately acts on the data stored in the RDD each batch contains. 
 
+---
+
+### Fault-tolerance and RDDs
+
+RDDs have a number of properties that aid the ability to create highly-available and fault tolerant Spark Streaming Jobs.  These properties are the following:
+
+* Batches of input data stored in RDDs as a DStream, are replicated in memory for fault-tolerance.
+* Data lost due to worker failure can be recomputed from replicated input data on different workers
+* Fast Fault Recovery - recovers from faults/stragglers within 1 second because computation happens in memory
+* All transformations are fault-tolerant and exactly-once transformation
+
+![RDD Fault tolerance](./media/hdinsight-spark-streaming-high-availability/fault-tolerance.png)
+
 ![Example DStream with Temperature Events ](./media/hdinsight-spark-streaming-high-availability/hdinsight-spark-streaming-example.png)
 
 ## Structure of a Spark Streaming Application
-A Spark Streaming application is a long running application that receives data from ingest sources, applies transformation to process the data and then pushes the data out to one or more destinations. The structure of a Spark Streaming application has two main parts. First, you define the processing logic that includes where the data comes from, what processing to do on the data and where the results should go. Second, you run the defined application indefinitely, waiting for any signals to stop the long running application.
-
-To give you a sense for the structure of a Spark Streaming Application, we will show a simple application that receives a line of text over a TCP socket and counts the number of times each word appears. 
+A Spark Streaming application is a long running application that receives data from ingest sources, applies transformation to process the data and then pushes the data out to one or more destinations. The structure of a Spark Streaming application has two main parts. First, you define the processing logic that includes where the data comes from, what processing to do on the data and where the results should go. Second, you run the defined application indefinitely, waiting for any signals to stop the long running application.  To understand the structure of a Spark Streaming Application, we will show a simple application that receives a line of text over a TCP socket and counts the number of times each word appears. 
 
 ### Define the application
 The application definition consists of four main steps: creating a StreamingContext, creating a DStream from the StreamingContext, applying transformations to the DStream and ouputting the results. During this phase you are just describing the application logic, no actual transformations are applied or is output emitted until you run the application (as shown in the second phase).
@@ -187,11 +195,100 @@ In order to deliver resiliency and fault tolerance, Spark Streaming relies on ch
 ---
 ## About Spark Structured Streaming
 
-XXX - is this needed?  ask and/or add reference info here
+A new component in the Spark ecosystem is Structured Spark Streaming.  It was introduced in Spark 2.0.  Structured Streaming is a an analytic engine
+for streaming structured data.  It shares the same set of APIs with the SparkSQL batching engine.  Structured Streaming provides the ability
+to run computation over continuously arriving data and to keep updating results.  It uses the Spark micro-batches streaming model. You use the `getOffset` and the `getBatch` APIs along with user-defined operations to process the data using SparkSQL syntax.  Then you use a sink and `addBatch` to be able to persist the processed DataFrame.
+
+## Streams as Tables
+Spark Structured Streaming takes the perspective that a stream of data can be represented as a table that is unbounded in height- in other words it continues to grow as new data arrives. This Input Table is continously processed by a long running query, and the results flushed out to an Output Table. This concept is best explained with the following illustration:
+
+![Structured Streaming Concept](./media/hdinsight-spark-structured-streaming-overview/hdinsight-spark-structured-streaming-concept.png)
+
+In Structured Streaming data arrives at the system and is immediately ingested into an Input Table. You write queries (using the DataFrame and Dataset APIs) that perform operations against this Input Table. The query output yields another table, called the Results Table. The Results Table contains results of your query from which you draw any data you would send to an external datastore (such a relational database). The timing of when data is processed from the Input Table is controlled by the trigger interval. By default Structured Streaming tries to process the data as soon as it arrives. In practice this means as soon as it is done processing the run of the previous query, it starts another processing run against any newly received data. However, you can also configure the trigger to run on a longer interval, so that the streaming data is processed according to time-based batches. 
+
+The output mode controls the data in the Results Tables. This data may be completely refreshed everytime there is new data so that it includes all of the output data since the streaming query began (called `complete mode`), or it may only contain just the data that is new since the last time the query was processed (called `append mode`).
+
+## Checkpointing and Write Ahead Logs
+In order to deliver resiliency and fault tolerance, Structured Streaming relies on checkpointing to insure that stream processing can continue uninterrupted, even in the face of node failures. In HDInsight, Spark creates checkpoints to durable storage (Azure Storage or Data Lake Store). These checkpoints store the progress information about the streaming query. In addition, Structured Streaming utilizes a Write Ahead Log. The purpose of the WAL is to capture ingested data that has been received but not processed by a query, so if a failure occurs and processing is restarted the events received from the source are not lost.
+
 ---
 ## About Spark Streaming and YARN
 
 XXXXX - add new content here
+
+### 4 Problems Made when writing streaming applications
+
+What can fail - an executor or a driver.  Some failures and guarantee requirements needs additonal configurations and setups.  Also many streaming 
+applications need ZERO data loss guarantees in spite of any type of error that could occur in the streaming system.
+
+If an executor fails, then tasks and receivers are restarted by Spark automatically, there is no configuration change needed.  If a driver
+fails, then all of executors fail.  Also all computation and received blocks are lost.  Use DStream Checkpointing to recover from driver failure.  
+DStream Checkpointing periodically saves the DAG of DStreams to fault-tolerant storage (such as Azure BLOBs).  Checkpointing allows for 
+the failed driver to be restarted using checkpoint information.  This driver restart will launch new executors and will also restart
+receivers.
+
+To recover drivers w/DStream Checkpointing
+1. Configure automatic driver restart on the cluster manager (YARN)
+2. Set a check point directory in a HDFS-compatible file system by `streamingContext.checkpoint(hdfsDirectory)`
+3. Restructure source code to use checkpoints for recovery.
+4. Configure to recover lost data
+
+To Configure automatic driver restart in YARN
+* In YARN use config `yarn.resourcemanager.am.max-attempts` setting
+
+To Restructure code to use checkpoints
+* Put all setup code into a function that returns a new StreamingContext
+
+```scala
+    def creatingFunc() : StreamingContext = {
+        val context = new StreamingContext(...)
+        val lines = KafkaUtils.createStream(...)
+        val words = lines.flatMap(...)
+        ...
+        context.checkpoint(hdfsDir)
+    }
+
+    val context = StreamingContext.getOrCreate(hdfsDir, creatingFund)
+    conext.start()
+```
+To recover lost data blocks in a restarted driver
+* Use a `Write Ahead Log` (or WAL) which synchronously saves received data to fault-tolerant storage
+* Requires that checkpointing with logs written to checkpoint directory be enabled
+* Enable WAL via `sparkConf.set("spark.streaming.receiver.writeAheadLog.enable","true")`
+* Disable in-memory replication via `StorageLevel.MEMORY_AND_DISK_SER` for input DStreams
+
+At least once, w/Checkpointing + WAL + reliable receivers
+Exactly once, as long as received data is not lost and if outputs are idempotent or transactional
+Exactly once (alternative) via new Kafka Direct approach - uses Kafka as replicated log, does not use receivers or WALs
+
+---
+
+1. Not monitoring and managing your streaming jobs - WHY: because it's so much harder for streaming than for batch jobs. Spark streaming is long-running.  YARN doesn't aggreage logs until job finishes.  Spark checkpoints can't survive app or Spark upgrades.  Need to clear checkpoint directory during upgrade.  Use YARN Cluster mode to run drivers even if client fails.  Set up automatic restart on driver, use spark configurion 
+
+```
+    spark.yarn.maxAppAttempts = 2
+    spark.yarn.am.attemptFailuresValidityInterval=1h
+```
+Monitoring - Spark Streaming UI AND Spark has a configurable metrics system, you can also use Graphite/Grafana to download dashboard metrics such
+as 'num records processed', 'memory/GC usage on driver & executors', 'total delay', 'utilization of the cluster' and others...
+In Structured Streaming (2.1 or greater only) use `StreamingQueryListener`  
+
+2. Not considering data loss - driver will restart, but...
+    * if file, then use checkpointing (means both metadata AND data, but doesn't work across Spark upgrades for legacy streaming, it does upgrade ok if you are using Structured Streaming)
+    * if receiver (Kafka), then enable checkpointing ADN enable the write-ahead log set `spark.streaming.receiver.writeAheadLog.enable` = true [needed as data is stored in executor memory only by default, this makes a copy of the data in a durable location, but this can slow down the job, or Kafka direct stream, but for Kafka don't use WAL, rather use Kafka's own data storage [it can replay the data from it's own offsets], but then you have to manage those offsets (maybe in a database) 
+    * if ???, then  
+
+3. Counting - no dupliates (exactly-once semantics / perfect counting) - double submits are the current big problem (w/Kafka) fix by adding sequence IDs to sources (fails beyond a billion submits)  
+
+4. Not shutting down your streaming app gracefully - offsets known, state stored externally, stopping at the right place - when / how to kill a YARN (Spark streaing) app gracefully?  Use 'thread hooks' in Spark, check for external flag every n seconds -or- use a marker file, that is 
+touch a file when starting the app on HDFS, remove the file when you want to stop, use a separate thread in Spark app, then calls 
+```scala
+    streamingContext.stop(stopSparkContext = true, stopGracefully = true)
+```
+store offsets externally in an external database, to be able to recover on restart
+
+
+PROBLEM: YARN aggregates logs only on job completion (doesn't work well for Streaming), so you can collect logs and make them searchable in real-time using other services, such as Logstash, Elasticsearch and Kibana.  Configure Log4j to write into Logstash.  For resource monitoring / altering you often add an additional logging solution, such as Graphite logging into InfluxDB and out into Graphana
 
 ---
 This article focuses on how you configure Spark Streaming to achieve exactly once processing semantics in a highly-available, fault-tolerant way.
@@ -235,10 +332,14 @@ In HDInsight, these checkpoints should be saved to your default storage attached
 ### Use Idempotent Sinks
 The destination to which your job writes results must be able to handle the situation where it is given the same result more than once. It must be able to detect such duplicate results and ignore them. You can achieve idempotent sinks by implementing logic that first checks for the existence of the result in the datastore. If the result already exists, the write should appear to succeed from the perspective of your Spark job, but in reality your data store ignored the duplicate data. If the result does not exist, then it should insert the new result into its storage. One example of this is to use a stored procedure with Azure SQL Database that is used to insert events into a table. When the stored procedure is invoked, it first looks up the event by key fields and only if none are found is the record inserted into the table. Another example is to use a partitioned file system, like Azure Storage blobs or Azure Data Lake store. In this case your sink logic does not need to check for the existence of a file. If the file representing the event exists, it is simply overwritten with the same data. Otherwise, a new file is created at the computed path. In the end idempotent sinks should support being called multiple times with the same data and no change of state should result. 
 
+### Use YARN Capacity Scheduling
+
+When a Spark Streaming application is submitted to the cluster, YARN queue where the job runs must be defined. I strongly recommend using [YARN Capacity Scheduler](https://hadoop.apache.org/docs/stable/hadoop-yarn/hadoop-yarn-site/CapacityScheduler.html) and submitting long-running jobs to separate queue.
 ---
 
 ## Next steps
 This article covered the key components of achieving exactly once semantics in a fault-tolerant and highly-available way with your Spark Streaming applications. 
 
-- Review [Spark Streaming Overview](hdinsight-spark-streaming-overview) for an architectural overview of a Spark Streaming application.
-- See [Creating highly available Spark Streaming jobs in YARN](hdinsight-spark-streaming-high-availability.md) for guidance on how to enable high availability for your Spark Streaming applications in HDInsight.
+- [Spark Streaming Overview](hdinsight-spark-streaming-overview) 
+- [Long-running Spark Streaming Jobs on YARN](http://mkuthan.github.io/blog/2016/09/30/spark-streaming-on-yarn/) 
+- [Discretized Streams: A Fault-Tolerant Model for Scalable Stream Processing](https://www2.eecs.berkeley.edu/Pubs/TechRpts/2012/EECS-2012-259.pdf)
