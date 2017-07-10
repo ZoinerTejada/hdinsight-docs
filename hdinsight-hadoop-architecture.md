@@ -22,6 +22,52 @@ All HDInsight cluster types deploy YARN. The ResourceManger is deployed in a hig
 
  ![YARN on HDInsight](./media/hdinsight-hadoop-architecture/yarn-on-hdinsight.png)
 
+ ---
+
+ ## Lifecycle of a Spark Job
+
+### What is Apache Spark?
+
+Apache Spark is an open-source processing framework that runs large-scale data analytics applications. Spark is built on an in-memory compute engine, which enables high-performance querying on big data. It takes advantage of a parallel data-processing framework that persists data in-memory and disk if needed. This allows Spark to deliver 100-times faster speed and a common execution model for tasks such as extract, transform, load (ETL), batch, interactive queries and others on data in an Apache Hadoop Distributed File System (HDFS). Azure makes Apache Spark easy and cost effective to deploy with no hardware to buy, no software to configure, a full notebook experience for authoring compelling narratives and integration with partner business intelligence tools.
+
+Spark includes an integrated set of APIs which allows for many different types of interaction, processing and query of associated data. These include SparkSQL, SparkML and others. Shown below is the Spark architecture for reference.
+
+![Spark Architecture](./media/hdinsight-hadoop-architecture/spark-unified.png)
+
+### Architecture of Spark on HDInsight
+
+Shown below is a diagram with the core components of Spark on HDInsight.  When you setup your HDInsight cluster on Azure, you select a cluster of type `Spark` and then the version of Spark as well as the number and configuration of head and worker nodes for your cluster.  Given Spark's use of node memory for job processing, it's particularly important to understand, evaluate and tune your cluster configuration settings so that your Spark Jobs will run as expected.
+
+![Spark on HDInsight](./media/hdinsight-hadoop-architecture/hdinsight-spark-cluster-type-setup.png)
+
+In order to understand the lifecycle of a Spark Job, you'll also need to consider Spark objects in your cluster.  As shown below, Spark uses a Driver Program, which runs the SparkContext along with a cluster manager (YARN) to schedule and run the Spark Jobs submitted to that cluster.  The cluster executes the Spark job steps on the worker nodes.  Each worker node has its own Executor, Cache and list of (job) tasks.  
+
+![Spark Objects](./media/hdinsight-hadoop-architecture/spark-arch.png)
+
+ ### Understanding Spark Job Steps
+
+ Spark uses an abstraction called a RDD (resiliant distributed dataset) to hold the data that it processes during a Spark job.  The Spark API has evolved and there are now higher level objects, such as DataFrames and DataSets that operate on top of RDDs and provide more functionality for developers, i.e. strongly-typed objects, etc...
+
+ After data is loaded into RDDs on the worker nodes, then the DAG (Directed Acyclic Graph) scheduler coordinates the set of tasks that the Spark Job requires and sends that list to the Task Scheduler on the Cluster Manager.  Tasks are then distributed to Executors (on various nodes) and run on resources on those nodes.  This process is illustrated below.
+
+ ![Spark Jobs](./media/hdinsight-hadoop-architecture/rdd-stages.png)
+
+ You can monitor the progress of Spark Jobs via several monitoring UIs that are available for HDInsight.  Most commonly, you'd first start by taking a look at the YARN UI to locate the job status and tracking URL for the Spark Job(s) of interest.  This is shown below.
+
+ ![YARN UI](./media/hdinsight-hadoop-architecture/tracking-url.png)
+
+Clicking on the `Tracking URL` (shown above), opens the Spark UI.  There are a number of views here that allow you to track and monitor the status of your job(s) at a very granular level.  This UI opens to the `Jobs` tab.  As shown below, here you can see a list of jobs run with Job Ids, Descriptions, Time Submitted, Job Duration, Job Steps and Job Tasks.  Here also you can click on a link in the Description column to open a new UI with detailed information about Job step execution overhead.
+
+ ![Spark Job UI](./media/hdinsight-hadoop-architecture/spark-job-ui.png)
+
+ In the Spark (Job) Stages UI, you have access to highly detailed information about the process and overhead associated with each task in a Spark Job.  Shown below is an expanded view of the Spark Stages UI.  This includes the `DAG Visualization`, `Event Timeline`, `Summary Metrics` and `Aggregated Metrics by Executor` for a single job stage of a Spark Job.  These detailed views are quite useful in determining whether and exactly where Spark Job performance bottlenecks are occuring on your HDInsight Spark cluster.    
+
+ ![Spark Job Details UI](./media/hdinsight-hadoop-architecture/job-details.png)
+
+ After Spark Jobs complete, then job execution information is available in the Spark History Server view.  This view is available via a link in the Azure Portal for HDInsight.
+
+ ---
+
 ## Next steps
 This article provided an architectural overview of Hadoop on HDInsight. 
 
