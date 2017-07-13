@@ -43,7 +43,7 @@ You might consider creating your own map and reduce components when:
 ## Uploading and running your custom MapReduce program
 The most common MapReduce programs are written in Java and compiled to a jar file. The steps to upload and run your custom MapReduce program are simple.
 
-Once you have developed, compiled, and tested your MapReduce program, execute the following command to upload your jar file to the headnode using the `scp` command:
+Once you have developed, compiled, and tested your MapReduce program, execute the following to upload your jar file to the headnode using the `scp` command:
 
 ```bash
 scp mycustomprogram.jar USERNAME@CLUSTERNAME-ssh.azurehdinsight.net
