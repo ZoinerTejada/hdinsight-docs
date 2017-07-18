@@ -18,7 +18,7 @@ Here is the Spark cluster architecture and how it works:
 
 ![Spark cluster architecture](./media/hdinsight-spark-with-hdinsight/spark-architecture.png)
 
-In the head node, we have the Spark master that manages the number of applications, the apps are mapped to the Spark driver. Every app is managed by Spark master in various way. Spark can be deployed on top of Mesos, Yarn, or the Spark cluster manager, which allocates worker node resources to an application. The resources in the cluster are managed by Spark master in the HDInsight. That means the Spark master has knowledge of which resources, like memory, are occupied or available on the worker node.
+In the head node, we have the Spark master that manages the number of applications, the apps are mapped to the Spark driver. Every app is managed by Spark master in various ways. Spark can be deployed on top of Mesos, Yarn, or the Spark cluster manager, which allocates worker node resources to an application. The resources in the cluster are managed by Spark master in the HDInsight. That means the Spark master has knowledge of which resources, like memory, are occupied or available on the worker node.
 
 The driver runs the user's main function and executes the various parallel operations on the worker nodes. Then, the driver collects the results of the operations. The worker nodes read and write data from and to the Hadoop distributed file system (HDFS). The worker nodes also cache transformed data in-memory as Resiliant Distributed Datasets (RDDs).
 
