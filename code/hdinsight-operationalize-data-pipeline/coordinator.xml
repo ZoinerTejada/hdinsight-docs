@@ -1,0 +1,64 @@
+<coordinator-app name="daily_export" start="2017-01-01T00:00Z" end="2017-01-05T00:00Z" frequency="${coord:days(1)}" timezone="UTC" xmlns="uri:oozie:coordinator:0.4">
+    <datasets>
+        <dataset name="ds_input1" frequency="${coord:days(1)}" initial-instance="2016-12-31T00:00Z" timezone="UTC">
+            <uri-template>${sourceDataFolder}${YEAR}-${MONTH}-FlightData.csv</uri-template>
+            <done-flag></done-flag>
+        </dataset>
+    </datasets>
+    <input-events>
+        <data-in name="event_input1" dataset="ds_input1">
+            <instance>${coord:current(0)}</instance>
+        </data-in>
+    </input-events>
+    <action>
+        <workflow>
+            <app-path>${appBase}/load_flights_by_day</app-path>
+            <configuration>
+                <property>
+                    <name>year</name>
+                    <value>${coord:formatTime(coord:nominalTime(), 'yyyy')}</value>
+                </property>
+                <property>
+                    <name>month</name>
+                    <value>${coord:formatTime(coord:nominalTime(), 'MM')}</value>
+                </property>
+                <property>
+                    <name>day</name>
+                    <value>${coord:formatTime(coord:nominalTime(), 'dd')}</value>
+                </property>
+                <property>
+                    <name>hiveScriptLoadPartition</name>
+                    <value>${hiveScriptLoadPartition}</value>
+                </property>
+                <property>
+                    <name>hiveScriptCreateDailyTable</name>
+                    <value>${hiveScriptCreateDailyTable}</value>
+                </property>
+                <property>
+                    <name>hiveDailyTableNamePrefix</name>
+                    <value>${hiveDailyTableNamePrefix}</value>
+                </property>
+                <property>
+                    <name>hiveDailyTableName</name>
+                    <value>${hiveDailyTableNamePrefix}${coord:formatTime(coord:nominalTime(), 'yyyy')}${coord:formatTime(coord:nominalTime(), 'MM')}${coord:formatTime(coord:nominalTime(), 'dd')}</value>
+                </property>
+                <property>
+                    <name>hiveDataFolderPrefix</name>
+                    <value>${hiveDataFolderPrefix}</value>
+                </property>
+                <property>
+                    <name>hiveDataFolder</name>
+                    <value>${hiveDataFolderPrefix}${coord:formatTime(coord:nominalTime(), 'yyyy')}/${coord:formatTime(coord:nominalTime(), 'MM')}/${coord:formatTime(coord:nominalTime(), 'dd')}</value>
+                </property>
+                <property>
+                    <name>sqlDatabaseConnectionString</name>
+                    <value>${sqlDatabaseConnectionString}</value>
+                </property>
+                <property>
+                    <name>sqlDatabaseTableName</name>
+                    <value>${sqlDatabaseTableName}</value>
+                </property>
+            </configuration>
+        </workflow>
+    </action>
+</coordinator-app>

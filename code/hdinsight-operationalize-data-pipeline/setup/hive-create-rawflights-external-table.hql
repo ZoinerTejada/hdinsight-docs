@@ -1,0 +1,20 @@
+ CREATE EXTERNAL TABLE IF NOT EXISTS rawflights (
+	YEAR INT,
+  	MONTH INT,
+  	DAY_OF_MONTH INT,
+  	FL_DATE STRING,
+  	CARRIER STRING,
+  	FL_NUM STRING,
+  	ORIGIN STRING,
+  	DEST STRING,
+  	DEP_DELAY FLOAT,
+  	ARR_DELAY FLOAT,
+  	ACTUAL_ELAPSED_TIME FLOAT,
+  	DISTANCE FLOAT)
+ROW FORMAT SERDE 'org.apache.hadoop.hive.serde2.OpenCSVSerde'
+WITH SERDEPROPERTIES 
+(
+    "separatorChar" = ",",
+    "quoteChar"     = "\""
+) 
+LOCATION '/example/data/flights'
