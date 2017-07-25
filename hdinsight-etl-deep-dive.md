@@ -56,10 +56,12 @@ In this scenario, an application has produced a text file.  We're going to uploa
 The file contains captured sensor readings as objects. Note that the Position property of the GpsReading class is based on the Location struct.
 C# (Program.cs in RaceTracker project)
 
-[See File Here](./media/hdinsight-deep-dive-etl/sensor.csv)
+[Download the file from here](./media/hdinsight-deep-dive-etl/sensor.csv)
 
 As part of the ETL processing workflow in HDInsight, the captured readings must be filtered to remove any null values caused by sensor transmission problems. At the end of the processing the data must be restructured to a tabular format that matches the following Azure SQL Database table definition.
 Transact-SQL (Create LapData Table.sql)
+
+```SQL
 CREATE TABLE [LapData]
 (
   [LapTime] [varchar](25) NOT NULL PRIMARY KEY CLUSTERED,
@@ -70,16 +72,17 @@ CREATE TABLE [LapData]
   [OilTemp] [float]  NULL,
   [BrakeTemp] [float]  NULL,
 );
+```
 
-The workflow and its individual components are described in The ETL workflow.
+The workflow and its individual components are described in following section.
 
 ## The ETL workflow
 
 The key tasks that the ETL workflow for the racecar telemetry data must perform are:
-* Uploading them to Azure storage.
-* Filtering the data to remove readings that contain null values, and restructuring it into tabular format.
-* Take sensor and create a single table.
-* Loading the sensor readings data into the table in Windows Azure SQL Database.
+* Uploading the telemetry to Azure storage.
+* Filtering the data to remove readings that contain null values, and restructuring it into a tabular format.
+* Combine the sensor data into a a single table.
+* Load the sensor readings data into the table in an Azure SQL Database.
 
 Figure 1 shows this workflow.  We will only use one file for simplicity.
 
@@ -93,8 +96,8 @@ The first challenge in implementing the ETL workflow is to serialize each list o
 After the data for each sensor has been serialized to a file, the program must upload the files to the Azure blob storage container used by the HDInsight cluster. 
 
 To accomplish this the developer imported the Microsoft .NET API for Hadoop WebClient package and added using statements that reference the Microsoft.Hadoop.WebHDFS and Microsoft.Hadoop.WebHDFS.Adapters namespaces. The developer can then use the WebHDFSClient class to connect to Azure storage and upload the files. The following code shows how this technique is used to upload the file containing the GPS sensor readings.
-[Solution for Uploading Sensor File](./media/hdinsight-deep-dive-etl/LoadSensorData/)
 
+[Download the Solution](./media/hdinsight-deep-dive-etl/LoadSensorData.zip)
 
 Notice that the settings used by the WebHDFSClient object are retrieved from the App.Config file. These settings include the credentials required to connect to the Azure storage account used by HDInsight and the path for the folder to which the files should be uploaded. In this scenario the InputDir configuration settings has the value input, so the sensor data file will be saved as /users/admin/sensor/sensor.csv.
 
@@ -102,27 +105,32 @@ Notice that the settings used by the WebHDFSClient object are retrieved from the
 
 After the data has been uploaded to Azure storage, HDInsight can be used to process the data and upload it to Azure SQL Database. 
 
-To read the data in these files the developers decided to use Hive because of the simplicity it provides when querying tabular data structures. The first stage in this process was to create a script that builds Hive tables over the input records from the race car sensors. For example, the following HiveQL code defines a table over the filtered sensor data.
-HiveQL (createtables.hql)
+To read the data in these files the developers decided to use Hive because of the simplicity it provides when querying tabular data structures. The first stage in this process was to create a script that builds Hive tables over the input records from the race car sensors. For example, the following HiveQL statements define a table over the filtered sensor data.
+
+```HiveQL
 DROP TABLE IF EXISTS sensor;
 
 CREATE EXTERNAL TABLE sensor
 (laptime STRING, lat DOUBLE, lon DOUBLE, speed FLOAT) 
 COMMENT 'from csv file' 
 ROW FORMAT DELIMITED FIELDS TERMINATED BY ',' STORED AS TEXTFILE LOCATION '/user/admin/input/';
+```
 
 Sometimes the sensor data malfuctions and we get nulls in the value.  We want to use Hive to clean the records before loading it into our data warehouse.  We'll use a query like this:
 
+```HiveQL
 INSERT OVERWRITE DIRECTORY '/user/admin/output/' 
 ROW FORMAT DELIMITED FIELDS TERMINATED BY ',' 
 SELECT * FROM sensor
 WHERE LapTime IS NOT NULL;
+```
 
 ## Loading the combined data to SQL Database
 After the ETL process has filtered the data, it loads it into the LapData table in Azure SQL Database.  To accomplish this the developers used Sqoop to copy the data from the folder on which the lap Hive table is based and transfer it to the database. The following command shows an example of how Sqoop can be used to perform this task.  For more information on creating an Azure SQL Database, [see here](https://docs.microsoft.com/en-us/azure/sql-database/sql-database-get-started-portal).
 
-Command Line
-    sqoop export  --connect "jdbc:sqlserver://{yourserver}.database.windows.net:1433;databaseName=deepdiveetl;username={YourUserAccount};password={yourpassword};logintimeout=30" --table LapData --export-dir /user/admin/output/ --input-fields-terminated-by ,  --input-null-non-string \N
+```Command Line
+sqoop export  --connect "jdbc:sqlserver://{yourserver}.database.windows.net:1433;databaseName=deepdiveetl;username={YourUserAccount};password={yourpassword};logintimeout=30" --table LapData --export-dir /user/admin/output/ --input-fields-terminated-by ,  --input-null-non-string \N
+```
 
 Now that each of the tasks for the workflow have been defined, they can be combined into a workflow definition. 
 

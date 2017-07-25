@@ -62,9 +62,9 @@ Here two some other notable differences between Azure Storage and ADLS:
 Data is typically ingested into ADLS using Azure Data Factory, ADLS SDKs, AdlCopy Service, Apache DistCp, or Apache Sqoop.  Which of these services to use might largely depend on where the data is.  If the data is currently in an existing Hadoop cluster, you might use Apache DistCp, AdlCopy Service, or Azure Data Factory.  If it's in Azure Blob Storage, you might use Azure Data Lake Store .NET SDK, Azure PowerShell, or Azure Data Factory.
 
 
-It is also optimized for event ingestion using Azure Event Hub or Apache STORM.
+It is also optimized for event ingestion using Azure Event Hub or Apache Storm.
 
-### Considerations with Both Storage Products
+### Considerations with Both Storage options
 
 For uploading datasets that range in sefveral terabytes, network latency can be a major problem, particularly if the data is coming from an on-premise location.  In such cases, you can use the options below:
 
@@ -76,7 +76,7 @@ For uploading datasets that range in sefveral terabytes, network latency can be 
 
 Azure SQL DW is a great choice to store cleaned and prepared results for future analytics.  Azure HDInsight can be used to perform those services for Azure SQL DW.
 
-Azure SQL Data Warehouse (SQL DW) is a relational database store that is optimzied for analytic workloads.  Azure SQL DW scales based on partitioned tables.  Tables can be partitioned across multiple nodes.  Azure SQL DW nodes are selected at the time of creation.  They can scale after the fact, but that's an active process that might require data movement.  This is sometimes a time consuming and expensive process, so should be done carefully.  Please see [SQL Data Warehouse - Manage Compute](https://docs.microsoft.com/en-us/azure/sql-data-warehouse/sql-data-warehouse-manage-compute-overview) for more information.
+Azure SQL Data Warehouse (SQL DW) is a relational database store that is optimzied for analytic workloads.  Azure SQL DW scales based on partitioned tables.  Tables can be partitioned across multiple nodes.  Azure SQL DW nodes are selected at the time of creation.  They can scale after the fact, but that's an active process that might require data movement.  This is sometimes a time consuming and expensive process, so should be done carefully.  See [SQL Data Warehouse - Manage Compute](https://docs.microsoft.com/en-us/azure/sql-data-warehouse/sql-data-warehouse-manage-compute-overview) for more information.
 
 ### HBase
 
@@ -132,8 +132,6 @@ Apache Sqoop is a tool designed for efficiently transferring data betweeen struc
 
 Sqoop uses MapReduce to import and export the data, which provides parallel operation as well as fault tolerance.
 
-TODO:  Zoiner, should I incorporate elements from this blog post here? https://community.hortonworks.com/articles/70258/sqoop-performance-tuning.html
-
 
 ### Flume
 Apache Flume is a distributed, reliable, and available service for efficiently collecting, aggregating, and moving large amounts of log data. It has a simple and flexible architecture based on streaming data flows. It is robust and fault tolerant with tunable reliability mechanisms and many failover and recovery mechanisms. It uses a simple extensible data model that allows for online analytic application.
@@ -143,7 +141,7 @@ Apache Flume cannot be used with Azure HDInsight.  An on-premise Hadoop installa
 
 
 ### Other options
-If you'd like to use non-hadoop products, SQL Server Integration Services (installed in an Azure VM) and Azure Data Factory both have connectors into HDInsight that allow for data movement.  
+Other options for extract and load are SQL Server Integration Services installed in an Azure Virtual Machine and Azure Data Factory. Both have connectors into HDInsight that allow for data movement amongst various sources and destinations.  
 
 
 ## Transform
@@ -152,8 +150,6 @@ Once data exists in the chosen location, we need to actually clean it, combine i
 See [Using Apache Hive as an ETL Tool](./hdinsight-using-apache-hive-as-an-etl-tool.md) for more information on Hive.
 
 See [Use Pig with Hadoop on HDInsight](https://docs.microsoft.com/en-us/azure/hdinsight/hdinsight-use-pig) for more information on Pig.
-
-TODO: Zoiner, should I incorporate this article? https://www.xplenty.com/blog/2014/05/etl-on-hadoop-with-apache-pig/
 
 
 ## Orchestrations
@@ -173,5 +169,3 @@ For more information, see [Use Oozie with Hadoop to define and run a workflow on
 Azure Data Factory is the platform for this kind of scenarios. It is a cloud-based data integration service that allows you to create data-driven workflows in the cloud for orchestrating and automating data movement and data transformation. Using Azure Data Factory, you can create and schedule data-driven workflows (called pipelines) that can ingest data from disparate data stores, process/transform the data by using compute services such as Azure HDInsight Hadoop, Spark, Azure Data Lake Analytics, and Azure Machine Learning, and publish output data to data stores such as Azure SQL Data Warehouse for business intelligence (BI) applications to consume.
 
 For more information on Azure Data Factory, see the [documentation](https://docs.microsoft.com/en-us/azure/data-factory/data-factory-introduction).
-
-TODO: Zoiner feedback request: Zoiner, should I have more diagrams?  This is a lot of text.  Should I link to more keywords?

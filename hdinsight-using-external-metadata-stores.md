@@ -14,7 +14,7 @@ Hive Metastore is critical part of Hadoop architecture as it acts as a central s
 
 ![HDInsight Hive Metadata Store Architecture](./media/hdinsight-use-external-metadata-stores/metadata-store-architecture.png)
 
-In HDInsight, we use Azure SQL database as Hive Metastore. Azure SQL DB is relational database-as-a-service (DBaaS) hosted in the Azure.
+In HDInsight, we use Azure SQL Database as the Hive Metastore. 
 
 There are two ways you can setup Metastore for your HDInsight clusters
 
@@ -29,10 +29,10 @@ This is generally good option for relatively simple workload where you don’t h
 
 **Custom** – HDInsight lets you pick custom Metastore. It’s a recommended approach for production clusters due to number reasons such as
 
-* You bring your own Azure SQL database as Metastore
-* As lifecycle of Metastore is not tied to a cluster lifecycle, you can create and delete clusters without worrying about the metadata loss.
-* Custom Metastore lets you attach multiple clusters and cluster types to same Metastore. Example – Single Metastore can be shared across Interactive Hive, Hive and Spark clusters in HDInsight
-* You pay for the cost of Metastore (Azure SQL DB) according to the performane level you choose.  
+* You bring your own Azure SQL Database as Metastore
+* As the lifecycle of the Metastore is not tied to a cluster lifecycle, you can create and delete clusters without worrying about the metadata loss- meaning metadata like your Hive schemas will persist even when you delete and re-create the HDInsight cluster.
+* Custom Metastore lets you attach multiple clusters and cluster types to the same Metastore. For example, a single Metastore can be shared across Interactive Hive, Hive and Spark clusters in HDInsight
+* You pay for the cost of Metastore (Azure SQL DB) according to the performance level you choose.  
 * You can scale up the metastore as needed.
 
 ![HDInsight Hive Metadata Store Use Case](./media/hdinsight-use-external-metadata-stores/metadata-store-use-case.png)
@@ -41,16 +41,16 @@ Image – Typical shared custom Metastore scenario in HDInsight
 
 Here are general HDinsight Hive Metastore best practices that you should consider
 
-* Use custom Metastore whenever possible, this will help you separate Compute and Metadata.
+* Use a custom Metastore whenever possible, this will help you separate Compute (your running cluster) and Metadata (stored in the Metastore).
 * Start with S2 tier which will give you 50 DTU and 250 GB of storage, you can always scale the database up in case you see bottlenecks.
 * Ensure that the Metastore created for one HDInsight cluster version is not shared across different HDInsight cluster versions. This is due to different Hive versions has different schemas. Example – Hive 1.2 and Hive 2.1 clusters trying to use same Metastore.
-* Back-up your custom Metastore periodically for OOPS recovery and DR needs
-* Keep Metastore and HDInsight cluster in same region
-* Monitor your Metastore for performance and availability with Azure SQL DB Monitoring tools [Azure Portal , Azure Log Analytics]
+* Back-up your custom Metastore periodically.
+* Keep your Metastore and HDInsight cluster in same region.
+* Monitor your Metastore for performance and availability with Azure SQL Database Monitoring tools (such as in the Azure Portal or by using Azure Log Analytics).
 
-**How to select a custom Metastore during cluster creation?**
+**Selecting a custom Metastore during cluster creation**
 
-You can easily point your cluster to a pre-created Azure SQL DB during cluster creation as well as after cluster is created. The option is under storage –> Metastore settings while creating a new Hadoop , Spark or Intractive Hive cluster from Azure portal
+You can point your cluster to a pre-created Azure SQL Database during cluster creation, or you can configure it after the cluster is created. The option is under storage –> Metastore settings while creating a new Hadoop , Spark or Intractive Hive cluster from Azure portal
 
 ![HDInsight Hive Metadata Store Azure Portal](./media/hdinsight-use-external-metadata-stores/metadata-store-azure-portal.png)
 
@@ -60,7 +60,9 @@ Additionally, You can add additional clusters to the Custom Metastore for Azure 
 As discussed above Hive Metastore is critical component of Hadoop and Spark architecture and picking up right Metastore strategy will certainly help you with right Architecture and user experience.
 
 # Oozie Metastore
-Apache Oozie is a workflow/coordination system that manages Hadoop jobs.  It supports Hadoop jobs for Apache MapReduce, Apache Pig, and Apache Hive.  Oozie uses a metastore to store details about current and completed worklflows. To increase performance when using Oozie, you can use SQL Database as a custom metastore. The metastore can also provide access to Oozie job data after you delete your cluster.  It can also be used as a job scheduler for java programs or shell scripts.
+Apache Oozie is a workflow/coordination system that manages Hadoop jobs.  It supports Hadoop jobs for Apache MapReduce, Pig, Hive and others.  Oozie uses a Metastore to store details about current and completed worklflows. To increase performance when using Oozie, you can use Azure SQL Database as a custom metastore. The metastore can also provide access to Oozie job data after you delete your cluster.  
 
-For instructions on creating an Oozie metastore with Azure SQL Database, [see here](https://docs.microsoft.com/en-us/azure/hdinsight/hdinsight-use-oozie-linux-mac#create-the-database)I.
+For instructions on creating an Oozie metastore with Azure SQL Database, see [Use Oozie for workflows](https://docs.microsoft.com/azure/hdinsight/hdinsight-use-oozie-linux-mac#create-the-database).
 
+## See Next
+* [Operationalize Data Pipelines with Oozie](hdinsight-operationalize-data-pipeline.md): Learn how to build a data pipeline that uses Hive to summarize CSV flight delay data, stage the prepared data in Azure Storage blobs and then use Sqoop to load the summarized data into Azure SQL Database. A Metastore is created for both Hive and Oozie.

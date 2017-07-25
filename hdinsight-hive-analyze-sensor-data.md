@@ -8,9 +8,9 @@ tags: azure-portal
 keywords: HDInsight, IoT, Hive
 
 ---
-# Using Apache Hive and the Hive Query Console to Analyze Sensor Data
+# Using Apache Hive and the Ambari Hive view to Analyze Sensor Data
 
-Learn how to analyze sensor data by using the Hive Query Console with HDInsight (Hadoop), then visualize the data in Microsoft Excel by using Power View.
+In this article you will learn how to analyze sensor data by using the Hive Query Console with HDInsight (Hadoop), then visualize the data in Microsoft Excel by using Power View.
 
 In this example, you'll use Hive to process historical data produced by heating, ventilation, and air conditioning (HVAC) systems to identify systems that are not able to reliably maintain a set temperature. You will learn how to:
 
@@ -41,9 +41,9 @@ When prompted, authenticate by using the administrator user name and password yo
 
 2. Install the Hive ODBC Driver on Windows.
 
-3.  Install <a href="http://www.microsoft.com/en-us/download/details.aspx?id=40886">Excel 2016 on Windows</a>.
+3. Install <a href="http://www.microsoft.com/en-us/download/details.aspx?id=40886">Excel 2016 on Windows</a>.
 
-# Introduction
+## Introduction
 Many personal and commercial devices now contain sensors, which collect information from the physical world. For example, most phones have a GPS, fitness devices track how many steps you've taken, and thermostats can monitor the temperature of a building.
 
 In this tutorial, you'll learn how HDInsight can be used to process historical data produced by heating, ventilation, and air conditioning (HVAC) systems to identify systems that are not able to reliably maintain a set temperature. You will learn how to:
@@ -53,7 +53,7 @@ In this tutorial, you'll learn how HDInsight can be used to process historical d
 * Infer reliability of HVAC systems used in the buildings
 * Visualize the data in Microsoft Excel
 
-# Sensor Data Loaded Into Azure Storage Blobs
+## Load Sensore Data Into Azure Storage Blobs
 
 Let's load the sensor data into your default storage account.  
 
@@ -75,7 +75,7 @@ Let's load the sensor data into your default storage account.
 
 7.  Expand your Storage Account.
 
-8.  Expand **Blob Containers**
+8.  Expand **Blob Containers**.
 
 9.  Create a new blob container called "sensordata".
 
@@ -85,7 +85,7 @@ Let's load the sensor data into your default storage account.
 
 [hvac csv file](./media/hdinsight-hive-analyze-sensor-data/hvac.csv)
 
-## Creating Hive Tables to Query the Sensor Data in the Azure Storage Blobs
+### Creating Hive Tables to Query the Sensor Data in the Azure Storage blobs
 
 The following Hive statement creates an external table that allows Hive to query data stored in Azure Blob Storage. External tables preserve the data in the original file format while allowing Hive to perform queries against the data within the file. In this case, the data is stored in the file as comma separated values (CSV).
 
@@ -112,8 +112,8 @@ The Hive statements below create a new table, named hvac, by describing the fiel
 
 4.  You can always execute a "SELECT * FROM hvac;" to see if you successfully loaded data.
 
-## Creating Hive Queries over Sensor Data
-The following Hive query creates select temperatures from your HVAC data, looking for temperature variations (see the query below). Specifically, the difference between the target temperature the thermostat was set to and the recorded temperature. If the difference is greater than 5, the temp_diff column will be set to 'HOT',or 'COLD' and extremetemp will be set to 1; otherwise, temp_diff will be set to ‘NORMAL’ and extremetemp will be set to 0.
+### Creating Hive Queries over Sensor Data
+The following Hive query creates a new table selecting temperatures from the HVAC data, looking for temperature variations (see the query below). Specifically, the difference between the target temperature the thermostat was set to and the recorded temperature. If the difference is greater than 5, the temp_diff column will be set to 'HOT',or 'COLD' and extremetemp will be set to 1; otherwise, temp_diff will be set to ‘NORMAL’ and extremetemp will be set to 0.
 
 The query will write the results into a new tables: hvac_temperatures (see the CREATE TABLE statements below). 
 
@@ -138,7 +138,7 @@ The query will write the results into a new tables: hvac_temperatures (see the C
 4.  Run SELECT COUNT(*) FROM hvac_temperatures; to see if there are any records in the table.
 
 
-# Loading Data into Excel
+## Loading Data into Excel
 Once the job has successfully completed, you can use the Microsoft Hive ODBC Driver to import data from Hive into Excel 2016. Once you have installed the driver, use the following steps to connect to the table.
 
 1. Open Excel and create a blank workbook.
@@ -153,7 +153,7 @@ Once the job has successfully completed, you can use the Microsoft Hive ODBC Dri
 
 4. In the Microsoft Hive ODBC Driver Connection dialog, enter the following values, and then click OK.
 
-* Host - The host name of your HDInsight cluster. 	* For example, mycluster.azurehdinsight.net
+* Host - The host name of your HDInsight cluster. For example, mycluster.azurehdinsight.net
 * User Name - The administrator name for your HDInsight cluster (usually admin)
 * Password - The administrator password
 * All other fields can be left as the default values.
@@ -172,7 +172,7 @@ Once the job has successfully completed, you can use the Microsoft Hive ODBC Dri
 
 ![Excel Hive Pivot Table](./media/hdinsight-hive-analyze-sensor-data/hdinsight-sensor-data-pivottable.png)
 
-9.  In the pivot table, buildingid to rows, date to columns, and actualtemp to the values.
+9.  In the pivot table, drag buildingid to the rows area, date to the columns area, and actualtemp to the values area.
 
 ![Excel Hive Setup Pivot](./media/hdinsight-hive-analyze-sensor-data/hdinsight-sensor-data-createpivot.png)
 
@@ -185,6 +185,10 @@ Once the job has successfully completed, you can use the Microsoft Hive ODBC Dri
 12.  You should be able to see interesting trends by date for each buildings temperature.  Your results should look like the following:
 
 ![Excel Hive Setup Pivot](./media/hdinsight-hive-analyze-sensor-data/hdinsight-sensor-data-results.png)
+
+## See also
+* [Connect to Hive with JDBC or ODBC](hdinsight-connect-hive-jdbc-driver.md)
+* [Use Hive with HDInsight](https://docs.microsoft.com/azure/hdinsight/hdinsight-use-hive)
 
 
 
