@@ -4,7 +4,7 @@ This guide is intended to provided a curated set of documentation useful to any 
 
 The delivery goal of this guide is to package this online format into the format of a digital book. 
 
-The table of contents follows, links to new content will open in the same window, while links to existing content that will soon be merged with this repo will open the Azure Docs.
+The table of contents follows, links to new content will open in the same window remaining in GitHub, while links to existing content that will soon be merged with this repo will open the Azure Docs.
 
 # Overview
 ## [What is Azure HDInsight?](https://docs.microsoft.com/azure/hdinsight/hdinsight-hadoop-introduction)
