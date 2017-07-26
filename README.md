@@ -2,7 +2,7 @@
 
 This guide is intended to provided a curated set of documentation useful to any developer, data scientist or big data engineer getting started or growing their experience with Azure HDInsight.
 
-The intent of this guide is to package this online format into the format of a digital book. 
+The delivery goal of this guide is to package this online format into the format of a digital book. 
 
 The table of contents follows, links to new content will open in the same window, while links to existing content that will soon be merged with this repo will open the Azure Docs.
 
