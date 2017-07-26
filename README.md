@@ -1,6 +1,6 @@
 # HDInsight Developer's Guide
 
-This guide is intended to provided a curated set of documentation useful to any developer, data scientist or big data engineer getting started or growing their experience with Azure HDInsight.
+This guide is intended to provide a curated set of documentation useful to any developer, data scientist or big data engineer getting started or growing their experience with Azure HDInsight.
 
 The delivery goal of this guide is to package this online format into the format of a digital book. 
 
