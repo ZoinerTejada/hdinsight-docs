@@ -198,5 +198,5 @@ In this article, we covered the steps necessary to upgrade an HBase cluster. Lea
 
 * Learn how to [upgrade other HDInsight cluster types](hdinsight-upgrade-cluster.md)
 * Learn more about [connecting to and using Ambari](hdinsight-hadoop-manage-ambari.md) to manage your clusters
-* Read in-depth information about [changing Ambari configs](hdinsight-changing-configs-via-ambari.md), including settings to optimize your HBase and other HDInsight clusters
+* Read in-depth information about [changing Ambari configs](hdinsight-changing-configs-via-ambari.md#hbase-optimization-with-the-ambari-web-ui), including settings to optimize your HBase and other HDInsight clusters
 * Learn about the [various Hadoop components available with HDInsight](hdinsight-component-versioning.md)
