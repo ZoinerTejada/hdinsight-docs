@@ -26,41 +26,6 @@ Make sure you have the following installed on the computer where you run Event P
 * Apache Maven. You can download it from [here](https://maven.apache.org/download.cgi). Instructions to install Maven are available [here](https://maven.apache.org/install.html).
 
 
-## Provision an HDInsight cluster with Spark 2.1
-To provision your HDInsight Cluster, follow these steps:
-
-1. Sign in to the [Azure Portal](https://portal.azure.com/).
-2. Select + New, Data + Analytics, HDInsight.
-
-    ![New HDInsight](./media/hdinsight-streaming-and-business-intelligence/new-HDInsight.png)
-
-3. On the basics blade, provide a unique name for your cluster.
-4. Select the Subscription in which to create the cluster.
-5. Select Cluster type.
-6. On the Cluster configuration blade, select Cluster type of Spark and Version Spark 2.1.0 (HDI 3.6). Select select to apply the cluster type.
-
-    ![Cluster type](./media/hdinsight-streaming-and-business-intelligence/hdi-spark-cluster-type.png)
-
-7. Leave the Cluster login username as "admin".
-8. Provide a password for the Cluster login password. This will be the password used for both admin and the sshuser accounts. 
-9. Leave the Secure Shell (SSH) username as "sshuser".
-10. Create a new Resource Group or select an existing one as your prefer.
-11. Choose a Location in which to deploy your cluster.
-
-    ![Completed Basics blade](./media/hdinsight-streaming-and-business-intelligence/hdi-basics-blade.png)
-
-12. Select Next.
-13. On the Storage blade, leave Primary Storage type set to Azure Storage and Selection method set to My subscriptions.
-14. Under Select a storage account, select Create new and provide a name for the new Storage Account. This account will act as the default storage for your cluster.
-15. Enter a unique name for the new Storage Account.
-16. Leave the remaining settings at their defaults and select Next.
-
-    ![Completed Storage blade](./media/hdinsight-streaming-and-business-intelligence/hdi-storage-blade.png)
-
-17. On the Cluster summary blade, select Create. 
-
-It will take about 20 minutes to provision your cluster. Continue on to the next section while the cluster provisons.
-
 ## Provison an Event Hubs namespace 
 In this task you will provision the Event Hubs namespace that will ultimately contain your Event Hubs instance.
 
