@@ -189,7 +189,7 @@ exit
 10. Start the ingestion to see if everything is functioning as normal.
 11. Delete the original cluster after you verify everything is working as expected.
 
-The expected amount of downtime for this process is between 10-15 minutes. It will take approximately 5 minutes to flush the memstore, then another 5 minutes or so to configure and restart the services on the new cluster. 
+In our tests, the downtime for this process has been minimal, usually between 10-15 minutes. This downtime is caused by the steps to flush the memstore, then the time to configure and restart the services on the new cluster. Your results will vary, depending on the number of nodes, amount of data, and other variables.
 
 
 ## Next steps
