@@ -1,0 +1,14 @@
+{
+  "name": "SendAirportTempEvents",
+  "version": "1.0.0",
+  "description": "Sends generated airport temperature events to Azure Event Hub",
+  "main": "app.js",
+  "scripts": {
+    "test": "echo \"Error: no test specified\" && exit 1"
+  },
+  "author": "Joel Hulen",
+  "license": "Apache 2.0",
+  "dependencies": {
+    "moment": "^2.9.0"
+  }
+}
