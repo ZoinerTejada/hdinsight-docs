@@ -92,7 +92,7 @@ The Resource Manager template used in this document is located in the article's 
 
 1. Click the following button to sign in to Azure and open the Resource Manager template in the Azure portal.
    
-    <a href="https://portal.azure.com/#create/Microsoft.Template/uri/https%3A%2F%2Fraw.githubusercontent.com%2FZoinerTejada%2Fhdinsight-docs%2Fmaster%2Fcode%2Fcreate-hbase-spark-cluster-in-vnet.json" target="_blank"><img src="./media/hdinsight-streaming-and-business-intelligence/deploy-to-azure.png" alt="Deploy to Azure"></a>
+    <a href="https://portal.azure.com/#create/Microsoft.Template/uri/https%3A%2F%2Fraw.githubusercontent.com%2FZoinerTejada%2Fhdinsight-docs%2Fmaster%2Fcode%2Fhdinsight-streaming-and-business-intelligence%2Fcreate-hbase-spark-cluster-in-vnet.json" target="_blank"><img src="./media/hdinsight-streaming-and-business-intelligence/deploy-to-azure.png" alt="Deploy to Azure"></a>
 
 2. From the **Custom deployment** blade, enter the following values:
    
