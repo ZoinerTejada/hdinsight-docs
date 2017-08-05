@@ -40,6 +40,49 @@
             "metadata": {
                 "description": "The location for the resource group, vnet, storage accounts and the clusters."
             }
+        },
+        "openTsdbVersion": {
+          "type": "string",
+          "defaultValue": "2.3.0",
+          "allowedValues": [
+            "2.2.0",
+            "2.3.0"
+          ]
+        },
+        "openTsdbTopology": {
+          "type": "string",
+          "defaultValue": "Load Balanced",
+          "allowedValues": [
+            "Edge Node",
+            "Load Balanced"
+          ],
+          "metadata": {
+            "description": "Select the deployment topology for OpenTSDB on the cluster. 'Edge Node' installs 1 TSD instance on the edge node. 'Load Balanced' installs a TSD instance of every region server in the cluster and a load balancer on the edge node distributes traffic."
+          }
+        },
+        "edgeNodeSize": {
+          "type": "string",
+          "metadata": {
+            "description": "Size of the edge node that hosts the application"
+          },
+          "defaultValue": "Standard_D3_V2",
+          "allowedValues": [
+            "Standard_A1",
+            "Standard_A2",
+            "Standard_A3",
+            "Standard_A4",
+            "Standard_D1_V2",
+            "Standard_D2_V2",
+            "Standard_D3_V2",
+            "Standard_D4_V2"
+          ]
+        },
+        "tsdPortNumber": {
+          "type": "int",
+          "defaultValue": 4242,
+          "metadata": {
+            "description": "The port number that the TSD services should listen to requests on."
+          }
         }
     },
   "variables": {
@@ -52,7 +95,32 @@
     "sparkClusterName": "[concat('spark-', parameters('baseClusterName'))]",
     "clusterVNetAddressSpace": "10.0.0.0/16",
     "clusterVNetSubnetName": "default",
-    "clusterVNetSubnetAddressRange": "10.0.0.0/24"
+    "clusterVNetSubnetAddressRange": "10.0.0.0/24",
+    "applicationName": "opentsdb",
+    "galleryPackageIdentity": "opentsdb",
+    "edgeNodeSuffix": "tdb",
+    "scriptBaseUri": "https://raw.githubusercontent.com/hdinsight/Iaas-Applications/master/Scripts/",
+    "templateBaseUri": "[concat(variables('scriptBaseUri'), 'Templates/')]",
+    "appInfoBaseUri": "https://raw.githubusercontent.com/hdinsight/Iaas-Applications/master/OpenTSDB/",
+    "edgeNodeSignatureTag": "opentsdb-edgenode-signature-tag",
+    "topologies": {
+      "Edge Node": {
+        "OPENTSDB_TSD": ["edge"],
+        "OPENTSDB_PROXY": []
+      },
+      "Load Balanced": {
+        "OPENTSDB_TSD": ["region"],
+        "OPENTSDB_PROXY": ["edge"]
+      }
+    },
+    "selectedTopology": "[variables('topologies')[parameters('openTsdbTopology')]]",
+    "extraConfiguration": {
+      "opentsdb-site": {
+        "tsd.network.port": "[parameters('tsdPortNumber')]",
+        "opentsdb.opentsdb_version": "[parameters('openTsdbVersion')]"
+      }
+    },
+    "singleQuote": "'"
   },
   "resources": [
     {
@@ -139,7 +207,15 @@
               "virtualNetworkProfile": {
                 "id": "[resourceId('Microsoft.Network/virtualNetworks', variables('clusterVNetName'))]",
                 "subnet": "[concat(resourceId('Microsoft.Network/virtualNetworks', variables('clusterVNetName')), '/subnets/', variables('clusterVNetSubnetName'))]"
-              }
+              },
+              "scriptActions": [
+                {
+                  "name": "install-opentsdb",
+                  "uri": "[concat(variables('scriptBaseUri'), 'install_ambari_app_bootstrap.sh')]",
+                  "parameters": "[concat(variables('scriptBaseUri'), ' -c ', variables('appInfoBaseUri'), 'config/opentsdb-service-config.json', ' -u ', parameters('clusterLoginUserName'), ' -p ', parameters('clusterLoginPassword'), ' --component-topologies ', variables('singleQuote'), string(variables('selectedTopology')), variables('singleQuote'), ' -x ', variables('singleQuote'), string(variables('extraConfiguration')), variables('singleQuote'), ' -s ', variables('edgeNodeSuffix'), ' -n ', variables('edgeNodeSignatureTag'), ' -z ', variables('templateBaseUri'), ' -e 1 -v DEBUG')]",
+                  "isHeadNode": true
+                }
+              ]
             },
             {
               "name": "workernode",
@@ -250,6 +326,49 @@
             }
           ]
         }
+      }
+    },
+    {
+      "name": "[concat(variables('hbaseClusterName'),'/', variables('applicationName'))]",
+      "type": "Microsoft.HDInsight/clusters/applications",
+      "dependsOn": [
+        "[concat('Microsoft.HDInsight/clusters/', variables('hbaseClusterName'))]"
+      ],
+      "apiVersion": "[variables('clusterApiVersion')]",
+      "properties": {
+        "marketPlaceIdentifier": "[variables('galleryPackageIdentity')]",
+        "computeProfile": {
+          "roles": [
+            {
+              "name": "edgenode",
+              "targetInstanceCount": 1,
+              "hardwareProfile": {
+                "vmSize": "[parameters('edgeNodeSize')]"
+              }
+            }
+          ]
+        },
+        "installScriptActions": [
+          {
+            "name": "install-opentsdb-proxy",
+            "uri": "[concat(variables('scriptBaseUri'), 'install-edgenode-placeholder.sh')]",
+            "parameters": "[concat(parameters('clusterLoginUserName'), ' ', parameters('clusterLoginPassword'), ' ', variables('edgeNodeSignatureTag'))]",
+            "roles": [
+              "edgenode"
+            ]
+          }
+        ],
+        "uninstallScriptActions": [],
+        "httpsEndpoints": [
+          {
+            "subDomainSuffix": "[variables('edgeNodeSuffix')]",
+            "destinationPort": "[parameters('tsdPortNumber')]",
+            "accessModes": [
+              "webpage"
+            ]
+          }
+        ],
+        "applicationType": "CustomApplication"
       }
     }
   ],
