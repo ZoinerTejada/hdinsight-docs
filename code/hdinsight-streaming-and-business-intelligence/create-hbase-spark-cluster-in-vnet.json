@@ -2,6 +2,7 @@
     "$schema": "https://schema.management.azure.com/schemas/2015-01-01/deploymentTemplate.json#",
     "contentVersion": "1.0.0.0",
     "parameters": {
+
         "baseClusterName": {
             "type": "string",
             "metadata": {
@@ -17,6 +18,7 @@
         },
         "clusterLoginPassword": {
             "type": "securestring",
+			"minLength": 10,
             "metadata": {
                 "description": "The password must be at least 10 characters in length and must contain at least one digit, one non-alphanumeric character, and one upper or lower case letter."
             }
@@ -30,14 +32,30 @@
         },
         "sshPassword": {
             "type": "securestring",
+			"minLength": 10,
             "metadata": {
                 "description": "The password must be at least 10 characters in length and must contain at least one digit, one non-alphanumeric character, and one upper or lower case letter."
             }
         },
+
         "location": {
             "type": "string",
             "defaultValue": "West US 2",
+
+
+
+
+
+
+
+
+
+
+
+
+
             "metadata": {
+
                 "description": "The location for the resource group, vnet, storage accounts and the clusters."
             }
         },
@@ -88,7 +106,7 @@
   "variables": {
     "defaultApiVersion": "2015-05-01-preview",
     "clusterApiVersion": "2015-03-01-preview",
-    "clusterWorkerNodeCount": "2",
+    "clusterWorkerNodeCount": "4",
     "clusterVNetName": "[concat(parameters('baseClusterName'),'-vnet')]",
     "clusterStorageAccountName": "[concat(parameters('baseClusterName'),'store')]",
     "hbaseClusterName": "[concat('hbase-', parameters('baseClusterName'))]",
@@ -168,6 +186,7 @@
       ],
       "tags": { },
       "properties": {
+
         "clusterVersion": "3.6",
         "osType": "Linux",
         "clusterDefinition": {
@@ -196,6 +215,7 @@
               "name": "headnode",
               "targetInstanceCount": "2",
               "hardwareProfile": {
+
                 "vmSize": "Large"
               },
               "osProfile": {
@@ -221,6 +241,7 @@
               "name": "workernode",
               "targetInstanceCount": "[variables('clusterWorkerNodeCount')]",
               "hardwareProfile": {
+
                 "vmSize": "Large"
               },
               "osProfile": {
@@ -373,6 +394,7 @@
     }
   ],
     "outputs": {
+
         "vnet": {
             "type": "object",
             "value": "[reference(resourceId('Microsoft.Network/virtualNetworks',variables('clusterVNetName')))]"
@@ -385,6 +407,5 @@
             "type": "object",
             "value": "[reference(resourceId('Microsoft.HDInsight/clusters',variables('sparkClusterName')))]"
         }
-
     }
 }
