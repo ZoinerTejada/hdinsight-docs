@@ -37,23 +37,9 @@
                 "description": "The password must be at least 10 characters in length and must contain at least one digit, one non-alphanumeric character, and one upper or lower case letter."
             }
         },
-
         "location": {
             "type": "string",
             "defaultValue": "West US 2",
-
-
-
-
-
-
-
-
-
-
-
-
-
             "metadata": {
 
                 "description": "The location for the resource group, vnet, storage accounts and the clusters."
@@ -365,10 +351,6 @@
               "targetInstanceCount": 1,
               "hardwareProfile": {
                 "vmSize": "[parameters('edgeNodeSize')]"
-              },
-              "virtualNetworkProfile": {
-                "id": "[resourceId('Microsoft.Network/virtualNetworks', variables('clusterVNetName'))]",
-                "subnet": "[concat(resourceId('Microsoft.Network/virtualNetworks', variables('clusterVNetName')), '/subnets/', variables('clusterVNetSubnetName'))]"
               }
             }
           ]
