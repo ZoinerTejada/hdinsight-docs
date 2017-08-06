@@ -365,6 +365,10 @@
               "targetInstanceCount": 1,
               "hardwareProfile": {
                 "vmSize": "[parameters('edgeNodeSize')]"
+              },
+              "virtualNetworkProfile": {
+                "id": "[resourceId('Microsoft.Network/virtualNetworks', variables('clusterVNetName'))]",
+                "subnet": "[concat(resourceId('Microsoft.Network/virtualNetworks', variables('clusterVNetName')), '/subnets/', variables('clusterVNetSubnetName'))]"
               }
             }
           ]
