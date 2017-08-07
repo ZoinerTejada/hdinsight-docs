@@ -26,13 +26,13 @@ if (arg_batch === '-batch') {
 // payloads are sent to the Event Hub API. Used for this dev environment to
 // prevent request timeouts.
 function EventHubController(timeout) {
-  this.timeout = timeout || 500;
+  this.timeout = timeout || 125;
   this.queue = [];
   this.ready = true;
 }
 
-EventHubController.prototype.send = function(payload, callback) {
-  send_single(payload);
+EventHubController.prototype.send = function(body, callback) {
+  send_single(body);
   if (callback) callback();
 };
 
@@ -75,6 +75,7 @@ function create_sas_token(uri, key_name, key)
 function send_single(payload)
 {
 	console.log(payload);
+
 	// Send the request to the Event Hub
 	var options = {
 		hostname: namespace + '.servicebus.windows.net',
@@ -137,62 +138,89 @@ function send_batch(payload)
 	req.end();
 }
 
+// Define a Device class to hold device data
+function Device(id, ambient, delta, firstFlight, lastFlight) {
+	this.deviceId = id;
+	this.ambientTemp = ambient;
+	this.deltaTempPreFlight = delta;
+	this.nextDepartureIntervalNumber = firstFlight;
+	this.lastDepartureHour = lastFlight;
+	this.temp = ambient;
+}
+
 // Create the shared access signature for authentication
 var my_sas = create_sas_token(my_uri, my_key_name, my_key)
 
 // Schedule for 24 hours
-// Rooms start at ambient temperature (65 F) of airport
-// First flight at 6 am, last flight at 11pm
+// Rooms start at ambient temperature (such as 65 F) of airport
+// Depending on the room, first flight at 6 am, last flight at 11pm
 // Flights arrive every every 90
-// 24x60x60 / 10 = 8640 data points 
-// 30 minutes before flight people arrive, temp starts to rise due to warm from bodies (rise 5 degrees)
+// 24x60x60 / 10 = 8640 data points * # of devices
+// 30 minutes before flight people arrive, temp starts to rise due to warm from bodies (rise 5 degrees or more, depending on number of people)
 // 30 minutes after flight arrives folks are boarded, and temp starts to drop towards ambient temperature
 
 var reportingIntervalSeconds = 10;
-var deltaTempPreFlight = 5;
-var ambientTemp = 65;
-var lastDepartureHour = 23; //hour 23 is 11pm
 var minutesBetweenFlights = 90;
-
 var numDataPointsPerDay = (24 * 60 * 60) / reportingIntervalSeconds;
-// First flight at 6 am
-var nextDepartureIntervalNumber = (6 * 60 * 60) / reportingIntervalSeconds;
-
-var temp = ambientTemp;
 var timeStamp = moment().utc().startOf('day'); // Get beginning of the day as a moment
 //timeStamp.subtract(2, 'days');
 
+/** Variables for tracking just an individual device **/
+// First flight at 6 am
+//var nextDepartureIntervalNumber = (6 * 60 * 60) / reportingIntervalSeconds;
+//var deltaTempPreFlight = 5;
+//var ambientTemp = 65;
+//var lastDepartureHour = 23; //hour 23 is 11pm
+//var temp = ambientTemp;
+
+var devices = [];
 var datapoints = [];
+
+// Define our devices
+// Device 1 has flights from 6:00 am until 11 pm. Its ambient temperature is 65 and fluctuates by 5 degrees, based on crowd size.
+devices.push(new Device("1", 65, 5, (6 * 60 * 60) / reportingIntervalSeconds, 23));
+// Device 2 has flights from 5:00 am until 11 pm. Its ambient temperature is 65 and fluctuates by 10 degrees, based on crowd size.
+devices.push(new Device("2", 65, 10, (5 * 60 * 60) / reportingIntervalSeconds, 23));
+// Device 3 has flights from 6:30 am until 12 am. Its ambient temperature is 62 and fluctuates by 8 degrees, based on crowd size.
+devices.push(new Device("3", 62, 5, (6.5 * 60 * 60) / reportingIntervalSeconds, 24));
 
 // Send a message for each device (i = 0 means midnight)
 for(var i = 0; i < numDataPointsPerDay; i++)
 {
-	// Set temperature value
-	if (IsWithinPreFlightWindow(i, reportingIntervalSeconds, nextDepartureIntervalNumber)) {
-		temp += deltaTempPreFlight / ((30 * 60) / reportingIntervalSeconds);
-	}
-	else if (IsWithinPostFlightWindow(i, reportingIntervalSeconds, nextDepartureIntervalNumber)) {
-		temp -= deltaTempPreFlight / ((30 * 60) / reportingIntervalSeconds);
-	}
-	else {
-		temp = ambientTemp;
-	}
-
 	// Prepare the time of the next event
 	timeStamp.add(reportingIntervalSeconds, 'seconds');
 
+	for(var d = 0; d < devices.length; d++) {
+		processAndSendEventData(devices[d], i);
+	}
+}
+
+console.log('Finished sending events');
+
+function processAndSendEventData(device, dataPointNumber) {
+	// Set temperature value
+	if (isWithinPreFlightWindow(dataPointNumber, reportingIntervalSeconds, device.nextDepartureIntervalNumber)) {
+		device.temp += device.deltaTempPreFlight / ((30 * 60) / reportingIntervalSeconds);
+	}
+	else if (isWithinPostFlightWindow(dataPointNumber, reportingIntervalSeconds, device.nextDepartureIntervalNumber)) {
+		device.temp -= device.deltaTempPreFlight / ((30 * 60) / reportingIntervalSeconds);
+	}
+	else {
+		device.temp = device.ambientTemp;
+	}
+
 	// Set a time for the next departure
-	if (HasPlaneDeparted(i, reportingIntervalSeconds, nextDepartureIntervalNumber)) {
-		nextDepartureIntervalNumber += ((minutesBetweenFlights * 60) / reportingIntervalSeconds); 
+	if (hasPlaneDeparted(dataPointNumber, reportingIntervalSeconds, device.nextDepartureIntervalNumber)) {
+		device.nextDepartureIntervalNumber += ((minutesBetweenFlights * 60) / reportingIntervalSeconds); 
 
 		// e.g., last flight departs at 11 pm
-		if ((nextDepartureIntervalNumber * reportingIntervalSeconds) >= (lastDepartureHour * (60 * 60))) {
+		if ((device.nextDepartureIntervalNumber * reportingIntervalSeconds) >= (device.lastDepartureHour * (60 * 60))) {
 			// Set the departure to a number in a future day we won't reach
-			nextDepartureIntervalNumber = ((30 * 60 * 60) / reportingIntervalSeconds); 
+			device.nextDepartureIntervalNumber = ((30 * 60 * 60) / reportingIntervalSeconds); 
 		}
 	}
 	
-	var body = JSON.stringify({"TimeStamp": timeStamp.format(), "DeviceId": "1", "Temperature": temp});
+	var body = JSON.stringify({"TimeStamp": timeStamp.format(), "DeviceId": device.deviceId, "Temperature":device.temp});
 
 	if (!send_as_batch) {
 		// Send single request:
@@ -201,7 +229,7 @@ for(var i = 0; i < numDataPointsPerDay; i++)
 	else {
 		// Send as a batch:
 		datapoints.push({"Body": body});
-		if (datapoints.length === 500 || i === numDataPointsPerDay-1) {
+		if (datapoints.length >= 500 || dataPointNumber >= numDataPointsPerDay-1) {
 			var payload = JSON.stringify(datapoints);
 			console.log('Sending batch payload: ');
 			console.log(payload);
@@ -212,9 +240,7 @@ for(var i = 0; i < numDataPointsPerDay; i++)
 	}
 }
 
-console.log('Finished sending events');
-
-function IsWithinPreFlightWindow(intervalNumber, reportingInterval, departureIntervalNumber) {
+function isWithinPreFlightWindow(intervalNumber, reportingInterval, departureIntervalNumber) {
 	//Pre-flight window is 30 minutes before departure
 	if ((intervalNumber * reportingInterval) >= (departureIntervalNumber * reportingInterval) - (30*60) &&
 		(intervalNumber * reportingInterval) < (departureIntervalNumber * reportingInterval)) {
@@ -224,7 +250,7 @@ function IsWithinPreFlightWindow(intervalNumber, reportingInterval, departureInt
 	return false;
 }
 
-function IsWithinPostFlightWindow(intervalNumber, reportingInterval, departureIntervalNumber) {
+function isWithinPostFlightWindow(intervalNumber, reportingInterval, departureIntervalNumber) {
 	//Post-Flight window lasts from departure to 30 minutes after
 	if ((intervalNumber * reportingInterval) >= (departureIntervalNumber * reportingInterval)  &&
 		(intervalNumber * reportingInterval) < (departureIntervalNumber * reportingInterval) + (30 * 60)) {
@@ -234,7 +260,7 @@ function IsWithinPostFlightWindow(intervalNumber, reportingInterval, departureIn
 	return false;
 }
 
-function HasPlaneDeparted(intervalNumber, reportingInterval, departureIntervalNumber) {
+function hasPlaneDeparted(intervalNumber, reportingInterval, departureIntervalNumber) {
 	if ((intervalNumber * reportingInterval) > (departureIntervalNumber * reportingInterval) + (30 * 60)) {
 		return true;
 	}
