@@ -172,7 +172,7 @@ It will take about 20 minutes to provision your cluster. Continue on to the next
 
 ## Download and configure the project
 
-Use the following to download the project from GitHub.
+Use the following to [download the project from GitHub](./code/hdinsight-streaming-and-business-intelligence).
 
     git clone TODO: ENTER URI TO THE REPO
 
