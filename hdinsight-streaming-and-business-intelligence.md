@@ -680,7 +680,7 @@ Configure the following options to display the telemetry data:
     * key: **deviceid**, value: **2**
     * key: **deviceid**, value: **3**
 5. **Aggregator**: Set to sum.
-6. **Downsample**: Check this box so reduce noise from all of the data points (one for every 10 seconds).
+6. **Downsample**: Check this box to reduce noise from all of the data points (one for every 10 seconds).
 
 On the right-hand side of this form is a section containing 3 tabs: Axes, Key, and Style. Within the **Axes** tab, set the following values:
 
