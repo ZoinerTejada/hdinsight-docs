@@ -541,7 +541,7 @@ val inputStream = spark.readStream.
     load()
 ```
 
-The `inputStream` DataFrame represents an unbounded table containing the Event Hubs data, whose source definition was passed to the `options` property. We capitalize on the fact that most common operations on the `DataFrame` are supported for streaming. One of the columns of our unbounded table is "body", which contains the binary representation of the JSON-formatted data we sent to Event Hubs from our simulated sensors. To make it easier to extract that data, we cast the value to String format, then parse it using `get_json_object` to retrieve our telemetry properties. It is important to note that at this point, we're just setting up the data transformation. Data is not being received at this point, because we have not started it.
+The `inputStream` DataFrame represents an unbounded table containing the Event Hubs data, whose source definition was passed to the `options` property. We capitalize on the fact that most common operations on the `DataFrame` are supported for streaming. One of the columns of our unbounded table is "body", which contains the binary representation of the JSON-formatted data we sent to Event Hubs from our simulated sensors. To make it easier to extract that data, we cast the value to String format, then parse it using `get_json_object` to retrieve our telemetry properties. It is important to note that at this point, we're just setting up the data transformation. Data is not being received yet, because we have not started it.
 
 ```scala
 var inputSelect = inputStream.select(
