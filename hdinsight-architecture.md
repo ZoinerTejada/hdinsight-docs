@@ -2,6 +2,8 @@
 
 An HDInsight cluster consists of several linux Azure Virtual Machines (nodes) that are used for distributed processing of tasks. Azure HDInsight handles implementation details of installation and configuration of individual nodes, so you only have to provide general configuration information. An HDInsight cluster is deloyed by first selecting a cluster type, which determines what components are installed and the specific topology of virtual machines that is deployed.
 
+This article describes all of the available cluster types, their consituent nodes, the services the nodes run, as well the network and data storage architectures.
+
 ## <a name="cluster-types"></a> Cluster types
 Azure HDInsight currently provides the following cluster types, each with a set of components that provide certain functionalities. 
 
@@ -12,7 +14,7 @@ Azure HDInsight currently provides the following cluster types, each with a set 
 
 | Cluster type | Functionality |
 | --- | --- |
-| [Hadoop](hdinsight-hadoop-introduction.md) |Uses HDFS, TARN resource management, and a simple MapReduce programming model to process and analyze data in parallel. Clusters of this type can also be [domain-joined](hdinsight-domain-joined-introduction.md), providing enterprise-grade access control for Hive workloads. |
+| [Hadoop](hdinsight-hadoop-introduction.md) |Uses HDFS, YARN resource management, and a simple MapReduce programming model to process and analyze data in parallel. Clusters of this type can also be [domain-joined](hdinsight-domain-joined-introduction.md), providing enterprise-grade access control for Hive workloads. |
 | [HBase](hdinsight-hbase-overview.md) |A NoSQL database built on Hadoop that provides random access and strong consistency for large amounts of unstructured and semi-structured data - potentially billions of rows times millions of columns. See [What is HBase on HDInsight?](hdinsight-hbase-overview.md) |
 | [Storm](hdinsight-storm-overview.md) |A distributed, real-time computation system for processing large streams of data quickly. See [Analyze real-time sensor data using Storm and Hadoop](hdinsight-storm-sensor-data-analysis.md). |
 | [Spark](hdinsight-apache-spark-overview.md) |A parallel processing framework that supports in-memory processing to boost the performance of big-data analytics applications. Spark supports both imperative and SQL based querying, processing of streaming data, and performing machine learning at scale. See [What is Apache Spark in HDInsight?](hdinsight-apache-spark-overview.md) |
@@ -72,7 +74,7 @@ In addition to an OS disk and a temp disk, Azure Virtual Machines support data d
 
 |Cluster Type| Disk configuration supported |
 |---|---|
-| Kafka | Additional disks are required and must be of the managed disk type. Standard or Premium managed disks are supported. |
+| Kafka | Kafka deployments require additional managed disks. Standard or Premium managed disks are supported. |
 | All other cluster types    | Only OS and temporary disks. No additional disks supported. |
 
 
@@ -123,7 +125,7 @@ For instructions about adding additional storage accounts, see [HDInsight using 
 
 HDInsight supports the use of a custom metastore for Hive and Oozie. The Hive metastore persists the metadata which describes the mappings of Hive tables to their locations in HDFS and the schemas of those tables. The metastore is also used by Spark as it stores metadata for Hive tables created with Spark SQL.
 
-By default, the metastore is an embedded Derby database, but in HDInsight you can configure the cluster to use an Azure SQL Database instance instead by configuring a custom metastore. Custom metastores can only be configured during the cluster creation process.
+By default, the metastore data is stored internally by the HDInsight cluster. However, you can configure the cluster to use an external Azure SQL Database instance instead by configuring a custom metastore. Custom metastores can only be configured during the cluster creation process.
 
 Oozie uses a metastore to store details about current and completed worklflows. To increase performance when using Oozie, you can use SQL Database as a custom metastore. The metastore can also provide access to Oozie job data after you delete your cluster. 
 
@@ -153,6 +155,8 @@ You can also connect two different Virtual Network instances by configuring a [V
 You can also secure the network perimeter by using Network Security Groups to restrict traffic based on protocol, source and destination. 
 
 ![diagram of vnet with nsg configuration](media/hdinsight-architecture/vnet-nsg.png)
+
+In addition to securing in-bound traffic by applying NSGs to subnet of the Virtual Network, you can also configure user-defined routes and control the flow of network traffic through a virtual firewall appliance by deploying your HDInsight cluster into a Virtual Network. 
 
 For more details on using HDInsight within a Virtual Network, see [Use Virtual Network](hdinsight-extend-hadoop-virtual-network.md) 
 
