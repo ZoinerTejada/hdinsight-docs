@@ -24,7 +24,7 @@ Each stateless instance of a `Transformer` and `Estimator` has its own unique id
 
 ## Pipeline example
 
-To demonstrate a practical use of an ML pipeline, we will use the sample HVAC.csv data file that came pre-loaded on the Azure Storage account associated with your HDInsight cluster. To view the contents of the file, navigate to the following location on your storage account: **\HdiSamples\HdiSamples\SensorSampleData\hvac**.
+To demonstrate a practical use of an ML pipeline, we will use the sample HVAC.csv data file that comes pre-loaded on the Azure Storage or Data Lake Store configured as the default storage for your HDInsight cluster. To view the contents of the file, navigate to the following location: **/HdiSamples/HdiSamples/SensorSampleData/hvac**.
 
 We'll start out with a custom parser to extract the data (HVAC.csv) we want to train our model. The function checks whether the building is "hot" by comparing its actual temperature to the target temperature. We'll store the parsed information wtihin a `LabeledDocument`, which stores the `BuildingID`, `SystemInfo` (comprising the system's Id and age), and the `label` (1.0 if the building is not, 0.0 if not). The last step of this segment is to save the data into a new `DataFrame`.
 

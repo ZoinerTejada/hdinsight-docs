@@ -8,7 +8,7 @@ tags: azure-portal
 keywords: ambari,config,hive,pig,hadoop
 
 ---
-# Changing Configs via Ambari
+# Changing and Optimizing Configs via Ambari
 
 ## Overview
 

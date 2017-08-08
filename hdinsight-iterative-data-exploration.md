@@ -92,5 +92,5 @@ There are some important points to consider when choosing the iterative explorat
 ## Next steps
 
 * [HDInsight Architecture](hdinsight-architecture.md)
-* [Data Warehouse on Demand](hdinsight-data-warehouse-on-demand)
+* [Data Warehouse on Demand](hdinsight-data-warehouse-on-demand.md)
 * [Upload data for Hadoop jobs in HDInsight](hdinsight-upload-data.md)
