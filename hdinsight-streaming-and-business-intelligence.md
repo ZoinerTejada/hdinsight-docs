@@ -191,7 +191,7 @@ After the command completes, you have the following directory structure:
                         -OpenTSDBSink
 
 > [!NOTE]
-> This document does not go in to full details of the code included in this sample. However, the code is fully commented.
+> This document does not go in to full details of the SendAirportTempEvents code included in this sample, but the code is fully commented. However, we will walk through the important aspects of the BlueYonder Structured Streaming app later on.
 
 ### Start generating data
 
