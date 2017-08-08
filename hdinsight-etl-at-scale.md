@@ -9,33 +9,37 @@ keywords: ETL, Oozie, Azure Data Factory, Sqoop, Flume, Hive, Pig, Spark SQL, HB
 
 ---
 # ETL at Scale
-Organizations that have terabytes of poly-structured data that needs to be curated and stored have often had deep issues using non-hadoop ETL tools.  Hadoop is very good at bringing in massive amounts of data while maintaining a consistant level of performance while the data load increases.  Hadoop is particularly good at processing files, whether they be video, text, sensor logs, or transactional records.
+Extract, Transform and Load (ETL) is the process by which data is acquired from the various sources, collected in a standard location, cleansed and processed and ultimately loaded into a datastore from which it can be queried. Legacy ETL processes import data, clean it in place, and then store it in a relational data engine. With HDInsight, a wide variety of Hadoop ecosystem components are enabled to support performing ETL, and due to the scalable nature of HDInsight in terms of storage and processing, support performing ETL at scale. 
 
-HDInsight allows organizations to stop ignoring data, simply because cleaning it would be cost-prohibitive, time consuming, or would too quickly hit a performance ceiling.  By analyzing all data available, decision-makers can better assess market position, competitive threats, sales forcasts, and marketing strategies.
-
-Legacy ETL processes import data, clean it in place, and then store it in a relational data engine.  Once there, aggregate tables will be created by hand using another tool, sometimes the same ETL tool, and sometimes using some type of SQL.  
-
-Creating these processes have the following challenges:
-
-* Developing ETL solutions can take very long time. 
-
-* Executing ETL packages can take a long time.  
-
-* Executing failing portions of the process can be difficult.
-
-* Any error in a text file requires strong resiliency in the ETL package to correct and log errors, then notify the appropriate people.
-
-* The average data analyst complains that 80 - 90% of their time goes to data cleaning, while the remaining time is dedicated to data analysis.
-
-In HDInsight, ETL processes usually span multiple tools, technologies, and products. Due to the flexibility of HDInsight, the process can be created in many different ways.  This article doesn't seek to be the definitive guide on every Hadoop-based ETL process.  Rather it outlines a typical process and introduces the individual product, one at a time, with an emphasis on how each product scales.
-
-With that in mind, the process HDInsight ETL process might look like this:
+The use of HDInsight in the ETL process can be summarized by this pipeline:
 
 ![HDInsight ETL Overview](./media/hdinsight-etl-at-scale/hdinsight-etl-at-scale-overview.png)
 
-## File Storage And Result Storage
+The sections that follow explore each of the ETL phases and the components utilized.
 
-Files are typically loaded into a location in Azure and left there.  As stated above, files can be any format, but typically they are CSVs.  Both Azure services listed only charge for the data that you actually use.  Neither service charges for compute time.
+## Orchestration
+
+Spanning across all phases of the ETL pipeline is orchestration. ETL jobs in HDInsight often involved several different products working in conjunction with each other.  You might use Hive to clean some portion of the data, while Pig cleans another portion.  You might use Azure Data Factory to load data into Azure SQL Database from Azure Data Lake Store.
+
+Orechestration is needed to run the appropriate job at the appropriate time.
+
+### Oozie
+
+Apache Oozie is a workflow/coordination system that manages Hadoop jobs. It runs within an HDInsight cluster and is integrated with the Hadoop stack. It supports Hadoop jobs for Apache MapReduce, Apache Pig, Apache Hive, and Apache Sqoop. It can also be used to schedule jobs that are specific to a system, such as Java programs or shell scripts.
+
+For more information, see [Use Oozie with Hadoop to define and run a workflow on HDInsight](https://docs.microsoft.com/en-us/azure/hdinsight/hdinsight-use-oozie-linux-mac)
+
+For a deep dive showing how to use Oozie to drive an end-to-end pipeline, see [Operationalize the Data Pipeline](hdinsight-operationalize-data-pipeline.md)
+
+### Azure Data Factory
+
+Azure Data Factory provides orchestration capabilities in the form of platform-as-a-service. It is a cloud-based data integration service that allows you to create data-driven workflows in the cloud for orchestrating and automating data movement and data transformation. Using Azure Data Factory, you can create and schedule data-driven workflows (called pipelines) that can ingest data from disparate data stores, process/transform the data by using compute services such as Azure HDInsight Hadoop, Spark, Azure Data Lake Analytics, Azure Batch, and Azure Machine Learning, and publish output data to data stores such as Azure SQL Data Warehouse for business intelligence (BI) applications to consume.
+
+For more information on Azure Data Factory, see the [documentation](https://docs.microsoft.com/en-us/azure/data-factory/data-factory-introduction).
+
+## Ingest File Storage And Result Storage
+
+Source data files are typically loaded into a location in Azure Storage or Azure Data Lake Store. As stated above, files can be any format, but typically they are flat files like CSVs. 
 
 ### Azure Storage 
 
@@ -51,22 +55,15 @@ Data is typically ingested into Azure Storage using either PowerShell, the Azure
 
 ### Azure Data Lake Store
 
-Azure Data Lake Store (ADLS) is Azure's implementation of HDFS.  It doesn't actually use HDFS, but it's design paradigm is very similar.  As such, ADLS is very good when working with large files, since a large file can be stored across multiple nodes.  The user never needs to think about how to partition data in ADLS, as it's done behind the scenes.  You get massive throughput to run analytic jobs with thousands of concurrent executors that efficiently read and write hundreds of terabytes of data.
-
-Here two some other notable differences between Azure Storage and ADLS:
-
-* ADLS allows you to have a folder hierarchy.  Azure Storage only has a flat set of containers that server as folders.
-
-* Optimized performance for parallel analytics workloads. High Throughput and IOPS.
+Azure Data Lake Store (ADLS) is a managed, hyperscale repository for analytics data that is compatible with HDFS.  It doesn't actually use HDFS, but it's design paradigm is very similar and offers unlimited scalability (in terms of total capacity and the size of individual files).  As such, ADLS is very good when working with large files, since a large file can be stored across multiple nodes.  The user never needs to think about how to partition data in ADLS, as it's done behind the scenes.  You get massive throughput to run analytic jobs with thousands of concurrent executors that efficiently read and write hundreds of terabytes of data.
 
 Data is typically ingested into ADLS using Azure Data Factory, ADLS SDKs, AdlCopy Service, Apache DistCp, or Apache Sqoop.  Which of these services to use might largely depend on where the data is.  If the data is currently in an existing Hadoop cluster, you might use Apache DistCp, AdlCopy Service, or Azure Data Factory.  If it's in Azure Blob Storage, you might use Azure Data Lake Store .NET SDK, Azure PowerShell, or Azure Data Factory.
-
 
 It is also optimized for event ingestion using Azure Event Hub or Apache Storm.
 
 ### Considerations with Both Storage options
 
-For uploading datasets that range in sefveral terabytes, network latency can be a major problem, particularly if the data is coming from an on-premise location.  In such cases, you can use the options below:
+For uploading datasets that range in several terabytes, network latency can be a major problem, particularly if the data is coming from an on-premise location.  In such cases, you can use the options below:
 
 * Azure ExpressRoute:  Azure ExpressRoute lets you create private connections between Azure datacenters and infrastructure on your premises. This provides a reliable option for transferring large amounts of data. For more information, see [Azure ExpressRoute documentation](https://docs.microsoft.com/en-us/azure/expressroute/expressroute-introduction).
 
@@ -80,7 +77,7 @@ Azure SQL Data Warehouse (SQL DW) is a relational database store that is optimzi
 
 ### HBase
 
-Apache HBase is a key-value store on Azure HDInsight.  Apache HBase is an open-source, NoSQL database that is built on Hadoop and modeled after Google BigTable. HBase provides random access and strong consistency for large amounts of unstructured and semistructured data in a schemaless database organized by column families.
+Apache HBase is a key-value store available in Azure HDInsight.  Apache HBase is an open-source, NoSQL database that is built on Hadoop and modeled after Google BigTable. HBase provides performant random access and strong consistency for large amounts of unstructured and semistructured data in a schemaless database organized by column families.
 
 Data is stored in the rows of a table, and data within a row is grouped by column family. HBase is a schemaless database in the sense that neither the columns nor the type of data stored in them need to be defined before using them. The open-source code scales linearly to handle petabytes of data on thousands of nodes. It can rely on data redundancy, batch processing, and other features that are provided by distributed applications in the Hadoop ecosystem.   
 
@@ -99,26 +96,12 @@ Azure offers three different relational databases as Platform-as-a-Service(PAAS)
 * [Azure Database for PostgreSQL](https://docs.microsoft.com/en-us/azure/postgresql/quickstart-create-server-database-portal) is an implementation of PostgresSQL.
 
 These products scale up, which means that they are scaled by adding more CPU and memory.  You can also choose to use premium disks with the products for better I/O performance.  
- 
-Azure SQL Database offers tooling for scale-out with [Elastic Database Tools](https://docs.microsoft.com/en-us/azure/sql-database/sql-database-elastic-scale-get-started)
-
-Both services scale by using a slider bar to pick how much compute resources you need.  Both have independant tooling and performance recommendations according to your needs and workload.  
-
-Selection of which service will depend how comfortable you are with the base products.
 
 For more information on performance, see [Tuning Performance in Azure SQL Database](https://docs.microsoft.com/en-us/azure/sql-database/sql-database-performance-guidance).  Information on tuning Azure Database for MySQL and Azure Database for PostgreSQL will be forthcoming. 
 
 ### Azure Analysis Services 
 
 Azure Analysis Services (AAS) is an analytical data engine used in decision support and business analytics, providing the analytical data for business reports and client applications such as Power BI, Excel, Reporting Services reports, and other data visualization tools.
-
-The basic idea is that data is loaded into AAS where AAS will calculate all of the aggregations necessary to support the previously mentioned tooling.  This is done for two primary reasons:
-
-* Pre-aggregations are very fast for the user doing analytics.  Results are interactive and near-instant.
-
-* Calculations can be centralized and approved by the business or organization.  This supports one version of the truth across multiple reports, spreadsheets, or dashboards.
-
-Data can be loaded directly into AAS cubes from Azure Blog Storage, Azure SQL Database, and Azure Data Warehouse.
 
 Cubes can scale by changing tiers for each individual cube.  For more information, see [Azure Analysis Services Pricing](https://azure.microsoft.com/en-us/pricing/details/analysis-services/).
 
@@ -139,33 +122,12 @@ Apache Flume is a distributed, reliable, and available service for efficiently c
 Apache Flume cannot be used with Azure HDInsight.  An on-premise Hadoop installation can use Flume to send data to either Azure Storage Blobs or Azure Data Lake Store.  For more information, see [this blog post](https://blogs.msdn.microsoft.com/bigdatasupport/2014/03/18/using-apache-flume-with-hdinsight/).
 
 
-
-### Other options
-Other options for extract and load are SQL Server Integration Services installed in an Azure Virtual Machine and Azure Data Factory. Both have connectors into HDInsight that allow for data movement amongst various sources and destinations.  
-
-
 ## Transform
-Once data exists in the chosen location, we need to actually clean it, combine it, or prepare it for a specific usage pattern.  Hive, Pig, and Spark SQL are all very good choices for that kind of work.  They are all supported on HDInsight.  They all use MapReduce to achieve scalability and high-performance.
+Once data exists in the chosen location, we need to actually clean it, combine it, or prepare it for a specific usage pattern.  Hive, Pig, and Spark SQL are all very good choices for that kind of work.  They are all supported on HDInsight.  
 
 See [Using Apache Hive as an ETL Tool](./hdinsight-using-apache-hive-as-an-etl-tool.md) for more information on Hive.
 
 See [Use Pig with Hadoop on HDInsight](https://docs.microsoft.com/en-us/azure/hdinsight/hdinsight-use-pig) for more information on Pig.
 
 
-## Orchestrations
 
-ETL jobs in HDInsight often involved several different products working in conjunction with each other.  You might use Hive to clean some portion of the data, while Pig cleans another portion.  You might use Azure Data Factory to load data into Azure SQL Database from Azure Data Lake Store.
-
-Orechestration is needed to run the appropriate job at the appropriate time.
-
-### Oozie
-
-Apache Oozie is a workflow/coordination system that manages Hadoop jobs. It is integrated with the Hadoop stack, and it supports Hadoop jobs for Apache MapReduce, Apache Pig, Apache Hive, and Apache Sqoop. It can also be used to schedule jobs that are specific to a system, such as Java programs or shell scripts.
-
-For more information, see [Use Oozie with Hadoop to define and run a workflow on HDInsight](https://docs.microsoft.com/en-us/azure/hdinsight/hdinsight-use-oozie-linux-mac)
-
-### Azure Data Factory
-
-Azure Data Factory is the platform for this kind of scenarios. It is a cloud-based data integration service that allows you to create data-driven workflows in the cloud for orchestrating and automating data movement and data transformation. Using Azure Data Factory, you can create and schedule data-driven workflows (called pipelines) that can ingest data from disparate data stores, process/transform the data by using compute services such as Azure HDInsight Hadoop, Spark, Azure Data Lake Analytics, and Azure Machine Learning, and publish output data to data stores such as Azure SQL Data Warehouse for business intelligence (BI) applications to consume.
-
-For more information on Azure Data Factory, see the [documentation](https://docs.microsoft.com/en-us/azure/data-factory/data-factory-introduction).
