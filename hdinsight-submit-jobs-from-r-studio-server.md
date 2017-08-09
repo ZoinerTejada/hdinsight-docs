@@ -10,8 +10,6 @@ keywords: r,r studio server
 ---
 # Submit Jobs from R Studio Server
 
-## Overview
-
 [R Studio Server](https://www.rstudio.com/products/rstudio-server/) is a popular, web-based integrated development environment (IDE) for developing and executing R scripts with R Server on an HDInsight cluster. It includes several features to speed up and ease development, such as a syntax-highlighting editor that supports direct code execution, a console for interactively running R commands, a workspace to view objects in the global environment, and much more.
 
 To open R Studio Server from your HDInsight cluster in Azure, navigate to the Overview pane, and click on **R Server dashboards**.
@@ -36,7 +34,7 @@ After successfully logging in, you should see the R Studio web interface.
 
 ## Install R Studio Server
 
-If the **R Studio Server** option is not available on the cluster dashboard, as outlined above, you must run the R Studio Server install script, following [these instructions](hdinsight-hadoop-r-server-install-r-studio).
+If the **R Studio Server** option is not available on the cluster dashboard, as outlined above, you must run the R Studio Server install script, following [these instructions](hdinsight-hadoop-r-server-install-r-studio.md).
 
 ![Installing R Studio Server when provisioning a new cluster](./media/hdinsight-submit-jobs-from-r-studio-server/install-r-studio.png)
 
@@ -208,6 +206,6 @@ If the **R Studio Server** option is not available on the cluster dashboard, as 
 
 In this article, we've shown how easy it is to execute R scripts through the web-based R Studio Server.
 
-* Learn how to [install R Studio Server](hdinsight-hadoop-r-server-install-r-studio) if you didn't select the option to install it when provisioning your cluster.
-* Walk through an example of [combining ScaleR and SparkR](hdinsight-hadoop-r-scaler-sparkr) for airline flight delay predictions.
-* Learn about using [R Tools for Visual Studio](hdinsight-submit-jobs-from-r-tools-for-vs) as an alternative to submitting jobs, as well as the nice features it offers, such as debugging and intellisense (code completion).
+* Learn how to [install R Studio Server](hdinsight-hadoop-r-server-install-r-studio.md) if you didn't select the option to install it when provisioning your cluster.
+* Walk through an example of [combining ScaleR and SparkR](hdinsight-hadoop-r-scaler-sparkr.md) for airline flight delay predictions.
+* Learn about using [R Tools for Visual Studio](hdinsight-submit-jobs-from-r-tools-for-vs.md) as an alternative to submitting jobs, as well as the nice features it offers, such as debugging and intellisense (code completion).
