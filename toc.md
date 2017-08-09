@@ -51,15 +51,15 @@
 
 # Developing Hive applications
 ## [Hive and ETL Overview](hdinsight-using-apache-hive-as-an-etl-tool.md)
-## [Connect to Hive with JDBC or ODBC](hdinsight-connect-hive-jdbc-driver.md)
+## [Connect to Hive with JDBC or ODBC](https://docs.microsoft.com/azure/hdinsight/hdinsight-connect-hive-jdbc-driver)
 ## [Writing Hive applications using Java](https://docs.microsoft.com/azure/hdinsight/hdinsight-hadoop-hive-java-udf)
 ## [Writing Hive applications using Python](https://docs.microsoft.com/azure/hdinsight/hdinsight-python)
 ## [Creating user defined functions](https://docs.microsoft.com/azure/hdinsight/hdinsight-hadoop-hive-pig-udf-dotnet-csharp)
-## [Process and analyze JSON documents with Hive](hdinsight-using-json-in-hive.md) 
+## [Process and analyze JSON documents with Hive](https://docs.microsoft.com/azure/hdinsight/hdinsight-using-json-in-hive) 
 ## Hive samples
-### [Query Hive using Excel](hdinsight-connect-excel-hive-odbc-driver.md)
+### [Query Hive using Excel](https://docs.microsoft.com/azure/hdinsight/hdinsight-connect-excel-hive-odbc-driver)
 ### [Analyze stored sensor data using Hive](hdinsight-hive-analyze-sensor-data.md)
-### [Analyze stored tweets using beeline and Hive](hdinsight-analyze-twitter-data-linux.md)
+### [Analyze stored tweets using beeline and Hive](https://docs.microsoft.com/azure/hdinsight/hdinsight-analyze-twitter-data-linux)
 ### [Analyze flight delay data with Hive](hdinsight-analyze-flight-delay-data-linux.md)
 ### [Analyze website logs with Hive](https://docs.microsoft.com/azure/hdinsight/hdinsight-hive-analyze-website-log)
 
@@ -96,9 +96,9 @@
 
 
 # Developing R scripts on HDInsight
-## [What is R Server?](https://docs.microsoft.com/azure/hdinsight/hdinsight-hadoop-r-server-overview.md)
+## [What is R Server?](https://docs.microsoft.com/azure/hdinsight/hdinsight-hadoop-r-server-overview)
 ## [Selecting a compute context](hdinsight-hadoop-r-server-compute-contexts.md)
-## [Analyze data from Azure Storage and Data Lake Store using R](https://docs.microsoft.com/azure/hdinsight/hdinsight-hadoop-r-server-storage.md)
+## [Analyze data from Azure Storage and Data Lake Store using R](https://docs.microsoft.com/azure/hdinsight/hdinsight-hadoop-r-server-storage)
 ## [Submit jobs from Visual Studio Tools for R](hdinsight-submit-jobs-from-r-tools-for-vs.md)
 ## [Submit R jobs from R Studio Server](hdinsight-submit-jobs-from-r-studio-server.md)
 
