@@ -51,6 +51,14 @@ Kafka provides the following features:
 
 * **Transformation**: Using stream processing, you can combine and enrich data from multiple input topics into one or more output topics.
 
+## Architecture
+
+![Kafka cluster](./media/hdinsight-apache-kafka-introduction/kafka-cluster.png)
+
+The diagram above shows a typical Kafka configuration that uses consumer groups, partitioning, and replication to offer parallel reading of events, as well as fault tolerance. Apache ZooKeeper is built for concurrent, resilient, and low-latency transactions, managing state in the Kafka cluster. Kafka stores records in *topics*. Records are produced by *producers*, and consumed by *consumers*. Producers retrieve records from Kafka *brokers*. Each worker node in your HDInsight cluster is a Kafka broker. A partition is created per consumer, allowing parallel processing of the streaming data. Replication is employed to spread the partitions across nodes, protecting against node (broker) outages. A partition denoted with an *(L)* is the leader for the given partition. Producer traffic is routed to the leader of each node, per state managed by ZooKeeper. Rebalancing Kafka partition replicas helps us achieve high availability (Fault Domain/Update Domain awareness). The [partition replica rebalancing tool](https://github.com/hdinsight/hdinsight-kafka-tools) (`rebalance_rackaware.py`) distributes replicas of partitions of a topic across brokers in a manner such that each replica is in a separate fault domain and update domain. The tool also distibutes the leaders such that each broker has approximately the same number of leaders for partitions.
+
+There are several advantages to deploying Kafka on HDInsight. The [partition replica rebalancing tool](https://github.com/hdinsight/hdinsight-kafka-tools) can be used to automatically rebalance the replicas after scaling or applying updates. HDInsight is the only provider in the industry to host a managed Kafka environment, while providing a 99.9% uptime SLA. HDInsight also uses a two-dimensional matrix for implementing rack awareness by way of an [update domain, and fault domain](https://docs.microsoft.com/azure/architecture/resiliency/high-availability-azure-applications), as opposed to using a single dimensional unit.
+
 ## Next steps
 
 Use the following links to learn how to use Apache Kafka on HDInsight:
