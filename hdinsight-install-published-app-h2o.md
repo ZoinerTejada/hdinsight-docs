@@ -21,7 +21,7 @@ ms.author:
 ---
 # Install published application - H2O Sparkling Water on Azure HDInsight
 
-In this article, you will learn how to install the [H20 Sparkling Water](http://www.h2o.ai/) published Hadoop application on Azure HDInsight. Read [Install third-party Hadoop applications](hdinsight-apps-install-applications) for a list of available Independent Software Vendor (ISV) applications, as well as an overview of the HDInsight application platform. For instructions on installing your own application, see [Install custom HDInsight applications](hdinsight-apps-install-custom-applications.md).
+In this article, you will learn how to install the [H20 Sparkling Water](http://www.h2o.ai/) published Hadoop application on Azure HDInsight. Read [Install third-party Hadoop applications](hdinsight-apps-install-applications.md) for a list of available Independent Software Vendor (ISV) applications, as well as an overview of the HDInsight application platform. For instructions on installing your own application, see [Install custom HDInsight applications](hdinsight-apps-install-custom-applications.md).
 
 ## About H2O Sparkling Water
 
@@ -46,7 +46,7 @@ H2O Sparkling Water intelligently combines the following features:
 
 ## Installing the H2O Sparkling Water published application
 
-For step-by-step instructions on installing this and other available ISV applications, please read [Install third-party Hadoop applications](hdinsight-apps-install-applications#how-to-install-a-published-application).
+For step-by-step instructions on installing this and other available ISV applications, please read [Install third-party Hadoop applications](hdinsight-apps-install-applications.md#how-to-install-a-published-application).
 
 ## Prerequisites
 
