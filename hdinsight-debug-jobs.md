@@ -21,7 +21,7 @@ ms.author: jgao
 ---
 # Analyze HDInsight logs
 Each Hadoop cluster in Azure HDInsight has an Azure storage account used as the default file system. The storage account is referred as the default Storage account. Cluster uses the Azure Table storage and the Blob storage on the default Storage account to store its logs.  To find out the default storage account for your cluster, see [Manage Hadoop clusters in HDInsight](hdinsight-administer-use-management-portal.md#find-the-default-storage-account). The logs retain in the Storage account even after the cluster is deleted.
-
+ 
 ## Logs written to Azure Tables
 The logs written to Azure Tables provide one level of insight into what is happening with an HDInsight cluster.
 
@@ -33,12 +33,6 @@ When you create an HDInsight cluster, 6 tables are automatically created for Lin
 * hadoopservicelog
 * ambariserverlog
 * ambariagentlog
-
-3 tables are created for Windows-based clusters:
-
-* setuplog: Log of events/exceptions encountered in provisioning/setting up of HDInsight clusters.
-* hadoopinstalllog: Log of events/exceptions encountered when installing Hadoop on the cluster. This table may be useful in debugging issues related to clusters created with custom parameters.
-* hadoopservicelog: Log of events/exceptions recorded by all Hadoop services. This table may be useful in debugging issues related to job failures on HDInsight clusters.
 
 The table file names are **u<ClusterName>DDMonYYYYatHHMMSSsss<TableName>**.
 
@@ -113,17 +107,14 @@ To view the logs, see [Access YARN application logs on Linux-based HDInsight](hd
 For more information about application logs, see [Simplifying user-logs management and access in YARN](http://hortonworks.com/blog/simplifying-user-logs-management-and-access-in-yarn/).
 
 ## View cluster health and job logs
-### Access Hadoop UI
+### Access the Ambari UI
 From the Azure portal, click an HDInsight cluster name to open the cluster blade. From the cluster blade, click **Dashboard**.
 
 ![Launch cluster dashboard](./media/hdinsight-debug-jobs/hdi-debug-launch-dashboard.png)
 
-When prompted, enter the cluster administrator credentials. In the Query Console that opens, click **Hadoop UI**.
-
-![Start Hadoop UI](./media/hdinsight-debug-jobs/hdi-debug-launch-dashboard-hadoop-ui.png)
 
 ### Access the Yarn UI
-From the Azure portal, click an HDInsight cluster name to open the cluster blade. From the cluster blade, click **Dashboard**. When prompted, enter the cluster administrator credentials. In the Query Console that opens, click **YARN UI**.
+From the Azure portal, click an HDInsight cluster name to open the cluster blade. From the cluster blade, click **Dashboard**. When prompted, enter the cluster administrator credentials. In Ambari, select **YARN** from the list of services on the left. On the page that appears, select **Quick Links**, then select the Active head node entry and Resource Manager UI.
 
 You can use the YARN UI to do the following:
 
@@ -134,7 +125,7 @@ You can use the YARN UI to do the following:
 * **Monitor job status**. From the left pane, expand **Cluster**, and then click **Applications** to list all the jobs in the cluster. If you want to look at jobs in a specific state (such as new, submitted, running, etc.), click the appropriate link under **Applications**. You can further click the job name to find out more about the job such including the output, logs, etc.
 
 ### Access the HBase UI
-From the Azure portal, click an HDInsight HBase cluster name to open the cluster blade. From the cluster blade, click **Dashboard**. When prompted, enter the cluster administrator credentials. In the Query Console that opens, click **HBase UI**.
+From the Azure portal, click an HDInsight HBase cluster name to open the cluster blade. From the cluster blade, click **Dashboard**. When prompted, enter the cluster administrator credentials. In Ambari, select HBase from the list of services. Select **Quick links** on the top of the page, point to the active Zookeeper node link, and then click HBase Master UI.
 
 ## HDInsight error codes
 The error messages itemized in this section are provided to help the users of Hadoop in Azure HDInsight understand possible error conditions that they can encounter when administering the service using Azure PowerShell and to advise them on the steps which can be taken to recover from the error.
