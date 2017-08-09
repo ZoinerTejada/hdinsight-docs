@@ -7,7 +7,7 @@ documentationcenter: ''
 tags: azure-portal
 keywords: spark, RDD, dataframe
 ---
-# Choosing between RDD, DataFrame and Dataset for Spark
+# Choosing between RDD, DataFrame, and Dataset for Spark
 
 ## What is an RDD?
 
@@ -28,7 +28,6 @@ RDDs support two types of operations: transformations and actions.
 
 * **Actions** return a value to the driver program after running a computation on the dataset. Examples include: reduce, collect, count, first, foreach, etc.
 
-
 The code sample below contains both transitions and actions.  It shows how to search through error messages in a log file that is stored in HDFS using Scala.  A source file is loaded, then filtered, cached and the rows in cache are counted.  Next an additional filter is applied to the cached rows.  Row are again counted and finally returned via the collect method.
 
 ```Scala
@@ -47,16 +46,10 @@ The code sample below contains both transitions and actions.  It shows how to se
 
 The Apache Spark API as a whole is evolving at a rapid pace, including changes and additions to its core APIs. One of the most disruptive areas of change is around the representation of data sets. Although Spark 1.0 used the RDD API, two new alternative and incompatible APIs have been introduced. Spark 1.3 introduced the radically different DataFrame API and the Spark 1.6 release introduced a preview of the new Dataset API.
 
-You may be wondering whether to jump from RDDs directly to the Dataset API, or whether to first move to the DataFrame API. 
+You may be wondering whether to jump from RDDs directly to the Dataset API, or whether to first move to the DataFrame API.
 
+Currently, the DataFrame APIs offer the most performance. RDD APIs still exist in Spark 2.x for backwards compatibility, and should not be used. Going forward, only the DataFrame and Dataset APIs will be developed.
 
-The main advantage of RDDs is that they are simple and well understood because they deal with concrete classes, providing a familiar object-oriented programming style with compile-time type-safety. For example, given an RDD containing instances of Person we can filter by age by referencing the age attribute of each Person object:
-
-Example: Filter by attribute with RDD in Scala
-
-```Scala
-    rdd.filter(_.age > 21)  
-```
 The main disadvantage to RDDs is that they don’t perform particularly well. Whenever Spark needs to distribute the data within the cluster, or write the data to disk, it does so using Java serialization by default (although it is possible to use Kryo as a faster alternative in most cases). The overhead of serializing individual Java and Scala objects is expensive and requires sending both data and structure between nodes (each serialized object contains the class structure as well as the values). There is also the overhead of garbage collection that results from creating and destroying individual objects.
 
 ----------
@@ -190,6 +183,8 @@ val ds: Dataset[Person] = spark.read
 ```
 
 ## Conclusion
+
+Currently, the DataFrame APIs offer the most performance. RDD APIs still exist in Spark 2.x for backwards compatibility, and should not be used. Going forward, only the DataFrame and Dataset APIs will be developed.
 
 The Spark Dataset API is very performant and provides a more natural way to code than using the more low-level RDD abstraction. Given the rapid evolution of Spark it is likely that this API will mature and become the de-facto API for developing new applications.
 
