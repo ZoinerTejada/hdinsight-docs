@@ -45,14 +45,9 @@ Learn how to use Azure Virtual Networks with HDInsight to enable the following s
 
 The following are a list of considerations when using HDInsight in a virtual network:
 
-* __Classic and Resource Manager virtual networks__: Use the following table to determine the type of network to use based on the HDInsight cluster operating system:
+* Virtual networks__: Install your cluster on a Resource Manager virtual network.
 
-    | HDInsight operating system | Classic virtual network | Resource Manager virtual network |
-    | ---- | ---- | ---- |
-    | Linux | no | yes |
-    | Windows | yes | no |
-
-    To access resources in an incompatible virtual network, join the two networks. For more information on connecting classic and Resource Manager Virtual Networks, see [Connecting classic VNets to new VNets](../vpn-gateway/vpn-gateway-connect-different-deployment-models-portal.md).
+    To access resources in an incompatible virtual network (classic virtual network), join the two networks. For more information on connecting classic and Resource Manager Virtual Networks, see [Connecting classic VNets to new VNets](../vpn-gateway/vpn-gateway-connect-different-deployment-models-portal.md).
 
 * __Custom DNS__: If you need to enable name resolution between HDInsight and resources in your local network, you must use a custom DNS server. You do not need a custom DNS server to access resources that are publicly available on the internet.
 
@@ -119,6 +114,9 @@ The HDInsight service is a managed service, and requires access to Azure managem
 
 If you restrict access to the virtual network you must allow access to the managment IP addresses. The IP addresses that should be allowed are specific to the region that the HDInsight cluster and Virtual Network reside in. Use the following table to find the IP addresses for the region you are using.
 
+> [!NOTE]
+> The appropriate region IP addresses listed below should be set as the _source_ IP when defining inbound Network Security Group rules for the subnet that contains HDInsight.
+
 | Country | Region | Allowed IP addresses | Allowed port |
 | ---- | ---- | ---- | ---- |
 | Brazil | Brazil South | 191.235.84.104</br>191.235.87.113 | 443 |
@@ -174,7 +172,7 @@ These steps assume that you have already created a Virtual Network and subnet th
 
 **Example: Azure Resource Management template**
 
-Using the following Resource Management template from the [Azure QuickStart Templates](https://azure.microsoft.com/resources/templates/) to create an HDInsight cluster in a VNet with the secure network configurations:
+Use the following Resource Management template from the [Azure QuickStart Templates](https://azure.microsoft.com/resources/templates/) to create an HDInsight cluster in a VNet with the secure network configurations:
 
 [Deploy a secured Azure VNet and an HDInsight Hadoop cluster within the VNet](https://azure.microsoft.com/resources/templates/101-hdinsight-secure-vnet/)
 
