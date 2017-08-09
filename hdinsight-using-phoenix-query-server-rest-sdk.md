@@ -46,7 +46,7 @@ string connId = Guid.NewGuid().ToString();
 
 ## The ConnectionSyncRequest ConnectionProperties
 
-When you make a call to `ConnectionSyncRequestAsync`, you pass a ``ConnectionProperties` object:
+When you make a call to `ConnectionSyncRequestAsync`, you pass a `ConnectionProperties` object:
 
 ```c#
 ConnectionProperties connProperties = new ConnectionProperties

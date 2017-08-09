@@ -68,7 +68,7 @@ To begin, we need to upload the sample data we'll use for the remaining exercies
   * If using Azure Blob Storage, the `/example/data` folder will be located within your cluster's container.
   * In Azure Data Lake Store, use the data explorer to navigate to `/clusters/hbase/example/data`.
 
-5. **TODO: ADD LINK TO CSV FILE** Upload the [sample weblogs.csv]() file to this location.
+5.  Upload the sample [weblogs.csv](./code/hdinsight-hbase-phoenix-squirrel-linux/weblogs.csv) file to this location.
 
 ### Bulk Load data into HBase using Phoenix
 
