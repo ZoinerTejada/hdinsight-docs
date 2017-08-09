@@ -9,6 +9,9 @@ Structured Streaming creates a long running query during which you are able to a
 ![Stream Processing with HDInsight and Spark Structured Streaming ](./media/hdinsight-spark-structured-streaming-overview/hdinsight-spark-structured-streaming.png)
 
 
+> [!NOTE]
+> Spark Structured Streaming is intended to be the replacement for Spark Streaming (DStreams). This means  going forward, Structured Streaming will receive enhancments and maintenance, whereas DStreams will be in maintenance mode only. It is important to note, however, that Structured Streaming is currently not as feature complete as DStreams when it comes to the sources and sinks that it supports out of the box, so you should evaluate your requirements first before choosing the appropriate Spark stream processing option. 
+
 ## Streams as Tables
 Spark Structured Streaming takes the perspective that a stream of data can be represented as a table that is unbounded in height- in other words it continues to grow as new data arrives. This Input Table is continously processed by a long running query, and the results flushed out to an Output Table. This concept is best explained with the following illustration:
 
