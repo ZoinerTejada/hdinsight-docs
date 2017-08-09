@@ -34,11 +34,13 @@ If you desire, apply the Data Science Settings to your Visual Studio environment
 
 ![Data Science Settings...](./media/hdinsight-submit-jobs-from-r-tools-for-vs/data-science-settings.png)
 
+Your workspace will now have a new layout optimized for working with R in Visual Studio. Refer to the screenshot in the next section to see the layout.
+
 > To revert to other Visual Studio settings later on, first use the **Tools > Import and Export Settings** command, selecting **Export selected environment settings**, and specifying a file name. To restore those settings, use the same command and select **Import selected environment settings**. You can also use the same commands if you change the data scientist layout and want to return to it later on, rather than using the **Data Science Settings** command directly.
 
 ## Execute local R methods
 
-Once you have [provisioned your R Server HDInsight cluster](hdinsight-hadoop-r-server-get-started) and installed the [RTVS extension](https://docs.microsoft.com/visualstudio/rtvs/installation), download the [samples zip file](https://github.com/Microsoft/RTVS-docs/archive/master.zip) to get started.
+Once you have [provisioned your R Server HDInsight cluster](hdinsight-hadoop-r-server-get-started.md) and installed the [RTVS extension](https://docs.microsoft.com/visualstudio/rtvs/installation), download the [samples zip file](https://github.com/Microsoft/RTVS-docs/archive/master.zip) to get started.
 
 1. Open `examples/Examples.sln`, to launch the solution in Visual Studio.
 2. Open the `1-Getting Started with R.R` file underneath the `A first look at R` solution folder.
@@ -128,6 +130,6 @@ rxStopEngine(mySparkCluster)
 
 In this article, we've walked through the steps to use R Tools for Visual Studio, and how to create a compute context that allows you to execute commands on your HDInsight cluster.
 
-* Learn more about [compute context options for R Server on HDInsight](hdinsight-hadoop-r-server-compute-contexts).
-* Walk through an example of [combining ScaleR and SparkR](hdinsight-hadoop-r-scaler-sparkr) for airline flight delay predictions.
-* Read about an alternative way of submitting R jobs, using [R Studio Server](hdinsight-submit-jobs-from-r-studio-server)
+* Learn more about [compute context options for R Server on HDInsight](hdinsight-hadoop-r-server-compute-contexts.md).
+* Walk through an example of [combining ScaleR and SparkR](hdinsight-hadoop-r-scaler-sparkr.md) for airline flight delay predictions.
+* Read about an alternative way of submitting R jobs, using [R Studio Server](hdinsight-submit-jobs-from-r-studio-server.md)
