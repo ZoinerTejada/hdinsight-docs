@@ -45,7 +45,7 @@ Learn how to use Azure Virtual Networks with HDInsight to enable the following s
 
 The following are a list of considerations when using HDInsight in a virtual network:
 
-* Virtual networks__: Install your cluster on a Resource Manager virtual network.
+* __Virtual networks__: Install your cluster on a Resource Manager virtual network.
 
     To access resources in an incompatible virtual network (classic virtual network), join the two networks. For more information on connecting classic and Resource Manager Virtual Networks, see [Connecting classic VNets to new VNets](../vpn-gateway/vpn-gateway-connect-different-deployment-models-portal.md).
 
