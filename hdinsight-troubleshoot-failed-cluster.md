@@ -236,8 +236,6 @@ When you create an HDInsight cluster, 6 tables are automatically created for Lin
 * ambariserverlog
 * ambariagentlog
 
-> Note: For Windows-based HDInsight clusters, different log tables are created.  See link at the end of this article on HDInsight logs for more details.
-
 #### HDInsight logs written to Azure Blob Storage
 HDInsight clusters are configured to write task logs to an Azure Blob Storage account for any job that is submitted using the Azure PowerShell cmdlets or the .NET Job Submission APIs.  If you submit jobs through RDP/command-line access to the cluster then the execution logging information will be found in the Azure Tables discussed in the previous paragraph.
 
