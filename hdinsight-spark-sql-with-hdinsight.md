@@ -12,7 +12,7 @@ keywords: spark,spark sql
 
 SQL (Structured Query Language) is the most common and widely used language for querying and defining data. Having been developed since the 1970s, and officially ANSI-standardized in 1986, SQL has had its foothold in the industry long enough for data analysts to turn to it as a natural way think about breaking down complex problems and define data relationships. The founders of Spark sought to harness this knowledge, opening up the well-known data querying language to a wider audience of analysts who wish to work with data that lives on Hadoop Distributed File System (HDFS).
 
-Spark SQL is that offering. It functions as an extension to [Spark](https://docs.microsoft.com/azure/hdinsight/hdinsight-apache-spark-overview) for processing structured data, using the familiar SQL syntax. It has been part of the core distribution since Spark 1.0 (April 2014), and is a distributed SQL query engine. It also functions as a general purpose distributed data processing API. It acn be used in conjunction with the Spark core API within a single application.
+Spark SQL is that offering. It functions as an extension to Apache [Spark](hdinsight-apache-spark-overview.md) for processing structured data, using the familiar SQL syntax. It has been part of the core distribution since Spark 1.0 (April 2014), and is a distributed SQL query engine. It also functions as a general purpose distributed data processing API. It acn be used in conjunction with the Spark core API within a single application.
 
 ![Steps to run Spark SQl](./media/hdinsight-spark-sql-with-hdinsight/spark-sql-overview.png)
 
@@ -118,8 +118,7 @@ Through certain DataFrame operations, you can use `SQLContext` to understand the
 
 ## See also
 
-* Some overview link
-
-### Scenarios
-
-
+* [Spark with HDInsight](hdinsight-spark-with-hdinsight.md)
+* [Spark Scenarios - Build high-speed scalable data pipelines](hdinsight-spark-scenarios.md)
+* [Optimizing and configuring Spark Jobs for performance](hdinsight-spark-perf.md)
+* [Configuring Spark settings](hdinsight-spark-settings.md)
