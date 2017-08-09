@@ -26,7 +26,7 @@ In our effort to contribute to the open source community, helping drive forward 
 
 The edge node of a cluster provides a convenient place to connect to the cluster and to run your R scripts.  You also have the option to run them across the nodes of the cluster by using ScaleR’s Hadoop Map Reduce or Spark compute contexts.
 
-Using R Server on HDInsight with Spark, you can parallelize training across the nodes of a cluster by using a Spark compute context. With an edge node, you have options for easily running ScaleR’s parallelized distributed functions across the cores of the edge node server. It also enables parallelizing functions from open source R packages, if desired.
+Using R Server on HDInsight with Spark, you can parallelize training across the nodes of a cluster by using a Spark compute context. You can run R scripts directly on the edge node, using all available cores in parallel, if desired. Alternately, you can run your code from the edge node to kick off processing that is distributed across all nodes in the cluster. R Server on HDInsight with Spark also enables parallelizing functions from open source R packages, if desired.
 
 ## Azure Machine Learning and Hive
 
@@ -34,7 +34,7 @@ Using R Server on HDInsight with Spark, you can parallelize training across the 
 
 Azure Machine Learning provides tools to model predictive analytics, as well as a fully managed service you can use to deploy your predictive models as ready-to-consume web services. Azure Machine Learning provides tools for creating complete predictive analytics solutions in the cloud to quickly create, test, operationalize, and manage predictive models. You do not need to buy any hardware nor manually manage virtual machines. Select from a large algorithm library, use a web-based studio for building models, and easily deploy your model as a web service.
 
-Create features for data in an Hadoop cluster using [Hive queries](https://docs.microsoft.com/en-us/azure/machine-learning/machine-learning-data-science-create-features-hive). Feature engineering attempts to increase the predictive power of learning algorithms by creating features from raw data that help facilitate the learning process.
+Create features for data in an HDInsight Hadoop cluster using [Hive queries](https://docs.microsoft.com/azure/machine-learning/machine-learning-data-science-create-features-hive). Feature engineering attempts to increase the predictive power of learning algorithms by creating features from raw data that help facilitate the learning process. You can run HiveQL queries from Azure ML, and access data processed in Hive and stored in blob storage, by using the [Import Data module](https://docs.microsoft.com/azure/machine-learning/machine-learning-import-data-from-online-sources).
 
 
 ## Deep learning
@@ -48,12 +48,12 @@ To help advance its own work in deep learning, Microsoft has developed the free,
 
 ### Scenarios
 
-* [Spark with Machine Learning: Use Spark in HDInsight for analyzing building temperature using HVAC data](https://docs.microsoft.com/azure/hdinsight/hdinsight-apache-spark-ipython-notebook-machine-learning)
-* [Spark with Machine Learning: Use Spark in HDInsight to predict food inspection results](https://docs.microsoft.com/azure/hdinsight/hdinsight-apache-spark-machine-learning-mllib-ipython)
-* [Generate movie recommendations with Mahout](https://docs.microsoft.com/azure/hdinsight/hdinsight-hadoop-mahout-linux-mac)
-* [Hive and Azure Machine Learning](https://docs.microsoft.com/en-us/azure/machine-learning/machine-learning-data-science-create-features-hive)
-* [Hive and Azure Machine Learning end-to-end](https://docs.microsoft.com/en-us/azure/machine-learning/machine-learning-data-science-process-hive-walkthrough)
-* [Machine learning with Spark on HDInsight](https://docs.microsoft.com/en-us/azure/machine-learning/machine-learning-data-science-spark-overview)
+* [Spark with Machine Learning: Use Spark in HDInsight for analyzing building temperature using HVAC data](hdinsight-apache-spark-ipython-notebook-machine-learning.md)
+* [Spark with Machine Learning: Use Spark in HDInsight to predict food inspection results](hdinsight-apache-spark-machine-learning-mllib-ipython.md)
+* [Generate movie recommendations with Mahout](hdinsight-hadoop-mahout-linux-mac.md)
+* [Hive and Azure Machine Learning](https://docs.microsoft.com/azure/machine-learning/machine-learning-data-science-create-features-hive)
+* [Hive and Azure Machine Learning end-to-end](https://docs.microsoft.com/azure/machine-learning/machine-learning-data-science-process-hive-walkthrough)
+* [Machine learning with Spark on HDInsight](https://docs.microsoft.com/azure/machine-learning/machine-learning-data-science-spark-overview)
 
 ### Deep learning resources
 * [Deep learning toolkit with Spark](https://blogs.technet.microsoft.com/machinelearning/2017/04/25/using-microsofts-deep-learning-toolkit-with-spark-on-azure-hdinsight-clusters/)
