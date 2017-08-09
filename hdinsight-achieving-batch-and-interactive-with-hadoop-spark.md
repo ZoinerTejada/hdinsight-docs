@@ -34,7 +34,6 @@ Hadoop-based big data systems such as HDInsight allow you to store both the sour
 
 Hadoop-based big data systems such as HDInsight can be used to extract and transform data before you load it into your existing databases or data visualization tools. Such solutions are well suited to performing categorization and normalization of data, and for extracting summary results to remove duplication and redundancy. This is typically referred to as an Extract, Transform, and Load (ETL) process. Refer to the [ETL deep dive](hdinsight-etl-deep-dive.md) for detailed information.
 
----
 
 Batch processing in HDInsight can be achieved using several available services:
 
@@ -179,8 +178,6 @@ This extensibility enables you to use HiveQL to perform complex transformations 
 * If the source data is already in an appropriate structure for querying and only a few specific but complex transforms are required, consider using MapReduce scripts embedded in HiveQL queries to generate the required results.
 * If queries will be created mostly by business users, but some complex logic is still regularly required to generate specific values or aggregations, consider encapsulating that logic in custom UDFs because these will be simpler for business users to include in their HiveQL queries than a custom MapReduce script.
 
----
-
 For more information on Hive and HiveQL, see [What is Apache Hive and HiveQL on Azure HDInsight?](hdinsight-use-hive.md).
 
 
@@ -226,8 +223,6 @@ Value1 7
 Value3 8
 Value2 16
 ```
-
----
 
 For more information about the Pig Latin syntax, see [Pig Latin Reference Manual 1](http://pig.apache.org/docs/r0.7.0/piglatin_ref1.html) and [Pig Latin Reference Manual 2](http://pig.apache.org/docs/r0.7.0/piglatin_ref2.html).
 

@@ -49,7 +49,7 @@ As a distributed platform, Hadoop has various services running across the platfo
 
 When there are multiple tenants who share a large cluster, there can be a lot of competition for that cluster's resources. The CapacityScheduler is a pluggable scheduler which helps facilitate resource sharing through the concept of *queues*. The CapacityScheduler also supports *hierarchical queues* to ensure that resources are shared amongst the sub-queues of an organization before other queues are granted to use free resources. This provides affinity for sharing free resources among the applications of a given organization.
 
-Yarn allows us to allocate resources to these queues, and it shows you whether all of your available resources have been assigned. To view information about your queues, login to the Ambari Web UI, then select **YARN Queue Manager** from the top menu.
+YARN allows us to allocate resources to these queues, and it shows you whether all of your available resources have been assigned. To view information about your queues, login to the Ambari Web UI, then select **YARN Queue Manager** from the top menu.
 
 ![YARN Queue Manager](./media/hdinsight-key-scenarios-to-monitor/yarn-queue-manager.png)
 

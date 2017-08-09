@@ -12,7 +12,7 @@ keywords: scaling
 
 HDInsight offers elasticity by giving administrators the option to scale up and scale down the number of Worker Nodes in the clusters. This allows you to shrink a cluster during after hours or on weekends, and grow it during peak business demands.
 
-For example, if you have some batch processing that happens one day a week or once a month, the HDInsight cluster can be scaled up a few minutes prior to that scheduled event so that there is plenty of memory and CPU compute power. You can automate that with the PowerShell cmdlet [`Set–AzureRmHDInsightClusterSize`](hdinsight-administer-use-powershell.md#scale-clusters).  Later, after the processing is done, and usage is expected to go down again, the administrator can scale down the HDInsight cluster to fewer worker nodes.
+For example, if you have some batch processing that happens once a week or once a month, the HDInsight cluster can be scaled up a few minutes prior to that scheduled event so that there is plenty of memory and CPU compute power. You can automate that with the PowerShell cmdlet [`Set–AzureRmHDInsightClusterSize`](hdinsight-administer-use-powershell.md#scale-clusters).  Later, after the processing is done, and usage is expected to go down again, the administrator can scale down the HDInsight cluster to fewer worker nodes.
 
 Scaling your cluster through [PowerShell](hdinsight-administer-use-powershell.md):
 
@@ -69,7 +69,7 @@ yarn application -kill <application_id>
 
 ## Rebalancing an HBase cluster
 
-Regional servers are automatically balanced within a few minutes after completion of the scaling operation. To manually balance regional servers, use the following steps:
+Region servers are automatically balanced within a few minutes after completion of the scaling operation. To manually balance region servers, use the following steps:
 
 1. Connect to the HDInsight cluster using SSH. For more information, see [Use SSH with HDInsight](hdinsight-hadoop-linux-use-ssh-unix.md).
 
@@ -77,7 +77,7 @@ Regional servers are automatically balanced within a few minutes after completio
 
         hbase shell
 
-3. Once the HBase shell has loaded, use the following to manually balance the regional servers:
+3. Once the HBase shell has loaded, use the following to manually balance the region servers:
 
         balancer
 
@@ -100,16 +100,8 @@ When a scale down attempt happens, HDInsight relies upon the Ambari management i
 
 One way to bring HDFS out of safe mode is to execute a command to leave safe mode (ignoring the cause, assuming it is benign). For example, if you know that the only reason safe mode is on is because the temporary files are under replicated (discussed in detail below), then you can safely leave safe mode. This is primarily because the under-replicated files are Hive temporary scratch files.
 
-HDInsight on Linux:
-
 ```bash
 hdfs dfsadmin -D 'fs.default.name=hdfs://mycluster/' -safemode leave
-```
-
-HDInsight on Windows:
-
-```bash
-hdfs dfsadmin -fs hdfs://headnodehost:9000 -safemode leave
 ```
 
 After leaving safe mode, you may remove the problematic temp files or wait for Hive to eventually clean them up automatically.
@@ -143,7 +135,7 @@ at org.apache.hadoop.hdfs.server.namenode.FSNamesystem.checkNameNodeSafeMode(FSN
 
 You can review the Name Node logs from the `/var/log/hadoop/hdfs/` folder, near the time when the cluster was scaled to see when it entered safe mode. The log files are named after the following pattern: `Hadoop-hdfs-namenode-hn0-clustername.*`
 
-The gist of the above errors is that Hive depends on temporary files in HDFS while running queries. When HDFS enters "Safe Mode", Hive cannot run queries since it cannot write to HDFS. The temp files in HDFS are located in the local C: drive mounted to the individual worker node VMs, and replicated amongst the worker nodes at 3 replicas, minumum.
+The gist of the above errors is that Hive depends on temporary files in HDFS while running queries. When HDFS enters "Safe Mode", Hive cannot run queries since it cannot write to HDFS. The temp files in HDFS are located in the local drive mounted to the individual worker node VMs, and replicated amongst the worker nodes at 3 replicas, minumum.
 
 The `hive.exec.scratchdir` parameter in Hive is configured within `/etc/hive/conf/hive-site.xml` as shown:
 
@@ -318,7 +310,7 @@ hadoop fs -rm -r -skipTrash hdfs://mycluster/tmp/hive/
 
 **Only scale down HDInsight to 3 worker nodes, minimum**
 
-If being stuck in safe mode is a persistent problem, and the previous steps are not optional, then you may want to avoid the problem by only scaling down to 3 worker nodes, minimum. This may not be optimal, due to cost constraints compared to scaling down to only 1 node. However, with 1 worker node, HDFS cannot guarantee 3 replicas of the data will be made available to the cluster.
+If being stuck in safe mode is a persistent problem, and the previous steps are not options, then you may want to avoid the problem by only scaling down to 3 worker nodes, minimum. This may not be optimal, due to cost constraints compared to scaling down to only 1 node. However, with 1 worker node, HDFS cannot guarantee 3 replicas of the data will be made available to the cluster.
 
 Having 3 worker nodes is the safest minimum for HDFS with the default replication factor.
 
