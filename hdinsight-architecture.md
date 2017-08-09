@@ -2,7 +2,7 @@
 
 An HDInsight cluster consists of several linux Azure Virtual Machines (nodes) that are used for distributed processing of tasks. Azure HDInsight handles implementation details of installation and configuration of individual nodes, so you only have to provide general configuration information. An HDInsight cluster is deloyed by first selecting a cluster type, which determines what components are installed and the specific topology of virtual machines that is deployed.
 
-This article describes all of the available cluster types, their consituent nodes, the services the nodes run, as well the network and data storage architectures.
+This article describes all of the available cluster types, their constituent nodes, the services the nodes run, as well the network and data storage architectures.
 
 ## <a name="cluster-types"></a> Cluster types
 Azure HDInsight currently provides the following cluster types, each with a set of components that provide certain functionalities. 
