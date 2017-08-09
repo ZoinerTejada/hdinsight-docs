@@ -9,7 +9,7 @@ keywords: hadoop, hdinsight, configuration, logs
 ---
 # Managing Logs for a HDInsight Cluster
 
-This article provides guidance on management of the myriad log files that a HDInsight cluster produces.  Apache Hadoop and related services, such as Apache Spark, produce detailed job execution logs. Properly managing these log files is an important aspect of maintaining a healthy HDInsight cluster. The management of these files can also be dictated by regulartory requirements.  Also, due to number and size of logs, you want to optimize log storage and archival for service cost management.
+This article provides guidance on management of the myriad log files that a HDInsight cluster produces.  Apache Hadoop and related services, such as Apache Spark, produce detailed job execution logs. Properly managing these log files is an important aspect of maintaining a healthy HDInsight cluster. The management of these files can also be dictated by regulatory requirements.  Also, due to number and size of logs, you want to optimize log storage and archival for service cost management.
 
 There are a set of general steps to take when managing HDInsight cluster logs.  They include retaining information about all aspects of the environment.  This includes, but is not limited to,  all associated Azure Services, cluster configuration, job execution information and any error states.  The most common steps taken in this process are listed below.
 
@@ -59,7 +59,7 @@ Your expected output after you complete the information-gathering in this step i
 
 ---
 
-## Step 2: Manage cluster service versions configuration logs
+## Step 2: Manage cluster service versions and view Script Action logs
 A typical HDInsight cluster uses a number of services and open-source software packages (such as Apache HBase, Apache Spark, etc...). For some workloads, such as bioinformatics, you may be required to retain service configuration log history in addition to job execution logs.
 
 ### Viewing Cluster Configuration Settings with the Ambari UI
@@ -79,7 +79,7 @@ Do this by clicking on the 'Hosts' menu, then on link for the host of interest a
 
 #### Viewing the Script Action Logs
 HDInsight [Script Actions](https://docs.microsoft.com/en-us/azure/hdinsight/hdinsight-hadoop-customize-cluster-linux) run scripts on the cluster manually or when specified. For example, they can be used to install additional software on the cluster or to alter configuration settings from the default values. These logs may provide insight into errors that occurred during set up of the cluster as well as configuration settings changes that could affect cluster performance and availability.  You can view the status of a script action by clicking on the 'ops' button on your Ambari UI or by accessing them from the default storage account.
-The storage logs are available at `\STORAGE_ACCOUNT_NAME\DEFAULT_CONTAINER_NAME\custom-scriptaction-logs\CLUSTER_NAME\DATE`.
+The storage logs are available at `/STORAGE_ACCOUNT_NAME/DEFAULT_CONTAINER_NAME/custom-scriptaction-logs/CLUSTER_NAME\DATE`.
 
 ---
 
@@ -89,7 +89,7 @@ The next step is to review the job execution log files for the various services 
 ![HDInsight log file example](./media/hdinsight-troubleshoot-failed-cluster/logs.png)
 
 ### Accessing the Hadoop-generated log files
-HDInsight stores its log files in both the cluster file system and in Azure storage. You can examine log files in the cluster by opening a remote desktop connection to the cluster and browsing the file system or by using the Hadoop YARN Status portal on the remote head node server. You can examine the log files in Azure storage using any of the tools that can access and download data from Azure storage. Examples are AZCopy, CloudXplorer, and the Visual Studio Server Explorer. You can also use powershell and the Azure Storage Client libraries, or the Azure .NET SDKs, to access data in Azure blob storage.
+HDInsight stores its log files in both the cluster file system and in Azure storage. You can examine log files in the cluster by opening an SSH connection to the cluster and browsing the file system or by using the Hadoop YARN Status portal on the remote head node server. You can examine the log files in Azure storage using any of the tools that can access and download data from Azure storage. Examples are AZCopy, CloudXplorer, and the Visual Studio Server Explorer. You can also use powershell and the Azure Storage Client libraries, or the Azure .NET SDKs, to access data in Azure blob storage.
 
 Hadoop runs the work of the jobs in task attempts on various nodes in the cluster. HDInsight can initiate speculative task attempts, terminating the other task attempts that do not complete first. This generates significant activity that is logged to the controller, stderr and syslog log files as it happens. In addition, multiple tasks attempts are running simultaneously, but a log file can only display results linearly.  
 
@@ -104,7 +104,7 @@ When you create an HDInsight cluster, 6 tables are automatically created for Lin
 * ambariagentlog
 
 #### HDInsight Logs Written to Azure Blob Storage
-HDInsight clusters are configured to write task logs to an Azure Blob Storage account for any job that is submitted using the Azure PowerShell cmdlets or the .NET Job Submission APIs.  If you submit jobs through RDP/command-line access to the cluster then the execution logging information will be found in the Azure Tables discussed in the previous paragraph.
+HDInsight clusters are configured to write task logs to an Azure Blob Storage account for any job that is submitted using the Azure PowerShell cmdlets or the .NET Job Submission APIs.  If you submit jobs through SSH to the cluster then the execution logging information will be found in the Azure Tables discussed in the previous paragraph.
 In addition to the core log files, generated by HDInsight, services that are installed, such as YARN, will also generate job execution log files.  The number and type of log files depends of the services installed.  Common services are Apache HBase, Apache Spark and more.  You will want to investigate the job log execution files for each service 
 in order to understand the overall logging files available on your cluster.  Each service has it's own unique methods of logging and locations for storing log files.  As an example, detail about accessing the most commong service log files (YARN) is discussed in the next section.
 
@@ -118,7 +118,7 @@ YARN aggregates logs across all containers on a worker node and stores them as o
 The aggregated logs are not directly readable, as they are written in a TFile, binary format indexed by container. Use the YARN ResourceManager logs or CLI tools to view these logs as plain text for applications or containers of interest.
 
 ##### YARN CLI tools
-To use the YARN CLI tools, you must first connect to the HDInsight cluster using SSH. Specify the <applicationId>, <user-who-started-the-application>, <containerId>, and <worker-node-address> information when running these commands.
+To use the YARN CLI tools, you must first connect to the HDInsight cluster using SSH. Specify the `<applicationId>`, `<user-who-started-the-application>`, `<containerId>`, and `<worker-node-address>` information when running these commands.
 You can view these logs as plain text by running one of the following commands:
 
 ```bash
@@ -128,16 +128,14 @@ You can view these logs as plain text by running one of the following commands:
 
 ##### YARN ResourceManager UI
 The YARN ResourceManager UI runs on the cluster headnode. It is accessed through the Ambari web UI. Use the following steps to view the YARN logs:
-In your web browser, navigate to https://CLUSTERNAME.azurehdinsight.net. Replace CLUSTERNAME with the name of your HDInsight cluster.
-From the list of services on the left, select YARN.
+1. In your web browser, navigate to https://CLUSTERNAME.azurehdinsight.net. Replace CLUSTERNAME with the name of your HDInsight cluster.
+2. From the list of services on the left, select YARN.
 Yarn service selected
-From the Quick Links dropdown, select one of the cluster head nodes and then select ResourceManager Log.
-Yarn quick links
-You are presented with a list of links to YARN logs.
+3. From the Quick Links dropdown, select one of the cluster head nodes and then select ResourceManager logs. You are presented with a list of links to YARN logs.
 
 ---
 
-## Step 4: Forcast log volume storage sizes and costs
+## Step 4: Forecast log volume storage sizes and costs
 
 After you've completed the previous steps you will have gained an understanding of the types and volumes of log files that your HDInsight cluster(s) are producing.  
 Next, you should analyze the volume of log data in key log storage locations over a period of time. For example, if you have the data, it's common to analyze volume and growth over 30-60-90 day periods.  Record this information in a spreadsheet or you can use other tools such as Visual Studio, the Azure Storage Explorer or Power Query for Excel.  
@@ -152,7 +150,7 @@ future log storage costs, after you've determined which log files can be deleted
 
 After you determine which log files can be deleted, you can adjust logging parameters on many Hadoop services to automatically delete log files after a specified time period.
 
-For certain log files, you may wish to execute a lower-priced log file archiving approach.  You can explore this approach first via the Azure Portal.  You can setup archiving of HDInsight logs by clicking on the 'Activity Log' link in the Azure portal for your HDInsight instance.  On the top of the Activit Log search page click on the 'Export' menu item.  This opens the 'Export activity log' blade.  You then fill in the subscription, region and whether you'd like to export to a storage account and for how many days you'd like the logs to be retained. On this same blad you can also indicate whether you'd like to export to an event hub. An example screen is shown below.
+For certain log files, you may wish to execute a lower-priced log file archiving approach. For Azure Resource Manager activity logs, you can explore this approach first via the Azure Portal.  You can setup archiving of the ARM logs by clicking on the 'Activity Log' link in the Azure portal for your HDInsight instance.  On the top of the Activit Log search page click on the 'Export' menu item.  This opens the 'Export activity log' blade.  You then fill in the subscription, region and whether you'd like to export to a storage account and for how many days you'd like the logs to be retained. On this same blade you can also indicate whether you'd like to export to an event hub. An example screen is shown below.
 
 ![Export Log Files](./media/hdinsight-log-management/archive.png)
 
@@ -160,9 +158,7 @@ Alternatively, you can script log archiving by using powershell.  A Sample power
 
 ### Accessing Azure storage metrics
 Azure storage can be configured to log storage operations and access. You can use these logs, which contain a wealth of information, for capacity monitoring and planning, and for auditing requests to storage. The information includes latency details, enabling you to monitor and fine tune performance of your solutions.
-You can use the .NET SDK for Hadoop to examine the log files generated for the Azure storage that holds the data for an HDInsight cluster. The HDInsight Log Analysis Toolkit is a command-line tool with utilities for downloading and analyzing Azure storage logs. For more information see Microsoft .NET SDK For Hadoop. 
-
-NOTE: The Microsoft .NET SDK for Hadoop links to a page on the 'Window sAzure HDInsight Log Analysis Toolkit' (on Codeplex).  This [link](http://hadoopsdk.codeplex.com/wikipage?title=Windows%20Azure%20HDInsight%20Log%20Analysis%20Toolkit&referringTitle=Home) on Codeplex notes that this is an 'Incubator Project'.
+You can use the .NET SDK for Hadoop to examine the log files generated for the Azure storage that holds the data for an HDInsight cluster. 
 
 ### Control the Size and Number of backup index of old log files
 Do this by using the following properties of the `RollingFileAppender` to efficiently control the Size and the number of log files retained.
