@@ -22,7 +22,7 @@ When you log in to its web interface (HTTPS://CLUSTERNAME.azurehdidnsight.net), 
 
 ![Ambari dashboard](./media/hdinsight-changing-configs-via-ambari/ambari-dashboard.png)
 
-The Ambari web UI can be used to manage hosts, services, alerts, configurations, and views. It can’t be used to create an HDInsight cluster, upgrade services, manage stacks and versions, manage users, groups, and permissions, decommission or recommission hosts, or add services to the cluster.
+The Ambari web UI can be used to manage hosts, services, alerts, configurations, and views. It can’t be used to create an HDInsight cluster, upgrade services, manage stacks and versions, decommission or recommission hosts, or add services to the cluster.
 
 ## Manage your cluster's configuration
 
