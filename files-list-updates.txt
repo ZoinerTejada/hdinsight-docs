@@ -1,0 +1,6 @@
+hdinsight-administer-use-portal-linux.md
+hdinsight-analyze-flight-delay-data-linux.md
+hdinsight-apache-kafka-introduction.md
+hdinsight-apps-install-applications.md
+hdinsight-extend-hadoop-virtual-network.md
+hdinsight-hbase-phoenix-squirrel-linux.md
