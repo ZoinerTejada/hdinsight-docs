@@ -21,7 +21,7 @@ ms.author:
 ---
 # Install published application - Dataiku DDS on Azure HDInsight
 
-In this article, you will learn how to install the [Dataiku DDS](https://www.dataiku.com/) published Hadoop application on Azure HDInsight. Read [Install third-party Hadoop applications](hdinsight-apps-install-applications) for a list of available Independent Software Vendor (ISV) applications, as well as an overview of the HDInsight application platform. For instructions on installing your own application, see [Install custom HDInsight applications](hdinsight-apps-install-custom-applications.md).
+In this article, you will learn how to install the [Dataiku DDS](https://www.dataiku.com/) published Hadoop application on Azure HDInsight. Read [Install third-party Hadoop applications](hdinsight-apps-install-applications.md) for a list of available Independent Software Vendor (ISV) applications, as well as an overview of the HDInsight application platform. For instructions on installing your own application, see [Install custom HDInsight applications](hdinsight-apps-install-custom-applications.md).
 
 ## About Dataiku DSS
 
@@ -35,7 +35,7 @@ When a user installs DSS on HDInsight, the user can make use of the benefits of 
 
 ## Installing the Dataiku DSS published application
 
-For step-by-step instructions on installing this and other available ISV applications, please read [Install third-party Hadoop applications](hdinsight-apps-install-applications#how-to-install-a-published-application).
+For step-by-step instructions on installing this and other available ISV applications, please read [Install third-party Hadoop applications](hdinsight-apps-install-applications.md#how-to-install-a-published-application).
 
 ## Prerequisites
 
