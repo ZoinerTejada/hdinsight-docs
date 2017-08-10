@@ -156,6 +156,7 @@
 ### [HBase storage options](hdinsight-hbase-storage-options.md)
 ### [Using Spark with HBase](hdinsight-using-spark-to-query-hbase.md)
 ### [Using the HBase REST SDK](hdinsight-using-hbase-rest-sdk.md)
+### [HBase - Migrating to a New Version](hdinsight-hbase-migrating-to-new-version.md)
 
 
 ## Use Phoenix
@@ -260,6 +261,7 @@
 ### [Advanced Analytics Deep Dive](hdinsight-deep-dive-advanced-analytics.md)
 ### [ETL Deep Dive](hdinsight-etl-deep-dive.md)
 #### [Operationalize Data Pipelines with Oozie](hdinsight-operationalize-data-pipeline.md)
+### [Streaming and Business Intelligence](hdinsight-streaming-and-business-intelligence.md)
 
 ## Extend clusters
 ### [Customize clusters using Bootstrap](https://docs.microsoft.com/azure/hdinsight/hdinsight-hadoop-customize-cluster-bootstrap)
@@ -279,6 +281,7 @@
 #### [Install custom apps](https://docs.microsoft.com/azure/hdinsight/hdinsight-apps-install-custom-applications)
 #### [Use REST to install apps](https://msdn.microsoft.com/library/mt706515.aspx)
 #### [Publish HDInsight apps to Azure Marketplace](https://docs.microsoft.com/azure/hdinsight/hdinsight-apps-publish-applications)
+#### [Install and use Cask Data Application Platform (CDAP)](hdinsight-install-published-app-cask.md)
 #### [Install and use Dataiku](hdinsight-install-published-app-dataiku.md)
 #### [Install and use Datameer](hdinsight-install-published-app-datameer.md)
 #### [Install and use H2O](hdinsight-install-published-app-h2o.md)
