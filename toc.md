@@ -131,6 +131,7 @@
 ## [Configure HBase backup and replication](hdinsight-hbase-backup-replication.md)
 ## [Using Spark with HBase](hdinsight-using-spark-to-query-hbase.md)
 ## [Monitor HBase with OMS](hdinsight-hbase-monitoring-with-oms.md)
+## [HBase - Migrating to a New Version](hdinsight-hbase-migrating-to-new-version.md)
 
 
 
@@ -158,6 +159,7 @@
 ## [Advanced Analytics Deep Dive](hdinsight-deep-dive-advanced-analytics.md)
 ## [ETL Deep Dive](hdinsight-etl-deep-dive.md)
 ## [Operationalize Data Pipelines with Oozie](hdinsight-operationalize-data-pipeline.md)
+## [Streaming and Business Intelligence](hdinsight-streaming-and-business-intelligence.md)
 
 
 
