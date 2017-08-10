@@ -24,7 +24,7 @@ The table of contents follows, links to new content will open in the same window
 ## [HDInsight Architecture](hdinsight-architecture.md)
 ## [Hadoop Architecture](hdinsight-hadoop-architecture.md)
 ## [Lifecycle of an HDInsight Cluster](hdinsight-lifecycle-of-an-hdinsight-cluster.md) 
-## [High availability model](https://docs.microsoft.com/azure/hdinsight/hdinsight-high-availability-linux.md)
+## [High availability model](https://docs.microsoft.com/en-us/azure/hdinsight/hdinsight-high-availability-linux)
 ## [Capacity planning](hdinsight-capacity-planning.md)
 
 
