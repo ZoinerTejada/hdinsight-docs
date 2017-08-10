@@ -37,8 +37,8 @@
 
 # Monitoring and managing the HDInsight cluster
 ## [Key scenarios to monitor](hdinsight-key-scenarios-to-monitor.md)
-## [Monitoring and managing with Ambari](hdinsight/hdinsight-hadoop-manage-ambari.md) 
-## [Monitoring with the Ambari REST API](hdinsight-hadoop-manage-ambari-rest-api.d)
+## [Monitoring and managing with Ambari](hdinsight-hadoop-manage-ambari.md) 
+## [Monitoring with the Ambari REST API](hdinsight-hadoop-manage-ambari-rest-api.md)
 ## [Administering HDInsight using the Azure Portal](hdinsight-administer-use-portal-linux.md)
 ## [Manage configurations with Ambari](hdinsight-changing-configs-via-ambari.md)
 ## [Manage cluster logs](hdinsight-log-management.md)
