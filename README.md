@@ -104,9 +104,9 @@ The table of contents follows, links to new content will open in the same window
 
 
 # Developing R scripts on HDInsight
-## [What is R Server?](https://docs.microsoft.com/azure/hdinsight/hdinsight-hadoop-r-server-overview.md)
+## [What is R Server?](https://docs.microsoft.com/azure/hdinsight/hdinsight-hadoop-r-server-overview)
 ## [Selecting a compute context](hdinsight-hadoop-r-server-compute-contexts.md)
-## [Analyze data from Azure Storage and Data Lake Store using R](https://docs.microsoft.com/azure/hdinsight/hdinsight-hadoop-r-server-storage.md)
+## [Analyze data from Azure Storage and Data Lake Store using R](https://docs.microsoft.com/azure/hdinsight/hdinsight-hadoop-r-server-storage)
 ## [Submit jobs from Visual Studio Tools for R](hdinsight-submit-jobs-from-r-tools-for-vs.md)
 ## [Submit R jobs from R Studio Server](hdinsight-submit-jobs-from-r-studio-server.md)
 
