@@ -1,5 +1,5 @@
 # Overview
-## [What is Azure HDInsight?](https://docs.microsoft.com/azure/hdinsight/hdinsight-hadoop-introduction)
+## [What is Azure HDInsight?](hdinsight-hadoop-introduction.md)
 ### [Iterative data exploration](hdinsight-iterative-data-exploration.md) 
 ### [Data Warehouse on demand](hdinsight-data-warehouse-on-demand.md) 
 ### [ETL at scale](hdinsight-etl-at-scale.md)
@@ -7,7 +7,7 @@
 ### [Machine learning](hdinsight-machine-learning-overview.md) 
 ### [Batch & Interactive Processing](hdinsight-achieving-batch-and-interactive-with-hadoop-spark.md)
 ### [Run Custom Programs](hdinsight-run-custom-programs.md)
-### [Upload Data to HDInsight](https://docs.microsoft.com/azure/hdinsight/hdinsight-upload-data)
+### [Upload Data to HDInsight](hdinsight-upload-data.md)
 
 
 
@@ -16,20 +16,20 @@
 ## [HDInsight Architecture](hdinsight-architecture.md)
 ## [Hadoop Architecture](hdinsight-hadoop-architecture.md)
 ## [Lifecycle of an HDInsight Cluster](hdinsight-lifecycle-of-an-hdinsight-cluster.md) 
-## [High availability model](https://docs.microsoft.com/azure/hdinsight/hdinsight-high-availability-linux.md)
+## [High availability model](hdinsight-high-availability-linux.md)
 ## [Capacity planning](hdinsight-capacity-planning.md)
 
 
 
 # Configuring the Cluster
-## [Use SSH with HDInsight](https://docs.microsoft.com/azure/hdinsight/hdinsight-hadoop-linux-use-ssh-unix)
-## [Use SSH tunneling](https://docs.microsoft.com/azure/hdinsight/hdinsight-linux-ambari-ssh-tunnel)
+## [Use SSH with HDInsight](hdinsight-hadoop-linux-use-ssh-unix.md)
+## [Use SSH tunneling](hdinsight-linux-ambari-ssh-tunnel.md)
 ## [Use HDInsight in a Virtual Network](hdinsight-extend-hadoop-virtual-network.md)
 ## [Scaling best practices](hdinsight-scaling-best-practices.md)
 ## [Configuring Hive and Oozie Metadata Storage](hdinsight-using-external-metadata-stores.md)
 ## Configuring Identity and Access Controls
 ### [Manage authorized Ambari users](hdinsight-authorize-users-to-ambari.md)
-### [Authorize user access to Ranger](https://docs.microsoft.com/azure/hdinsight/hdinsight-domain-joined-manage) 
+### [Authorize user access to Ranger](hdinsight-domain-joined-manage.md) 
 ### [Add ACLs at the file and folder levels](hdinsight-add-acls-at-file-folder-levels.md)
 ### [Sync users from Azure Active Directory to cluster](hdinsight-sync-aad-users-to-cluster.md)
 ## [Use on-demand HDInsight clusters from Data Factory](hdinsight-hadoop-create-linux-clusters-adf.md)
@@ -37,31 +37,31 @@
 
 # Monitoring and managing the HDInsight cluster
 ## [Key scenarios to monitor](hdinsight-key-scenarios-to-monitor.md)
-## [Monitoring and managing with Ambari](https://docs.microsoft.com/azure/hdinsight/hdinsight-hadoop-manage-ambari) 
-## [Monitoring with the Ambari REST API](https://docs.microsoft.com/azure/hdinsight/hdinsight-hadoop-manage-ambari-rest-api)
+## [Monitoring and managing with Ambari](hdinsight/hdinsight-hadoop-manage-ambari.md) 
+## [Monitoring with the Ambari REST API](hdinsight-hadoop-manage-ambari-rest-api.d)
 ## [Administering HDInsight using the Azure Portal](hdinsight-administer-use-portal-linux.md)
 ## [Manage configurations with Ambari](hdinsight-changing-configs-via-ambari.md)
 ## [Manage cluster logs](hdinsight-log-management.md)
-## [Adding storage accounts to a running cluster](https://docs.microsoft.com/azure/hdinsight/hdinsight-hadoop-add-storage)
-## [Use script actions to customize cluster setup](https://docs.microsoft.com/azure/hdinsight/hdinsight-hadoop-customize-cluster-linux)
-## [Develop script actions](https://docs.microsoft.com/azure/hdinsight/hdinsight-hadoop-script-actions-linux)
-## [OS patching for HDInsight cluster](https://docs.microsoft.com/azure/hdinsight/hdinsight-os-patching)
+## [Adding storage accounts to a running cluster](hdinsight-hadoop-add-storage.md)
+## [Use script actions to customize cluster setup](hdinsight-hadoop-customize-cluster-linux.md)
+## [Develop script actions](hdinsight-hadoop-script-actions-linux.md)
+## [OS patching for HDInsight cluster](hdinsight-os-patching.md)
 
 
 
 # Developing Hive applications
 ## [Hive and ETL Overview](hdinsight-using-apache-hive-as-an-etl-tool.md)
-## [Connect to Hive with JDBC or ODBC](https://docs.microsoft.com/azure/hdinsight/hdinsight-connect-hive-jdbc-driver)
-## [Writing Hive applications using Java](https://docs.microsoft.com/azure/hdinsight/hdinsight-hadoop-hive-java-udf)
-## [Writing Hive applications using Python](https://docs.microsoft.com/azure/hdinsight/hdinsight-python)
-## [Creating user defined functions](https://docs.microsoft.com/azure/hdinsight/hdinsight-hadoop-hive-pig-udf-dotnet-csharp)
-## [Process and analyze JSON documents with Hive](https://docs.microsoft.com/azure/hdinsight/hdinsight-using-json-in-hive) 
+## [Connect to Hive with JDBC or ODBC](hdinsight-connect-hive-jdbc-driver.md)
+## [Writing Hive applications using Java](hdinsight-hadoop-hive-java-udf.md)
+## [Writing Hive applications using Python](hdinsight-python.md)
+## [Creating user defined functions](hdinsight-hadoop-hive-pig-udf-dotnet-csharp.md)
+## [Process and analyze JSON documents with Hive](hdinsight-using-json-in-hive.md) 
 ## Hive samples
-### [Query Hive using Excel](https://docs.microsoft.com/azure/hdinsight/hdinsight-connect-excel-hive-odbc-driver)
+### [Query Hive using Excel](hdinsight-connect-excel-hive-odbc-driver.md)
 ### [Analyze stored sensor data using Hive](hdinsight-hive-analyze-sensor-data.md)
-### [Analyze stored tweets using beeline and Hive](https://docs.microsoft.com/azure/hdinsight/hdinsight-analyze-twitter-data-linux)
+### [Analyze stored tweets using beeline and Hive](hdinsight-analyze-twitter-data-linux.md)
 ### [Analyze flight delay data with Hive](hdinsight-analyze-flight-delay-data-linux.md)
-### [Analyze website logs with Hive](https://docs.microsoft.com/azure/hdinsight/hdinsight-hive-analyze-website-log)
+### [Analyze website logs with Hive](hdinsight-hive-analyze-website-log.md)
 
 
 
@@ -71,34 +71,34 @@
 ## [Use Spark SQL with HDInsight](hdinsight-spark-sql-with-hdinsight.md)
 ## [Run Spark from the Shell](hdinsight-spark-shell.md) 
 ## Use Spark with notebooks
-### [Use Zeppelin notebooks with Spark](https://docs.microsoft.com/azure/hdinsight/hdinsight-apache-spark-zeppelin-notebook)
-### [Use Jupyter notebook with Spark](https://docs.microsoft.com/azure/hdinsight/hdinsight-apache-spark-jupyter-notebook-kernels)
-### [Use external packages with Jupyter using cell magic](https://docs.microsoft.com/azure/hdinsight/hdinsight-apache-spark-jupyter-notebook-use-external-packages)
-### [Use external packages with Jupyter using script action](https://docs.microsoft.com/azure/hdinsight/hdinsight-apache-spark-python-package-installation)
+### [Use Zeppelin notebooks with Spark](hdinsight-apache-spark-zeppelin-notebook.md)
+### [Use Jupyter notebook with Spark](hdinsight-apache-spark-jupyter-notebook-kernels.md)
+### [Use external packages with Jupyter using cell magic](hdinsight-apache-spark-jupyter-notebook-use-external-packages.md)
+### [Use external packages with Jupyter using script action](hdinsight-apache-spark-python-package-installation.md)
 ## Use Spark with IntelliJ
-### [Create apps using the Azure Toolkit for IntelliJ](https://docs.microsoft.com/azure/hdinsight/hdinsight-apache-spark-intellij-tool-plugin)
-### [Debug jobs remotely with IntelliJ](https://docs.microsoft.com/azure/hdinsight/hdinsight-apache-spark-intellij-tool-plugin-debug-jobs-remotely)
+### [Create apps using the Azure Toolkit for IntelliJ](hdinsight-apache-spark-intellij-tool-plugin.md)
+### [Debug jobs remotely with IntelliJ](hdinsight-apache-spark-intellij-tool-plugin-debug-jobs-remotely.md)
 ## Spark samples
-### [Analyze Application Insights telemetry with Spark](https://docs.microsoft.com/azure/hdinsight/hdinsight-spark-analyze-application-insight-logs)
-### [Analyze website logs with Spark SQL](https://docs.microsoft.com/azure/hdinsight/hdinsight-apache-spark-custom-library-website-log-analysis)
+### [Analyze Application Insights telemetry with Spark](hdinsight-spark-analyze-application-insight-logs.md)
+### [Analyze website logs with Spark SQL](hdinsight-apache-spark-custom-library-website-log-analysis.md)
 
 
 
 # Developing Spark ML applications
 ## [Creating Spark ML Pipelines](hdinsight-creating-spark-ml-pipelines.md)
-## [Creating Spark ML models in notebooks](https://docs.microsoft.com/azure/machine-learning/machine-learning-data-science-process-scala-walkthrough)
+## [Creating Spark ML models in notebooks](machine-learning-data-science-process-scala-walkthrough.md)
 
 
 
 #  Deep Learning with Spark
-## [Use Caffe for deep learning with Spark](https://docs.microsoft.com/azure/hdinsight/hdinsight-deep-learning-caffe-spark)
+## [Use Caffe for deep learning with Spark](hdinsight-deep-learning-caffe-spark.md)
 
 
 
 # Developing R scripts on HDInsight
-## [What is R Server?](https://docs.microsoft.com/azure/hdinsight/hdinsight-hadoop-r-server-overview)
+## [What is R Server?](hdinsight-hadoop-r-server-overview.md)
 ## [Selecting a compute context](hdinsight-hadoop-r-server-compute-contexts.md)
-## [Analyze data from Azure Storage and Data Lake Store using R](https://docs.microsoft.com/azure/hdinsight/hdinsight-hadoop-r-server-storage)
+## [Analyze data from Azure Storage and Data Lake Store using R](hdinsight-hadoop-r-server-storage.md)
 ## [Submit jobs from Visual Studio Tools for R](hdinsight-submit-jobs-from-r-tools-for-vs.md)
 ## [Submit R jobs from R Studio Server](hdinsight-submit-jobs-from-r-studio-server.md)
 
@@ -107,9 +107,9 @@
 # Developing Spark Streaming applications
 ## [What is Spark Streaming (DStreams)?](hdinsight-spark-streaming-overview.md)
 ## [What is Spark Structured Streaming?](hdinsight-spark-structured-streaming-overview.md)
-## [Use Spark DStreams to process events from Kafka](https://docs.microsoft.com/azure/hdinsight/hdinsight-apache-spark-with-kafka)
-## [Use Spark DStreams to process events from Event Hubs](https://docs.microsoft.com/azure/hdinsight/hdinsight-apache-spark-eventhub-streaming)
-## [Use Spark Structured Streaming to process events from Kafka](https://docs.microsoft.com/azure/hdinsight/hdinsight-apache-kafka-spark-structured-streaming)
+## [Use Spark DStreams to process events from Kafka](hdinsight-apache-spark-with-kafka.md)
+## [Use Spark DStreams to process events from Event Hubs](hdinsight-apache-spark-eventhub-streaming.md)
+## [Use Spark Structured Streaming to process events from Kafka](hdinsight-apache-kafka-spark-structured-streaming.md)
 ## [Use Spark Structured Streaming to process events from Event Hubs](hdinsight-spark-structured-streaming-from-event-hubs.md)
 ## [Creating highly available Spark Streaming jobs in YARN](hdinsight-spark-streaming-high-availability.md)
 ## [Creating Spark Streaming jobs with exactly once event processing guarantees](hdinsight-spark-streaming-exactly-once.md)
@@ -124,9 +124,9 @@
 
 
 # Use HBase
-## [What is HBase?](https://docs.microsoft.com/azure/hdinsight/hdinsight-hbase-overview)
+## [What is HBase?](hdinsight-hbase-overview.md)
 ## [Understanding the HBase storage options](hdinsight-hbase-storage-options.md)
-## [Using the HBase shell](https://docs.microsoft.com/azure/hdinsight/hdinsight-hbase-tutorial-get-started-linux)
+## [Using the HBase shell](hdinsight-hbase-tutorial-get-started-linux.md)
 ## [Using the HBase REST SDK](hdinsight-using-hbase-rest-sdk.md)
 ## [Configure HBase backup and replication](hdinsight-hbase-backup-replication.md)
 ## [Using Spark with HBase](hdinsight-using-spark-to-query-hbase.md)
@@ -150,7 +150,7 @@
 ## [Install and use Datameer](hdinsight-install-published-app-datameer.md)
 ## [Install and use H2O](hdinsight-install-published-app-h2o.md)
 ## [Install and use Streamsets](hdinsight-install-published-app-streamsets.md)
-## [Install and use Cask](https://blogs.msdn.microsoft.com/azuredatalake/2016/10/17/using-cask-data-application-platform-on-azure-hdinsight/)
+## [Install and use Cask](hdinsight-install-published-app-cask.md)
 
 
 
@@ -164,5 +164,5 @@
 # Troubleshooting
 ## [Troubleshooting a failed or slow HDInsight cluster](hdinsight-troubleshoot-failed-cluster.md)
 ## [Debug jobs by analyzing HDInsight logs](hdinsight-debug-jobs.md)
-## [Debug Tez jobs using Hive views in Ambari](https://docs.microsoft.com/azure/hdinsight/hdinsight-debug-ambari-tez-view)
+## [Debug Tez jobs using Hive views in Ambari](hdinsight-debug-ambari-tez-view.md)
 ## [Common problems FAQ](hdinsight-common-problems-faq.md)
