@@ -38,11 +38,6 @@ A popular option for automating the creation of and deleting HDInsight clusters,
 
 Azure Data Factory includes a linked service type for HDInsight, and pipeline activities for [Hive](https://docs.microsoft.com/azure/data-factory/data-factory-hive-activity), [MapReduce](https://docs.microsoft.com/azure/data-factory/data-factory-map-reduce), [Pig](https://docs.microsoft.com/azure/data-factory/data-factory-pig-activity), [Hadoop Streaming](https://docs.microsoft.com/azure/data-factory/data-factory-hadoop-streaming-activity), and [Spark](https://docs.microsoft.com/azure/data-factory/data-factory-spark).
 
-### Using Azure Automation
-
-Point number one, above, mentions scheduling cluster creation and deletion using Azure Automation. As an alternative to using Azure Data Factory, Azure Automation allows you to run these scripts on a schedule, while securely storing credential and connection parameters. The automation workflow is created by stringing together scripts, whose execution can be monitored through logging and metrics provided by Azure Automation. You will need to install the AzureRM.HDInsight Automation module from the gallery linked from the Modules blade within your Azure Automation instance on the Azure Portal. Once the module is installed, store your HDInsight credentials, as well as variables to store information about your cluster and storage account, and store them within your Azure Automation instance. You will create two runbooks to execute your scripts, one for creating your cluster, and the other for deleting it.
-
-Step-by-step instructions can be found in [this blog post](http://www.datamic.net/blog/automate-provisioning-hdinsight-clusters-with-powershell-and-azure-automation). PowerShell scripts referenced by the blog post can be found on [GitHub](https://github.com/datamic/Blog-Files/tree/master/Content/HDInsight%20Provision%20Automation/HDI%20Powershell%20Scripts).
 
 ## Long-Running Clusters
 
